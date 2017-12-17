@@ -1,0 +1,5 @@
+back-end/Library/*/bin/
+back-end/Library/*/obj/
+back-end/Library/.vs
+font-end/src/assets/*.txt
+font-end/node_modules
