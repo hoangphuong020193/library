@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Library.ApiFramework.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Library.ApiFramework.AppConfig;
 
 namespace Library.API
 {
@@ -78,6 +79,14 @@ namespace Library.API
 
             services.AddSingleton(ctx => Configuration);
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(@"Server=.\SQLEXPRESS;Database=library;Trusted_Connection=True;"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins(Configuration.GetAllowOrigins())
+                        .AllowAnyHeader().AllowAnyMethod());
+            });
+
             services.ConfigurePermissions();
             services.AddMvc();
 

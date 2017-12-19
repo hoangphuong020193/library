@@ -28,15 +28,15 @@ namespace Library.API.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginAsync([FromBody] UserLoginViewModel model)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginModel)
         {
-            var employee = await _getUserByUserNameQuery.ExecuteAsync(model.UserName);
+            var employee = await _getUserByUserNameQuery.ExecuteAsync(loginModel.Username);
             if (employee == null)
             {
                 return StatusCode((int)HttpStatusCode.Unauthorized);
             }
 
-            if (string.Compare(model.PassWord.ToMD5(), employee.PassWord, StringComparison.OrdinalIgnoreCase) != 0)
+            if (string.Compare(loginModel.Password.ToMD5(), employee.PassWord, StringComparison.OrdinalIgnoreCase) != 0)
             {
                 return StatusCode((int)HttpStatusCode.Unauthorized);
             }
