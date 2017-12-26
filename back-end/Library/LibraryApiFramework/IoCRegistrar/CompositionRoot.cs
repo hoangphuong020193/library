@@ -2,7 +2,8 @@
 using DryIoc;
 using Library.Data.Services;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
-using Library.Library.UserAccount.Queries.GetUserByUserName;
+using Library.Library.UserAccount.Queries.GetUserInfo;
+using Library.Library.UserAccount.Queries.GetUserInfoLogin;
 using System;
 using System.Net.Http;
 
@@ -19,7 +20,8 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register(typeof(IRepository<>), typeof(EfRepository<>), Reuse.InWebRequest);
 
             // User
-            registrator.Register<IGetUserByUserNameQuery, GetUserByUserNameQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetUserInfoLoginQuery, GetUserInfoLoginQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetUserInfoQuery, GetUserInfoQuery>(Reuse.InWebRequest);
 
             // Permission
             registrator.Register<IGetPermissionByUserIdQuery, GetPermissionByUserIdQuery>(Reuse.InWebRequest);

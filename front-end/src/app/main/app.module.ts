@@ -69,7 +69,7 @@ const APP_COMPONENTS: any[] = [
         tokenGetter: () => {
           return LsHelper.getAccessToken();
         },
-        whitelistedDomains: ['localhost:5000']
+        whitelistedDomains: ['localhost:5000', 'localhost:3000']
       }
     }),
     StoreModule.forRoot(reducers),

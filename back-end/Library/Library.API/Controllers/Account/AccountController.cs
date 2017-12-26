@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Library.Library.UserAccount.Queries.GetUserByUserName;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using Library.ApiFramework.Authentication;
@@ -9,19 +8,20 @@ using Microsoft.Extensions.Options;
 using Library.ApiFramework.AppSetting.Options;
 using Library.Common;
 using Library.Library.UserAccount.ViewModels;
+using Library.Library.UserAccount.Queries.GetUserInfoLogin;
 
 namespace Library.API.Controllers
 {
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly IGetUserByUserNameQuery _getUserByUserNameQuery;
+        private readonly IGetUserInfoLoginQuery _getUserInfoLogin;
         private readonly IOptionsSnapshot<JwtOptions> _jwtConfiguration;
 
-        public AccountController(IGetUserByUserNameQuery getUserByUserNameQuery,
+        public AccountController(IGetUserInfoLoginQuery getUserInfoLogin,
             IOptionsSnapshot<JwtOptions> jwtConfiguration)
         {
-            _getUserByUserNameQuery = getUserByUserNameQuery;
+            _getUserInfoLogin = getUserInfoLogin;
             _jwtConfiguration = jwtConfiguration;
         }
 
@@ -30,7 +30,7 @@ namespace Library.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginModel)
         {
-            var employee = await _getUserByUserNameQuery.ExecuteAsync(loginModel.Username);
+            var employee = await _getUserInfoLogin.ExecuteAsync(loginModel.Username);
             if (employee == null)
             {
                 return StatusCode((int)HttpStatusCode.Unauthorized);
@@ -45,6 +45,7 @@ namespace Library.API.Controllers
             jwtOptions.ValidFor = TimeSpan.FromHours(24);
             var jwtUserAccount = new JwtUserAccount
             {
+                UserId = employee.Id,
                 UserName = employee.UserName,
                 DisplayName = (employee.FirstName + " " + employee.MiddleName + " " + employee.LastName).Replace("  ", " "),
                 LastName = employee.LastName,
@@ -52,7 +53,7 @@ namespace Library.API.Controllers
                 MiddleName = employee.MiddleName
             };
 
-            return new ObjectResult(new { accessToken = jwtUserAccount.GenerateToken(jwtOptions) });
+            return new ObjectResult(new { accessToken = jwtUserAccount.GenerateToken(jwtOptions), expired = jwtOptions.Expiration });
         }
 
         [HttpGet("PingAPI")]

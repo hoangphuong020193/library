@@ -19,6 +19,7 @@ namespace Library.ApiFramework.Authentication
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub, account.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, account.UserId.ToString()),
                     new Claim("Authenticated", "True"),
                     new Claim("displayName", account.DisplayName??string.Empty),
                     new Claim("fistName", account.FirstName??string.Empty),
@@ -36,7 +37,8 @@ namespace Library.ApiFramework.Authentication
                     expires: jwtOptions.Expiration,
                     signingCredentials: jwtOptions.SigningCredentials);
 
-                return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+                var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+                return token;
             }
             catch (Exception ex)
             {

@@ -15,6 +15,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class LoginService {
+    private apiURL: string = Config.getPath(PathController.Account);
+    
     constructor(
         private http: HttpClient,
         private jwtHelperService: JwtHelperService,
@@ -24,12 +26,10 @@ export class LoginService {
         if (!accessToken) {
             return Observable.of(false);
         }
-
-        const url: string = Config.getPath(PathController.Account);
         const headers: HttpHeaders = new HttpHeaders();
         headers.set('Content-Type', 'application/json');
         headers.set('Authorization', 'Bearer ' + accessToken);
-        return this.http.get(url, { headers })
+        return this.http.get(this.apiURL, { headers })
             .map((res: any) => {
                 return res.json().userName !== '';
             })
@@ -40,11 +40,14 @@ export class LoginService {
     }
 
     public login(loginModel: Login): Observable<any> {
-        const url: string = Config.getPath(PathController.Account);
         let headers = new HttpHeaders();
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(url + '/Login', loginModel, { headers }).pipe(
-            tap((res: any) => res.json()),
+        return this.http.post(this.apiURL + '/Login', loginModel, { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
             catchError((err) => {
                 console.error(err);
                 return Observable.of(false);
@@ -78,6 +81,7 @@ export class LoginService {
             user.userName = decodedToken.sub;
             user.displayName = decodedToken.dispName;
             user.firstName = decodedToken.fistName;
+            user.middleName = decodedToken.middleName;
             user.lastName = decodedToken.lastName;
             return user;
         } catch (err) {

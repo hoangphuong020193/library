@@ -20,6 +20,7 @@ using System.Text;
 using Library.ApiFramework.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Library.ApiFramework.AppConfig;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library.API
 {
@@ -57,15 +58,26 @@ namespace Library.API
                 opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
+
             var jwtSettingOptions = Configuration.GetSection("JwtOptions");
+
             services.Configure<JwtOptions>(options =>
             {
                 options.Issuer = jwtSettingOptions["Issuer"];
                 options.Audience = jwtSettingOptions["Audience"];
                 options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettingOptions["SecretKey"])), SecurityAlgorithms.HmacSha256);
             });
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(cfg =>
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(cfg =>
             {
                 cfg.RequireHttpsMetadata = false;
                 cfg.SaveToken = true;

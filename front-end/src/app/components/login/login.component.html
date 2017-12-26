@@ -8,6 +8,9 @@
         <div class="login-header">
           <div>ĐĂNG NHẬP</div>
         </div>
+        <div class="login-error" *ngIf="errorMessage != ''">
+          {{errorMessage}}
+        </div>
         <div class="login-input">
           <input id="username" type="text" class="form-control" required />
           <label for="username">Mã Sinh viên/ Giảng viên</label>

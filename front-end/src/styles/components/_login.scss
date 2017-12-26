@@ -17,6 +17,14 @@ login {
           text-align: center;
         }
       }
+      .login-error {
+        background-color: rgba($red, 0.4);
+        color: $red;
+        border: 1px solid $red;
+        padding: 15px;
+        border-radius: 0.25rem;
+        margin-bottom: 30px;
+      }
       .login-input {
         padding-bottom: 25px;
         position: relative;

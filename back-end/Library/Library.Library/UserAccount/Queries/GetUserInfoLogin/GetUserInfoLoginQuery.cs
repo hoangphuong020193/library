@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Library.Data.Entities.Account;
 using Library.Data.Services;
 using Library.Library.UserAccount.ViewModels;
-using Library.Data.Entities.Account;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace Library.Library.UserAccount.Queries.GetUserByUserName
+namespace Library.Library.UserAccount.Queries.GetUserInfoLogin
 {
-    public class GetUserByUserNameQuery : IGetUserByUserNameQuery
+    public class GetUserInfoLoginQuery : IGetUserInfoLoginQuery
     {
         private readonly IRepository<User> _userRepository;
 
-        public GetUserByUserNameQuery(IRepository<User> userRepository)
+        public GetUserInfoLoginQuery(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

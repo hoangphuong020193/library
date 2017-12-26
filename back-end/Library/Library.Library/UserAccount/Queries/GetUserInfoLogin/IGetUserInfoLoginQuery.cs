@@ -1,9 +1,9 @@
 ﻿using Library.Library.UserAccount.ViewModels;
 using System.Threading.Tasks;
 
-namespace Library.Library.UserAccount.Queries.GetUserByUserName
+namespace Library.Library.UserAccount.Queries.GetUserInfoLogin
 {
-    public interface IGetUserByUserNameQuery
+    public interface IGetUserInfoLoginQuery
     {
         Task<UserLoginViewModel> ExecuteAsync(string userName);
     }

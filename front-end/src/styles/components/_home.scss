@@ -79,9 +79,50 @@ home {
         padding-right: 40px;
         color: $blue;
         cursor: pointer;
+        position: relative;
         .icon {
           font-size: 25px;
           padding-right: 5px;
+        }
+        .menu-login {
+          display: none;
+          position: absolute;
+          border: 1px solid $blue;
+          background: $white;
+          width: auto;
+          min-width: 196px;
+          margin: 0;
+          padding: 5px 0;
+          border-radius: 3px;
+          box-shadow: $box-shadow;
+          bottom: -50px;
+          left: -35px;
+          &:before {
+            border: 9px solid transparent;
+            border-bottom: 9px solid $blue;
+            margin-left: -9px;
+            bottom: 100%;
+            left: 50%;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+          }
+          >div {
+            color: $blue;
+            >div {
+              padding: 5px;
+            }
+            &:hover {
+              background: rgba($black, 0.05);
+            }
+          }
+        }
+        &:hover {
+          .menu-login {
+            display: block;
+          }
         }
       }
       .book-in-cart {
