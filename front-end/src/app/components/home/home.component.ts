@@ -6,6 +6,7 @@ import { User } from '../../models/user.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
 import * as userAction from '../../store/actions/user.action';
+import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
 
 @Component({
   selector: 'home',
@@ -14,8 +15,10 @@ import * as userAction from '../../store/actions/user.action';
 
 export class HomeComponent implements OnInit {
   private ComponentId: any = ComponentId;
-
   private user: User = null;
+
+  private toggleMenuNotify: boolean = false;
+  private toggleMenuLogin: boolean = false;
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -25,11 +28,31 @@ export class HomeComponent implements OnInit {
     this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
       this.user = user;
     });
+
+    JQueryHelper.onClickOutside('.user-login', () => {
+      this.toggleMenuLogin = false;
+    });
+    JQueryHelper.onClickOutside('.user-notify', () => {
+      this.toggleMenuNotify = false;
+    });
   }
 
-  private login(componentId: number): void {
-    this.dialogService.addDialog(LoginPopupComponent, {
-      componentId
-    }).subscribe();
+  private viewMenuLogin(): void {
+    if (!this.user) {
+      this.dialogService.addDialog(LoginPopupComponent, {}).subscribe();
+    } else {
+      this.toggleMenuLogin = !this.toggleMenuLogin;
+    }
+  }
+
+  private logout(event: any): void {
+    this.store.dispatch(new userAction.Logout(null));
+    this.user = null;
+    event.stopPropagation();
+    this.toggleMenuLogin = false;
+  }
+
+  private viewMenuNotify(): void {
+    this.toggleMenuNotify = !this.toggleMenuNotify;
   }
 }

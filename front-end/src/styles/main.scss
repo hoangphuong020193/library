@@ -3,6 +3,7 @@
 
 /* This file is for setting global styles  */
 
+@import 'mixin';
 @import 'bootstrap';
 @import 'variables';
 @import 'font';
@@ -12,6 +13,14 @@
 body {
   background-color: $background-color;
   font-family: $font-family !important;
-  font-size: $font-size-md;
+  font-size: 16px;
   line-height: unset;
+}
+
+.row {
+  margin: 0;
+}
+
+a {
+  color: $blue;
 }

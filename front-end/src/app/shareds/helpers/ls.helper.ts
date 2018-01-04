@@ -4,12 +4,11 @@ export class LsHelper {
     public static readonly StoragePassport: string = 'StoragePassport';
     public static readonly UserStorage: string = 'user';
 
-
     public static save(key: string, data: any): boolean {
         try {
             const cipherData: CryptoJs.WordArray =
                 CryptoJs.AES.encrypt(JSON.stringify(data), LsHelper.StoragePassport);
-            this.etStorage.setItem(key, cipherData.toString());
+            this.libraryStorage.setItem(key, cipherData.toString());
             return true;
         } catch (err) {
             console.log('Error when serializing data ', err);
@@ -18,7 +17,7 @@ export class LsHelper {
     }
 
     public static getItem(key: string): any {
-        const cipherText: string = LsHelper.etStorage.getItem(key);
+        const cipherText: string = LsHelper.libraryStorage.getItem(key);
         if (!cipherText) { return undefined; }
         try {
             const bytes: CryptoJs.DecryptedMessage =
@@ -40,12 +39,12 @@ export class LsHelper {
     }
 
     public static clearStorage(): void {
-        this.etStorage.clear();
+        this.libraryStorage.clear();
     }
 
     public static removeKey(key: string): void {
-        this.etStorage.removeItem(key);
+        this.libraryStorage.removeItem(key);
     }
 
-    private static etStorage: Storage = localStorage;
+    private static libraryStorage: Storage = localStorage;
 }

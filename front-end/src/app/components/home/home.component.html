@@ -18,30 +18,43 @@
         </div>
       </div>
       <div class="user-control">
-        <div class="user-book-tracking">
+        <div class="user-book-tracking" (click)="login(ComponentId.BookTracking)">
           <i class="icon icon-books color-blue"></i>
           <div class="">
             <div class="font-size-sm">Tình trạng sách</div>
             <div class="font-size-xs">của tôi</div>
           </div>
         </div>
-        <div class="user-notify">
+        <div class="user-notify" (click)="viewMenuNotify()">
           <i class="icon icon-email-black color-blue"></i>
           <span class="number-notification">3</span>
-          <div class="">
+          <div>
             <div class="font-size-sm">Tin nhắn</div>
             <div class="font-size-xs">của tôi</div>
           </div>
+          <div class="menu-notify menu" [class.show]="toggleMenuNotify">
+            <div>
+              ádịoid
+            </div>
+            <div>
+              ádịoid
+            </div>
+            <div class="text-align-center font-size-sm">
+              <a>
+                Xem tất cả thông báo
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="user-login" (click)="login(ComponentId.SelectBooks)">
+        <div class="user-login" (click)="viewMenuLogin()">
           <i class="icon icon-person color-blue"></i>
           <div>
             <div class="font-size-sm">{{ user == null ? 'Đăng nhập' : 'Chào, ' + user.firstName }}</div>
             <div class="font-size-xs">Tài khoản</div>
           </div>
-          <div class="menu-login">
+          <div class="menu-login menu" [class.show]="toggleMenuLogin">
             <div>
-              <div>Đăng xuất</div>
+              <div (click)="logout($event)">Đăng xuất</div>
             </div>
           </div>
         </div>
@@ -53,5 +66,7 @@
       </div>
     </div>
   </div>
-  <div class="container"></div>
+  <div class="padding-20">
+    <router-outlet></router-outlet>
+  </div>
 </section>

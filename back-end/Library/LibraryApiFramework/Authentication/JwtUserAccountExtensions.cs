@@ -21,6 +21,7 @@ namespace Library.ApiFramework.Authentication
                     new Claim(JwtRegisteredClaimNames.Sub, account.UserName),
                     new Claim(ClaimTypes.NameIdentifier, account.UserId.ToString()),
                     new Claim("Authenticated", "True"),
+                    new Claim("userId", account.UserId.ToString()??"0"),
                     new Claim("displayName", account.DisplayName??string.Empty),
                     new Claim("fistName", account.FirstName??string.Empty),
                     new Claim("lastName", account.LastName??string.Empty),

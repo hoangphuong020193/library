@@ -12,15 +12,20 @@
           {{errorMessage}}
         </div>
         <div class="login-input">
-          <input id="username" type="text" class="form-control" required />
+          <input id="username" type="text" class="form-control" required (keypress)="onKeyPress($event)" />
           <label for="username">Mã Sinh viên/ Giảng viên</label>
+          <span class="color-red font-size-sm" *ngIf="errorUser">Vui lòng nhập Mã Sinh viên/ Giảng viên</span>
         </div>
         <div class="login-input">
-          <input id="password" type="password" class="form-control" required />
+          <input id="password" type="password" class="form-control" required (keypress)="onKeyPress($event)" />
           <label for="password">Mật khẩu</label>
+          <span class="color-red font-size-sm" *ngIf="errorPassword">Vui lòng nhập mật khẩu</span>
         </div>
         <div>
-          <button class="btn btn-blue btn-full" (click)="onLogin()">Đăng nhập</button>
+          <button class="btn btn-blue btn-full" (click)="onLogin()" [disabled]="loading">
+            <span *ngIf="loading" class="loading-circle"></span>
+            <span>Đăng nhập</span>
+          </button>
         </div>
       </div>
     </div>

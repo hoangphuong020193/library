@@ -1,0 +1,40 @@
+book-item {
+  .book-item {
+    display: inline-block;
+    padding: 15px;
+    border: 1px solid transparent;
+    width: 250px;
+    position: relative;
+    &:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    }
+    favorite-star {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+    .image {
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      margin-bottom: 15px;
+      .book-image {
+        width: 150px;
+        height: 100%;
+      }
+    }
+    .add-to-cart {
+      border: 2px solid $blue;
+      background: $blue;
+      padding: 5px 10px;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

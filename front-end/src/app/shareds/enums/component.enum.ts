@@ -1,4 +1,6 @@
 export enum ComponentId {
-    SelectBooks = 1,
-    BookCart = 10
+    BookTracking = 1,
+    UserNotify = 10,
+    UserAccount = 20,
+    BookCart = 30,
 }

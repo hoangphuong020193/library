@@ -16,7 +16,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class LoginService {
     private apiURL: string = Config.getPath(PathController.Account);
-    
+
     constructor(
         private http: HttpClient,
         private jwtHelperService: JwtHelperService,
@@ -78,6 +78,7 @@ export class LoginService {
         user.accessToken = token;
         try {
             const decodedToken: any = this.jwtHelperService.decodeToken(token);
+            user.userId = parseInt(decodedToken.userId, 2);
             user.userName = decodedToken.sub;
             user.displayName = decodedToken.dispName;
             user.firstName = decodedToken.fistName;
