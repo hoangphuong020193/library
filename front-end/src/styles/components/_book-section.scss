@@ -16,13 +16,17 @@ book-section {
     .swiper-next {
       position: absolute;
       border-radius: 50%;
-      top: 50%;
+      top: 45%;
       width: 32px;
       height: 32px;
       border: 1px solid #ccc;
-      display: flex !important;
-      justify-content: center;
-      align-items: center;
+      background: $white;
+      >div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
     }
     .swiper-prev {
       left: 0;
@@ -31,22 +35,7 @@ book-section {
       right: 0;
     }
     .book-section-content {
-      flex-grow: 1;
-      display: flex;
-      justify-content: space-between;
-      overflow: hidden;
-      >book-item {
-        transition: 500ms ease-in-out left;
-      }
-      @media all and (transform-3d),
-      (-webkit-transform-3d) {
-        >book-item {
-          transition: 500ms ease-in-out left;
-          transition: 500ms ease-in-out all;
-          backface-visibility: visible;
-          transform: none!important;
-        }
-      }
+      width: 100%;
     }
   }
 }

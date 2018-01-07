@@ -34,7 +34,8 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { QuillModule } from 'ngx-quill';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LsHelper } from '../shareds/helpers/ls.helper';
-import { SlickModule } from 'ngx-slick';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 const APP_PROVIDERS: any[] = [
   ...APP_RESOLVER_PROVIDERS,
@@ -82,7 +83,7 @@ const APP_COMPONENTS: any[] = [
     NgxPaginationModule,
     QuillModule,
     ToastModule.forRoot(),
-    SlickModule.forRoot(),
+    NgxCarouselModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     environment.ENV_PROVIDERS,

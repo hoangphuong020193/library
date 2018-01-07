@@ -1,6 +1,6 @@
 <div class="book-section-header">Sách mới</div>
 <div class="book-section-list">
-  <div class="swiper-prev">
+  <!-- <div class="swiper-prev">
     <i class="icon icon-navigate-left"></i>
   </div>
   <div class="book-section-content">
@@ -17,5 +17,30 @@
   </div>
   <div class="swiper-next">
     <i class="icon icon-navigate-right"></i>
-  </div>
+  </div> -->
+
+  <ngx-carousel class="book-section-content" [inputs]="carouselTile">
+    <div NgxCarouselPrev class="swiper-prev">
+      <div>
+        <i class="icon icon-navigate-left"></i>
+      </div>
+    </div>
+    <ngx-tile NgxCarouselItem *ngFor="let book of books">
+      <book-item [bookName]="book"></book-item>
+    </ngx-tile>
+    <div NgxCarouselNext class="swiper-next">
+      <div>
+        <i class="icon icon-navigate-right"></i>
+      </div>
+    </div>
+  </ngx-carousel>
 </div>
+<style>
+  h1 {
+    min-height: 200px;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 200px;
+  }
+
+</style>
