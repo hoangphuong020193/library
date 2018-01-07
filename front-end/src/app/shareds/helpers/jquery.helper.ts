@@ -1,5 +1,4 @@
 import { JsHelper } from './js.helper';
-import $ from 'jquery';
 
 export class JQueryHelper {
     public static onClickOutside(

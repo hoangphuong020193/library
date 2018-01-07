@@ -1,4 +1,5 @@
 declare var ENV: string;
+import * as $ from 'jquery';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +34,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { QuillModule } from 'ngx-quill';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LsHelper } from '../shareds/helpers/ls.helper';
+import { SlickModule } from 'ngx-slick';
 
 const APP_PROVIDERS: any[] = [
   ...APP_RESOLVER_PROVIDERS,
@@ -80,6 +82,7 @@ const APP_COMPONENTS: any[] = [
     NgxPaginationModule,
     QuillModule,
     ToastModule.forRoot(),
+    SlickModule.forRoot(),
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     environment.ENV_PROVIDERS,

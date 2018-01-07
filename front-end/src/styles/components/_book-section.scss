@@ -20,7 +20,7 @@ book-section {
       width: 32px;
       height: 32px;
       border: 1px solid #ccc;
-      display: flex;
+      display: flex !important;
       justify-content: center;
       align-items: center;
     }
@@ -37,14 +37,6 @@ book-section {
       overflow: hidden;
       >book-item {
         transition: 500ms ease-in-out left;
-        &.active {
-          &.left {
-            left: -33%;
-          }
-          &.right {
-            left: 33%;
-          }
-        }
       }
       @media all and (transform-3d),
       (-webkit-transform-3d) {

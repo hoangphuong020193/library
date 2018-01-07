@@ -4,7 +4,6 @@ import { DialogComponent, DialogService } from 'angularx-bootstrap-modal';
 import { LoginService } from '../../services/login.service';
 import { RouterService } from '../../services/router.service';
 import { Login, User } from '../../models';
-import $ from 'jquery';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
 import * as userAction from '../../store/actions/user.action';
