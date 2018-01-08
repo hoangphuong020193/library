@@ -45,3 +45,37 @@ CREATE TABLE PermissionGroupMember(
 	Enabled bit NULL DEFAULT 1);
 GO
 INSERT INTO PermissionGroupMember(GroupId, UserId) VALUES (1, 3);
+GO
+CREATE TABLE Category(
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	CategoryName nvarchar(250) NOT NULL,
+	Enabled bit NULL DEFAULT 1);
+GO
+INSERT INTO Category(CategoryName) VALUES (N'Công nghệ thông tin');
+INSERT INTO Category(CategoryName) VALUES (N'Ngoại ngữ');
+INSERT INTO Category(CategoryName) VALUES (N'Tài chính ngân hàng');
+GO
+CREATE TABLE Book(
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	CategoryId int FOREIGN KEY REFERENCES Category(Id),
+	BookName nvarchar(250),
+	Tag nvarchar(250),
+	Description nvarchar(1000),
+	BookImage varbinary(max),
+	DateImport DateTime,
+	Amount INT DEFAULT 0,
+	Enabled bit NULL DEFAULT 1
+)
+GO
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'Lập trình C#', 'ABCD lập trình', '2017-12-30', 10);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'Lập trình hướng đối tượng', 'ABCD lập trình đối tượng', '2017-12-28', 15);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'Trí tuệ nhân tạo', 'AI', '2017-12-28', 10);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'Java', 'Java', '2017-12-27', 20);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'PHP', 'PHP', '2017-12-28', 30);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (1,N'Kiểm thử phần mềm', 'Testing', '2017-12-22', 3);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (2,N'Toeic Academic', 'Toeic', '2017-12-22', 2);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (2,N'Grammar', 'Grrammar', '2017-12-21', 50);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (2,N'Vocabulary', 'Vocabulary', '2017-12-21', 100);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (3,N'Tài chính ABCD', 'Tài chính ABCD', '2017-12-28', 15);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (3,N'Hệ thống thông tin tài chính ngân hàng?', 'Hệ thống thông tin tài chính ngân hàng', '2017-12-28', 15);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount) VALUES (3,N'Báo cáo tiền tệ', 'Báo cáo tiền tệ', '2017-12-28', 15);

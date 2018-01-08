@@ -10,8 +10,8 @@ book-item {
     }
     favorite-star {
       position: absolute;
-      right: 10px;
-      top: 5px;
+      right: 0px;
+      top: 0px;
     }
     .image {
       margin-bottom: 15px;
@@ -21,6 +21,13 @@ book-item {
       >div {
         width: 250px;
       }
+    }
+    .book-name {
+      font-size: $font-size-sm;
+      margin-bottom: 20px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .add-to-cart {
       border: 2px solid $blue;

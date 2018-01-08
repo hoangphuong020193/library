@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../../models/book.model';
 import { NgxCarousel } from 'ngx-carousel';
+import { BookService } from '../../../services/book.service';
 
 @Component({
     selector: 'book-section',
@@ -8,16 +9,14 @@ import { NgxCarousel } from 'ngx-carousel';
 })
 
 export class BookSectionComponent implements OnInit {
-    public carouselTile: NgxCarousel;
+    public carouselOption: NgxCarousel;
 
-    private books: number[] = [];
+    private books: Book[] = [];
 
-    constructor() { }
+    constructor(private bookService: BookService) { }
 
     public ngOnInit(): void {
-        this.books = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        this.carouselTile = {
+        this.carouselOption = {
             grid: { xs: 2, sm: 3, md: 3, lg: 4, all: 0 },
             slide: 4,
             speed: 400,
@@ -29,5 +28,9 @@ export class BookSectionComponent implements OnInit {
             touch: true,
             easing: 'ease'
         };
+
+        this.bookService.getListNewBook().subscribe((res) => {
+            this.books = res;
+        });
     }
 }

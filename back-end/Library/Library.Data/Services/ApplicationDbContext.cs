@@ -13,31 +13,53 @@ namespace Library.Data.Services
 {
     public partial class ApplicationDbContext : DbContext, IDbContext
     {
+        public virtual DbSet<Book> Book { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
         public virtual DbSet<PermissionGroupMember> PermissionGroupMember { get; set; }
         public virtual DbSet<Title> Title { get; set; }
         public virtual DbSet<User> User { get; set; }
 
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        {
-        //            if (!optionsBuilder.IsConfigured)
-        //            {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //                optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=library;Trusted_Connection=True;");
-        //            }
-        //        }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.Property(e => e.Amount).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.BookName).HasMaxLength(250);
+
+                entity.Property(e => e.DateImport).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Tag).HasMaxLength(250);
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Book)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK__Book__CategoryId__3D5E1FD2");
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+            });
+
             modelBuilder.Entity<PermissionGroup>(entity =>
             {
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.GroupName)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<PermissionGroupMember>(entity =>
@@ -61,42 +83,42 @@ namespace Library.Data.Services
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.ShortName).HasColumnType("nchar(50)");
+                entity.Property(e => e.ShortName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.UserName)
-                    .HasName("UQ__User__C9F2845693CCEBA5")
+                    .HasName("UQ__User__C9F284562B4D4164")
                     .IsUnique();
 
                 entity.Property(e => e.BirthDay).HasColumnType("date");
 
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.FirstName).HasColumnType("nchar(20)");
+                entity.Property(e => e.FirstName).HasMaxLength(20);
 
                 entity.Property(e => e.JoinDate).HasColumnType("date");
 
-                entity.Property(e => e.LastName).HasColumnType("nchar(50)");
+                entity.Property(e => e.LastName).HasMaxLength(50);
 
-                entity.Property(e => e.MiddleName).HasColumnType("nchar(20)");
+                entity.Property(e => e.MiddleName).HasMaxLength(20);
 
                 entity.Property(e => e.PassWord)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.PersonalEmail).HasColumnType("nchar(100)");
+                entity.Property(e => e.PersonalEmail).HasMaxLength(100);
 
-                entity.Property(e => e.PhoneNumber).HasColumnType("nchar(15)");
+                entity.Property(e => e.PhoneNumber).HasMaxLength(15);
 
-                entity.Property(e => e.SchoolEmail).HasColumnType("nchar(50)");
+                entity.Property(e => e.SchoolEmail).HasMaxLength(50);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
-                    .HasColumnType("nchar(15)");
+                    .HasMaxLength(15);
 
                 entity.HasOne(d => d.Title)
                     .WithMany(p => p.User)

@@ -10,6 +10,7 @@ import { HomeGuard } from '../guards/home.guard';
 /* Services */
 import { RouterService } from '../services/router.service';
 import { LoginService } from '../services/login.service';
+import { BookService } from '../services/book.service';
 
 /* Handlers */
 import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
@@ -18,6 +19,7 @@ import { LsHelper } from '../shareds/helpers';
 export const services: any = [
     RouterService,
     LoginService,
+    BookService,
     {
         provide: ErrorHandler,
         useClass: SystemErrorHandler
