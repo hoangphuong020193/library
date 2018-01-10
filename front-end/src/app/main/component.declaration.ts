@@ -1,8 +1,9 @@
 /*Components*/
-import * as fromCommon from 'app/components/common';
-import * as fromHome from 'app/components/home';
-import * as fromLogin from 'app/components/login';
-import * as fromChooseBook from 'app/components/choose-book';
+import * as fromCommon from '../components/common';
+import * as fromHome from '../components/home';
+import * as fromLogin from '../components/login';
+import * as fromChooseBook from '../components/choose-book';
+import * as fromCheckOut from '../components/check-out';
 
 export const CommonComponents: any = [
     fromCommon.FavoriteStarComponent
@@ -13,7 +14,10 @@ export const Components: any = [
     fromLogin.LoginPopupComponent,
     fromChooseBook.ChooseBookComponent,
     fromChooseBook.BookSectionComponent,
-    fromChooseBook.BookItemComponent
+    fromChooseBook.BookItemComponent,
+    fromChooseBook.BookDetailComponent,
+    fromCheckOut.CheckOutComponent,
+    fromCheckOut.BookInCartComponent,
 ];
 
 // Modal

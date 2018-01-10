@@ -1,0 +1,26 @@
+book-detail {
+  .add-to-cart {
+    @include add-to-cart();
+    width: 225px;
+    .icon-shopping-basket {
+      color: $white;
+      padding-right: 15px;
+    }
+  }
+  #section-detail {
+    border-top: 1px solid $border-color;
+    padding-top: 15px;
+    table {
+      tr {
+        td {
+          &:first-child {
+            background: $gray-200;
+            font-weight: 500;
+            max-width: 250px;
+            width: 220px;
+          }
+        }
+      }
+    }
+  }
+}

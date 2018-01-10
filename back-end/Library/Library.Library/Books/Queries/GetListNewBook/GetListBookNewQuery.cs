@@ -19,18 +19,12 @@ namespace Library.Library.Books.Queries.GetListNewBook
 
         public Task<List<BookViewModel>> ExecuteAsync()
         {
-            var result = _bookRepository.TableNoTracking.Include(x => x.Category).Where(x => x.Enabled.Value).OrderByDescending(x => x.DateImport).Take(10)
+            var result = _bookRepository.TableNoTracking.Where(x => x.Enabled.Value).OrderByDescending(x => x.DateImport).Take(10)
                 .Select(x => new BookViewModel
                 {
-                    Id = x.Id,
-                    CategoryId = x.Category.Id,
-                    CategoryName = x.Category.CategoryName,
-                    BookName = x.BookName,
-                    Tag = x.Tag,
-                    Description = x.Description,
-                    BookImage = x.BookImage,
-                    DateImport = x.DateImport.Value,
-                    Amount = x.Amount.Value
+                    BookId = x.Id,
+                    BookCode = x.BookCode,
+                    BookName = x.BookName
                 }).ToListAsync();
 
             return result;

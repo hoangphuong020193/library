@@ -20,6 +20,11 @@ class ApiWareHouse {
         return this.avatarUrl;
     }
 
+    private bookImgUrl: string;
+    public get BookImgUrl(): string {
+        return this.bookImgUrl;
+    }
+
     private appVersion: string;
     public get Version(): string {
         return this.appVersion;
@@ -33,12 +38,14 @@ class ApiWareHouse {
                 this.protocol = 'http://';
                 this.apiEndPoint = 'localhost:5000/api/';
                 this.avatarUrl = '';
+                this.bookImgUrl = '';
                 break;
             case 'development':
             default:
                 this.protocol = 'http://';
                 this.apiEndPoint = 'localhost:5000/api/';
                 this.avatarUrl = '';
+                this.bookImgUrl = 'http://localhost:5000/api/book/photo/';
                 break;
         }
     }
@@ -56,6 +63,11 @@ export class Config {
         return url + employeeId;
     }
 
+    public static getBookImgApiUrl(code: string): string {
+        const url: string = this.apiWareHouse.BookImgUrl;
+        return url + code;
+    }
+
     public static getPath(value: string): string {
         const apiCluster: string = this.apiWareHouse.Protocol + this.apiWareHouse.ApiEndPoint;
         if (Object.keys(PathController).find((key) => PathController[key] === value)) {
@@ -64,7 +76,7 @@ export class Config {
         return apiCluster;
     }
 
-    public static getVerison(): string {
+    public static getVersion(): string {
         return this.apiWareHouse.Version;
     }
 

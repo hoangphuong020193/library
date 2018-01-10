@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../../models/index';
+import { RouterService } from '../../../services/router.service';
+import { State } from '../../../store/reducers/book/index';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store/reducers';
+import * as bookAction from '../../../store/actions/book.action';
+import { Config } from '../../../config';
 
 @Component({
     selector: 'book-item',
@@ -8,7 +14,18 @@ import { Book } from '../../../models/index';
 export class BookItemComponent implements OnInit {
     @Input('book') public book: Book;
 
-    constructor() { }
+    private bookImgURL = '';
 
-    public ngOnInit(): void { }
+    constructor(
+        private routerService: RouterService,
+        private store: Store<fromRoot.State>) { }
+
+    public ngOnInit(): void {
+        this.bookImgURL = Config.getBookImgApiUrl(this.book.bookCode);
+    }
+
+    private navigateToBookDetail(): void {
+        this.routerService.bookDetail(this.book.bookCode);
+        this.store.dispatch(new bookAction.SelectedBook(this.book.bookCode));
+    }
 }

@@ -4,7 +4,8 @@ namespace Library.Library.Books.ViewModels
 {
     public class BookViewModel
     {
-        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string BookCode { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string BookName { get; set; }
@@ -13,6 +14,14 @@ namespace Library.Library.Books.ViewModels
         public byte[] BookImage { get; set; }
         public DateTime DateImport { get; set; }
         public int Amount { get; set; }
+        public int AmountAvailable { get; set; }
         public bool Enabled { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Supplier { get; set; }
+        public string Size { get; set; }
+        public string Format { get; set; }
+        public DateTime PublicationDate { get; set; }
+        public int Pages { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 <section>
   <div class="header">
     <div class="padding-15 flex-space-between-center">
-      <div class="logo">
+      <div class="logo" (click)="navigateToHome()">
         <span class="letter" data-letter="T">T</span>
         <span class="letter" data-letter="H">H</span>
         <span class="letter" data-letter="Ư">Ư</span>
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <div class="book-in-cart">
+        <div class="book-in-cart" (click)="viewBookInCart()">
           <i class="icon icon-shopping-basket"></i>
           <span class="padding-left-right-5">Giỏ sách</span>
           <span class="number-of-choose">18</span>

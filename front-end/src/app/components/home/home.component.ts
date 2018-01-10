@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'angularx-bootstrap-modal';
 import { ComponentId } from '../../shareds/enums/component.enum';
-import { LoginPopupComponent } from 'app/components/login';
 import { User } from '../../models/user.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
 import * as userAction from '../../store/actions/user.action';
 import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
+import { RouterService } from '../../services/router.service';
+import { LoginPopupComponent } from '../login/login.component';
 
 @Component({
   selector: 'home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private store: Store<fromRoot.State>,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private routerService: RouterService) { }
 
   public ngOnInit(): void {
     this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
@@ -45,6 +47,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  private navigateToHome(): void {
+    this.routerService.home();
+  }
+
   private logout(event: any): void {
     this.store.dispatch(new userAction.Logout(null));
     this.user = null;
@@ -54,5 +60,13 @@ export class HomeComponent implements OnInit {
 
   private viewMenuNotify(): void {
     this.toggleMenuNotify = !this.toggleMenuNotify;
+  }
+
+  private viewBookInCart(): void {
+    if (!this.user) {
+      this.dialogService.addDialog(LoginPopupComponent, {}).subscribe();
+    } else {
+      this.routerService.checkOutCart();
+    }
   }
 }

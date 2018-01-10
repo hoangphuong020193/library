@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DryIoc;
 using Library.Data.Services;
+using Library.Library.Books.Queries.GetBookDetail;
+using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.UserAccount.Queries.GetUserInfo;
@@ -28,7 +30,9 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IGetPermissionByUserIdQuery, GetPermissionByUserIdQuery>(Reuse.InWebRequest);
 
             // Book
+            registrator.Register<IGetBookPhotoQuery, GetBookPhotoQuery>(Reuse.InWebRequest);
             registrator.Register<IGetListBookNewQuery, GetListBookNewQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetBookDetailQuery, GetBookDetailQuery>(Reuse.InWebRequest);
         }
     }
 }

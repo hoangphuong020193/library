@@ -1,12 +1,11 @@
 <div class="book-item">
   <favorite-star></favorite-star>
-  <div class="image">
+  <div class="image cursor-pointer" (click)="navigateToBookDetail()">
     <div>
-      <img class="img-fluid" src="http://vanvietbooks.vn/wp-content/uploads/2017/06/%C4%90%E1%BB%ABng-n%C3%B3i-t%E1%BA%ADp-2.jpg"
-        alt="">
+      <img class="img-fluid" src="{{bookImgURL}}" alt="">
     </div>
   </div>
-  <div class="book-name">{{book.bookName}}</div>
+  <div class="book-name cursor-pointer" (click)="navigateToBookDetail()">{{book.bookName}}</div>
   <div class="add-to-cart">
     <div>Thêm vào giỏ sách</div>
   </div>

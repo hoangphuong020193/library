@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { User } from '../../models';
 
-export const ActionTypes: any = {
+export const ActionTypes = {
     CREATE: '[User] Create User',
     LOGOUT: '[User] LogOut User',
     UPDATE: '[User] Update User'

@@ -6,6 +6,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 /* Guards */
 import { HomeGuard } from '../guards/home.guard';
+import { BookDetailGuard } from '../guards/book-detail.guard';
 
 /* Services */
 import { RouterService } from '../services/router.service';
@@ -28,5 +29,6 @@ export const services: any = [
 ];
 
 export const guards: any = [
-    HomeGuard
+    HomeGuard,
+    BookDetailGuard
 ];

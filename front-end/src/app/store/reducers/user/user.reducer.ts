@@ -1,5 +1,4 @@
 import { Action, ActionReducer } from '@ngrx/store';
-import { JsHelper } from '../../../common/helpers';
 import { User } from '../../../models';
 import * as userAction from '../../actions/user.action';
 
@@ -31,4 +30,4 @@ export function reducer(state: State = initialState, action: userAction.Actions)
         default:
             return state;
     }
-};
+}

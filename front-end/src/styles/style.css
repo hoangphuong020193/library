@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-    url('fonts/icomoon.ttf?e874u5') format('truetype'),
-    url('fonts/icomoon.woff?e874u5') format('woff'),
-    url('fonts/icomoon.svg?e874u5#icomoon') format('svg');
+    url('fonts/icomoon.ttf?f90hx3') format('truetype'),
+    url('fonts/icomoon.woff?f90hx3') format('woff'),
+    url('fonts/icomoon.svg?f90hx3#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -35,79 +35,79 @@
 .icon-arrow-right-circle:before {
   content: "\e903";
 }
-.icon-calendar:before {
+.icon-books:before {
   content: "\e904";
 }
-.icon-call:before {
+.icon-calendar:before {
   content: "\e905";
 }
-.icon-check:before {
+.icon-call:before {
   content: "\e906";
 }
-.icon-checkbox-checked:before {
+.icon-check:before {
   content: "\e907";
 }
-.icon-checkbox-unchecked:before {
+.icon-checkbox-checked:before {
   content: "\e908";
 }
-.icon-check-cycle:before {
+.icon-checkbox-unchecked:before {
   content: "\e909";
 }
-.icon-check-cycle-done:before {
+.icon-check-cycle:before {
   content: "\e90a";
 }
-.icon-check-cycle-fail:before {
+.icon-check-cycle-done:before {
   content: "\e90b";
 }
-.icon-clock:before {
+.icon-check-cycle-fail:before {
   content: "\e90c";
 }
-.icon-close:before {
+.icon-clock:before {
   content: "\e90d";
 }
-.icon-copy:before {
+.icon-close:before {
   content: "\e90e";
 }
-.icon-delete:before {
+.icon-copy:before {
   content: "\e90f";
 }
-.icon-down:before {
+.icon-delete:before {
   content: "\e910";
 }
-.icon-download:before {
+.icon-down:before {
   content: "\e911";
 }
-.icon-edit:before {
+.icon-download:before {
   content: "\e912";
 }
-.icon-email:before {
+.icon-edit:before {
   content: "\e913";
 }
-.icon-email-black:before {
+.icon-email:before {
   content: "\e914";
 }
-.icon-email-sent:before {
+.icon-email-black:before {
   content: "\e915";
 }
-.icon-error:before {
+.icon-email-sent:before {
   content: "\e916";
 }
-.icon-excel:before {
+.icon-error:before {
   content: "\e917";
 }
-.icon-exit:before {
+.icon-excel:before {
   content: "\e918";
 }
-.icon-filter:before {
+.icon-exit:before {
   content: "\e919";
 }
-.icon-help:before {
+.icon-filter:before {
   content: "\e91a";
 }
-.icon-id-card:before {
+.icon-help:before {
   content: "\e91b";
 }
-.icon-info:before {
+.icon-id-card:before {
   content: "\e91c";
 }
 .icon-light:before {
@@ -143,78 +143,84 @@
 .icon-people:before {
   content: "\e927";
 }
-.icon-place:before {
+.icon-person:before {
   content: "\e928";
 }
-.icon-play-arrow:before {
+.icon-place:before {
   content: "\e929";
 }
-.icon-plus-square:before {
+.icon-play-arrow:before {
   content: "\e92a";
 }
-.icon-radio-button-checked:before {
+.icon-plus-square:before {
   content: "\e92b";
 }
-.icon-radio-button-unchecked:before {
+.icon-radio-button-checked:before {
   content: "\e92c";
 }
-.icon-remove-circle:before {
+.icon-radio-button-unchecked:before {
   content: "\e92d";
 }
-.icon-replay:before {
+.icon-remove-circle:before {
   content: "\e92e";
 }
-.icon-search:before {
+.icon-replay:before {
   content: "\e92f";
 }
-.icon-skype:before {
+.icon-search:before {
   content: "\e930";
 }
-.icon-sort-down:before {
+.icon-shopping-basket:before {
   content: "\e931";
 }
-.icon-sort-none:before {
+.icon-skype:before {
   content: "\e932";
 }
-.icon-sort-up:before {
+.icon-sort-down:before {
   content: "\e933";
 }
-.icon-spin3:before {
+.icon-sort-none:before {
   content: "\e934";
 }
-.icon-spin4:before {
+.icon-sort-up:before {
   content: "\e935";
 }
-.icon-stop:before {
+.icon-spin3:before {
   content: "\e936";
 }
-.icon-tasklist:before {
+.icon-spin4:before {
   content: "\e937";
 }
-.icon-tasks:before {
+.icon-star:before {
   content: "\e938";
 }
-.icon-transfer:before {
+.icon-star-o:before {
   content: "\e939";
 }
-.icon-transferto:before {
+.icon-stop:before {
   content: "\e93a";
 }
-.icon-triangle:before {
+.icon-tasklist:before {
   content: "\e93b";
 }
-.icon-triangle-up:before {
+.icon-tasks:before {
   content: "\e93c";
 }
-.icon-venus:before {
+.icon-transfer:before {
   content: "\e93d";
 }
-.icon-warning:before {
+.icon-transferto:before {
   content: "\e93e";
 }
-.icon-star:before {
-  content: "\f005";
+.icon-triangle:before {
+  content: "\e93f";
 }
-.icon-star-o:before {
-  content: "\f006";
+.icon-triangle-up:before {
+  content: "\e940";
+}
+.icon-venus:before {
+  content: "\e941";
+}
+.icon-warning:before {
+  content: "\e942";
 }

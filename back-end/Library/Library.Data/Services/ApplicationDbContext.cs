@@ -26,7 +26,15 @@ namespace Library.Data.Services
         {
             modelBuilder.Entity<Book>(entity =>
             {
+                entity.HasIndex(e => e.BookCode)
+                    .HasName("UQ__Book__0A5FFCC7430C9FDB")
+                    .IsUnique();
+
                 entity.Property(e => e.Amount).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.BookCode)
+                    .IsRequired()
+                    .HasMaxLength(15);
 
                 entity.Property(e => e.BookName).HasMaxLength(250);
 
@@ -41,7 +49,7 @@ namespace Library.Data.Services
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Book)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Book__CategoryId__3D5E1FD2");
+                    .HasConstraintName("FK__Book__CategoryId__4AB81AF0");
             });
 
             modelBuilder.Entity<Category>(entity =>

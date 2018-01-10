@@ -25,6 +25,7 @@ $font-size-sm: 0.875rem; //14px
 $font-size-md: 1rem; //16px
 $font-size-lg: 1.125rem; //18px
 $font-size-xl: 1.25rem; //20px;
+$font-size-xxl: 1.5rem; //24px;
 
 /*Icon*/
 
@@ -40,3 +41,11 @@ $icon-color-disabled: rgba($black, 0.1);
 /*Box*/
 
 $box-shadow: 0 6px 12px 0 rgba($black, .18);
+
+/*Table*/
+
+$table-border-color: $gray-500;
+$table-bg-color: $white;
+$table-cell-padding-md: .75rem;
+$table-cell-padding-sm: .5rem;
+$table-tr-odd: #F6F7F8;

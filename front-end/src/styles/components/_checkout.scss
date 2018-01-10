@@ -1,0 +1,18 @@
+check-out {
+  book-in-cart {
+    .book-in-cart-item {
+      padding: 15px;
+      display: flex;
+      height: 175px;
+      .book-img {
+        width: 145px;
+      }
+      .book-info {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        flex-grow: 1;
+      }
+    }
+  }
+}

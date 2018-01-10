@@ -24,4 +24,16 @@ export class BookService {
                 return Observable.of(null);
             }));
     }
+
+    public getBookDetailByCode(bookCode: string): Observable<Book> {
+        return this.http.get(this.apiURL + '/ReturnBookDetail/' + bookCode).pipe(
+            tap(
+                (res: any) => {
+                    return res as Book[];
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
 }

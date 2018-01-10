@@ -22,4 +22,12 @@ export class RouterService {
     public permissionDenied(): void {
         this.router.navigate(['/error/permission-denied']);
     }
+
+    public bookDetail(bookCode: string): void {
+        this.router.navigate(['/book-detail', bookCode]);
+    }
+
+    public checkOutCart(): void {
+        this.router.navigate(['/checkout/cart']);
+    }
 }

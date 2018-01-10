@@ -28,17 +28,12 @@ book-item {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      &:hover {
+        color: $blue;
+      }
     }
     .add-to-cart {
-      border: 2px solid $blue;
-      background: $blue;
-      padding: 5px 10px;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      color: $white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include add-to-cart();
     }
   }
 }
