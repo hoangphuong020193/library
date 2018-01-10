@@ -10,7 +10,7 @@ export class Book {
     public amountAvailable: number;
     public author: string;
     public publisher: string;
-    public company: string;
+    public supplier: string;
     public size: string;
     public format: string;
     public publicationDate: Date;
