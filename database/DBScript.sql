@@ -48,12 +48,41 @@ INSERT INTO PermissionGroupMember(GroupId, UserId) VALUES (1, 3);
 GO
 CREATE TABLE Category(
 	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Type nvarchar(250),
 	CategoryName nvarchar(250) NOT NULL,
 	Enabled bit NULL DEFAULT 1);
 GO
-INSERT INTO Category(CategoryName) VALUES (N'Công nghệ thông tin');
-INSERT INTO Category(CategoryName) VALUES (N'Ngoại ngữ');
-INSERT INTO Category(CategoryName) VALUES (N'Tài chính ngân hàng');
+INSERT INTO Category(Type, CategoryName) VALUES (N'Sách', N'Công nghệ thông tin');
+INSERT INTO Category(Type,CategoryName) VALUES (N'Sách',N'Ngoại ngữ');
+INSERT INTO Category(Type,CategoryName) VALUES (N'Sách',N'Tài chính ngân hàng');
+INSERT INTO Category(Type,CategoryName) VALUES (N'Luận văn - Đồ án',N'Đồ án môn học');
+INSERT INTO Category(Type,CategoryName) VALUES (N'Luận văn - Đồ án',N'Luận văn tốt nghiệp');
+GO
+CREATE TABLE Supplier(
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Name nvarchar(250),
+	Address nvarchar(1000),
+	Phone nvarchar(15),
+	Email nvarchar(250),
+	Enabled bit NULL DEFAULT 1
+)
+GO
+INSERT INTO Supplier(Name) VALUES (N'Đang cập nhập');
+INSERT INTO Supplier(Name) VALUES (N'Nhã Nam');
+INSERT INTO Supplier(Name) VALUES (N'Công ty sách Phương Nam');
+GO
+CREATE TABLE Publisher(
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Name nvarchar(250),
+	Address nvarchar(1000),
+	Phone nvarchar(15),
+	Email nvarchar(250),
+	Enabled bit NULL DEFAULT 1
+)
+GO
+INSERT INTO Publisher(Name) VALUES (N'Nhà xuất bản giáo dục');
+INSERT INTO Publisher(Name) VALUES (N'Nhà xuất bản tuổi trẻ');
+INSERT INTO Publisher(Name) VALUES (N'AIG Việt Nam');
 GO
 CREATE TABLE Book(
 	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -65,18 +94,53 @@ CREATE TABLE Book(
 	BookImage varbinary(max),
 	DateImport DateTime,
 	Amount INT DEFAULT 0,
+	AmountAvailable INT DEFAULT 0,
+	Author nvarchar(250),
+	PublisherId INT FOREIGN KEY REFERENCES Publisher(Id),
+	SupplierId INT FOREIGN KEY REFERENCES Supplier(Id),
+	Size nvarchar(20),
+	Format nvarchar(50),
+	PublicationDate Date,
+	Pages int DEFAULT 0,
+	MaximumDateBorrow int not null default 0,
 	Enabled bit NULL DEFAULT 1
 )
 GO
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'Lập trình C#', N'ABCD lập trình', '2017-12-30', 10, 'B000000001');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'Lập trình hướng đối tượng', N'ABCD lập trình đối tượng', '2017-12-28', 15, 'B000000002');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'Trí tuệ nhân tạo', N'AI', '2017-12-28', 10, 'B000000003');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'Java', 'Java', '2017-12-27', 20, 'B000000004');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'PHP', 'PHP', '2017-12-28', 30, 'B000000005');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (1,N'Kiểm thử phần mềm', 'Testing', '2017-12-22', 3, 'B000000006');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (2,N'Toeic Academic', 'Toeic', '2017-12-22', 2, 'B000000007');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (2,N'Grammar', 'Grrammar', '2017-12-21', 50, 'B000000008');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (2,N'Vocabulary', 'Vocabulary', '2017-12-21', 100, 'B000000009');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (3,N'Tài chính ABCD', N'Tài chính ABCD', '2017-12-28', 15, 'B000000010');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (3,N'Hệ thống thông tin tài chính ngân hàng?', N'Hệ thống thông tin tài chính ngân hàng', '2017-12-28', 15, 'B000000011');
-INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode) VALUES (3,N'Báo cáo tiền tệ', N'Báo cáo tiền tệ', '2017-12-28', 15, 'B000000012');
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1, N'Lập trình C#', N'ABCD lập trình', '2017-12-30', 10, 'B000000001', 10, N'Nguyễn Văn A',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 300);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1,N'Lập trình hướng đối tượng', N'ABCD lập trình đối tượng', '2017-12-28', 15, 'B000000002', 15, N'Nguyễn Văn B',1, 2, '20cm x 110cm', N'Bìa mềm', '2017-07-05', 125);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1,N'Trí tuệ nhân tạo', N'AI', '2017-12-28', 10, 'B000000003', 10, N'Lê Quang C', 2, 2, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 450);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1,N'Java', 'Java', '2017-12-27', 20, 'B000000004', 10, N'Ngô Tấn',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 312);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1,N'PHP', 'PHP', '2017-12-28', 30, 'B000000005', 10, N'Nguyễn Văn A',3, 2, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 120);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (1,N'Kiểm thử phần mềm', 'Testing', '2017-12-22', 3, 'B000000006', 10, N'Nguyễn Văn D',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 300);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (2,N'Toeic Academic', 'Toeic', '2017-12-22', 2, 'B000000007', 10, N'Nguyễn Văn A',3, 3, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 300);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages)
+VALUES (2,N'Grammar', 'Grrammar', '2017-12-21', 50, 'B000000008', 10, N'Nguyễn Chí T',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2018-01-08', 85);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (2,N'Vocabulary', 'Vocabulary', '2017-12-21', 100, 'B000000009', 10, N'lê Thị Na',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-01-25', 300);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (3,N'Tài chính ABCD', N'Tài chính ABCD', '2017-12-28', 15, 'B000000010', 10, N'ABDFD',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 255);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages) 
+VALUES (3,N'Hệ thống thông tin tài chính ngân hàng?', N'Hệ thống thông tin tài chính ngân hàng', '2017-12-28', 15, 'B000000011', 10, N'Nguyễn Văn A',1, 1, '25.5cm x 15cm', N'Bìa cứng', '2017-12-25', 300);
+INSERT INTO Book(CategoryId, BookName, Description, DateImport, Amount, BookCode, AmountAvailable, Author, PublisherId, SupplierId, Size, Format, PublicationDate, Pages)
+VALUES (3,N'Báo cáo tiền tệ', N'Báo cáo tiền tệ', '2017-12-28', 15, 'B000000012', 10, N'Nguyễn Văn A',1, 1, '25.5cm x 15cm', N'Bìa mềm', '2017-12-25', 300);
+GO
+CREATE TABLE BookCart(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	UserId INT FOREIGN KEY REFERENCES [User](Id),
+	BookId INT FOREIGN KEY REFERENCES Book(Id),
+	Status INT NOT NULL DEFAULT 1,
+	ModifiedDate DATETIME DEFAULT GETDATE()
+)
+GO
+CREATE TABLE BookFavorite(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	UserId INT FOREIGN KEY REFERENCES [User](Id),
+	BookId INT FOREIGN KEY REFERENCES Book(Id),
+)

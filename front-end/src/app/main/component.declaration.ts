@@ -6,7 +6,8 @@ import * as fromChooseBook from '../components/choose-book';
 import * as fromCheckOut from '../components/check-out';
 
 export const CommonComponents: any = [
-    fromCommon.FavoriteStarComponent
+    fromCommon.FavoriteStarComponent,
+    fromCommon.ToastComponent
 ];
 
 export const Components: any = [

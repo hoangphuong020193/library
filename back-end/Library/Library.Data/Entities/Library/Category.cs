@@ -11,6 +11,7 @@ namespace Library.Data.Entities.Library
         }
 
         public int Id { get; set; }
+        public string Type { get; set; }
         public string CategoryName { get; set; }
         public bool? Enabled { get; set; }
 

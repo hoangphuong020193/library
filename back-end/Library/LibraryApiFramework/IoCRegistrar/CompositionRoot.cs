@@ -2,8 +2,13 @@
 using DryIoc;
 using Library.Data.Services;
 using Library.Library.Books.Queries.GetBookDetail;
+using Library.Library.Books.Queries.GetBookInCart;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
+using Library.Library.Cart.Commands.AddBookToCart;
+using Library.Library.Cart.Commands.DeleteToCart;
+using Library.Library.Cart.Commands.UpdateStatusBookInCart;
+using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
@@ -29,10 +34,19 @@ namespace Library.ApiFramework.IoCRegistrar
             // Permission
             registrator.Register<IGetPermissionByUserIdQuery, GetPermissionByUserIdQuery>(Reuse.InWebRequest);
 
+            // Category
+            registrator.Register<IGetCategoryQuery, GetCategoryQuery>(Reuse.InWebRequest);
+
             // Book
             registrator.Register<IGetBookPhotoQuery, GetBookPhotoQuery>(Reuse.InWebRequest);
             registrator.Register<IGetListBookNewQuery, GetListBookNewQuery>(Reuse.InWebRequest);
             registrator.Register<IGetBookDetailQuery, GetBookDetailQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetBookInCartQuery, GetBookInCartQuery>(Reuse.InWebRequest);
+
+            // Cart
+            registrator.Register<IAddBookToCartCommand, AddBookToCartCommand>(Reuse.InWebRequest);
+            registrator.Register<IDeleteToCartCommand, DeleteToCartCommand>(Reuse.InWebRequest);
+           registrator.Register<IUpdateStatusBookInCartCommand, UpdateStatusBookInCartCommand>(Reuse.InWebRequest);
         }
     }
 }

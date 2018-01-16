@@ -14,9 +14,13 @@ namespace Library.Data.Services
     public partial class ApplicationDbContext : DbContext, IDbContext
     {
         public virtual DbSet<Book> Book { get; set; }
+        public virtual DbSet<BookCart> BookCart { get; set; }
+        public virtual DbSet<BookFavorite> BookFavorite { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
         public virtual DbSet<PermissionGroupMember> PermissionGroupMember { get; set; }
+        public virtual DbSet<Publisher> Publisher { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Title> Title { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -27,10 +31,14 @@ namespace Library.Data.Services
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.HasIndex(e => e.BookCode)
-                    .HasName("UQ__Book__0A5FFCC7430C9FDB")
+                    .HasName("UQ__Book__0A5FFCC7FB413A20")
                     .IsUnique();
 
                 entity.Property(e => e.Amount).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.AmountAvailable).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Author).HasMaxLength(250);
 
                 entity.Property(e => e.BookCode)
                     .IsRequired()
@@ -44,12 +52,63 @@ namespace Library.Data.Services
 
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.Format).HasMaxLength(50);
+                entity.Property(e => e.MaximumDateBorrow).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Pages).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.PublicationDate).HasColumnType("date");
+
+                entity.Property(e => e.Size).HasMaxLength(20);
+
                 entity.Property(e => e.Tag).HasMaxLength(250);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Book)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Book__CategoryId__4AB81AF0");
+                    .HasConstraintName("FK__Book__CategoryId__71D1E811");
+
+                entity.HasOne(d => d.Publisher)
+                    .WithMany(p => p.Book)
+                    .HasForeignKey(d => d.PublisherId)
+                    .HasConstraintName("FK__Book__PublisherI__74AE54BC");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Book)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK__Book__SupplierId__75A278F5");
+            });
+
+            modelBuilder.Entity<BookCart>(entity =>
+            {
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Status).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BookCart)
+                    .HasForeignKey(d => d.BookId)
+                    .HasConstraintName("FK__BookCart__BookId__7C4F7684");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BookCart)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__BookCart__UserId__7B5B524B");
+            });
+
+            modelBuilder.Entity<BookFavorite>(entity =>
+            {
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BookFavorite)
+                    .HasForeignKey(d => d.BookId)
+                    .HasConstraintName("FK__BookFavor__BookI__02084FDA");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BookFavorite)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__BookFavor__UserI__01142BA1");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -59,6 +118,8 @@ namespace Library.Data.Services
                     .HasMaxLength(250);
 
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Type).HasMaxLength(250);
             });
 
             modelBuilder.Entity<PermissionGroup>(entity =>
@@ -83,6 +144,30 @@ namespace Library.Data.Services
                     .WithMany(p => p.PermissionGroupMember)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__Permissio__UserI__2F10007B");
+            });
+
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(1000);
+
+                entity.Property(e => e.Email).HasMaxLength(250);
+
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Name).HasMaxLength(250);
+
+                entity.Property(e => e.Phone).HasMaxLength(15);
+            });
+
+            modelBuilder.Entity<Title>(entity =>
+            {
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ShortName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Title>(entity =>
@@ -114,7 +199,7 @@ namespace Library.Data.Services
 
                 entity.Property(e => e.MiddleName).HasMaxLength(20);
 
-                entity.Property(e => e.PassWord)
+                entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(100);
 

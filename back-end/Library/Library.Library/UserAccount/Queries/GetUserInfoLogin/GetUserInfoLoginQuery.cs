@@ -25,7 +25,7 @@ namespace Library.Library.UserAccount.Queries.GetUserInfoLogin
                 {
                     Id = x.Id,
                     UserName = x.UserName,
-                    PassWord = x.PassWord,
+                    PassWord = x.Password,
                     FirstName = x.FirstName,
                     MiddleName = x.MiddleName,
                     LastName = x.LastName

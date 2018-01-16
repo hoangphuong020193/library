@@ -16,4 +16,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cart\Queries\" />
+    <Folder Include="Cart\ViewModels\" />
+  </ItemGroup>
+
 </Project>

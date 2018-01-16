@@ -1,17 +1,23 @@
 check-out {
   book-in-cart {
-    .book-in-cart-item {
-      padding: 15px;
-      display: flex;
-      height: 175px;
-      .book-img {
-        width: 145px;
-      }
-      .book-info {
+    .book-in-cart-item,
+    .book-in-cart-item-wating {
+      background: $white;
+      .book-item {
+        padding: 15px;
         display: flex;
-        flex-direction: column;
-        align-content: center;
-        flex-grow: 1;
+        height: 175px;
+        border-bottom: 1px solid $color-border;
+        .book-img {
+          width: 145px;
+        }
+        .book-info {
+          display: flex;
+          flex-direction: column;
+          align-content: center;
+          flex-grow: 1;
+          padding-left: 15px;
+        }
       }
     }
   }

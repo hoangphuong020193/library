@@ -1,11 +1,7 @@
 book-detail {
-  .add-to-cart {
-    @include add-to-cart();
-    width: 225px;
-    .icon-shopping-basket {
-      color: $white;
-      padding-right: 15px;
-    }
+  .book-tag {
+    display: flex;
+    align-content: center;
   }
   #section-detail {
     border-top: 1px solid $border-color;

@@ -1,4 +1,4 @@
-import { Book } from '../../../models';
+import { Book, BookInCart } from '../../../models';
 import { State } from './book.reducer';
 
 export const getSelectedBookCode: (state: State) => string = (state: State) => {
@@ -7,4 +7,8 @@ export const getSelectedBookCode: (state: State) => string = (state: State) => {
 
 export const getBookSelected: (state: State) => Book = (state: State) => {
     return state ? state.bookSelected : undefined;
+};
+
+export const getBookInCart: (state: State) => BookInCart[] = (state: State) => {
+    return state ? state.bookInCart : undefined;
 };

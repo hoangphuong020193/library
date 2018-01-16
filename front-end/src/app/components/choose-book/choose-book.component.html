@@ -4,20 +4,13 @@
       <div class="font-style-bold">
         Danh mục sách
       </div>
-      <div class="font-style-bold font-size-sm">
-        Sách tham khảo
-      </div>
-      <div class="padding-left-20">
-        <div>Công nghệ thông tin</div>
-        <div>Ngoại ngữ</div>
-        <div>Tài chính ngân hàng</div>
-      </div>
-      <div class="font-style-bold font-size-sm">
-        Luận văn
-      </div>
-      <div class="padding-left-20">
-        <div>Luận văn tốt nghiệp</div>
-        <div>Báo cáo đồ án</div>
+      <div *ngFor="let category of listCategories; let i = index;">
+        <div *ngIf="showType(i)" class="font-style-bold font-size-sm margin-top-10 margin bottom-5">
+          {{category.type}}
+        </div>
+        <div class="padding-left-20 padding-bottom-5">
+          {{category.categoryName}}
+        </div>
       </div>
     </div>
   </div>

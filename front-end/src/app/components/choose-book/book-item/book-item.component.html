@@ -1,12 +1,10 @@
 <div class="book-item">
-  <favorite-star></favorite-star>
+  <favorite-star [favorited]="book.favorited"></favorite-star>
   <div class="image cursor-pointer" (click)="navigateToBookDetail()">
     <div>
       <img class="img-fluid" src="{{bookImgURL}}" alt="">
     </div>
   </div>
   <div class="book-name cursor-pointer" (click)="navigateToBookDetail()">{{book.bookName}}</div>
-  <div class="add-to-cart">
-    <div>Thêm vào giỏ sách</div>
-  </div>
+  <button class="btn btn-blue width-100-per" (click)="addBookToCart()">Thêm vào giỏ sách</button>
 </div>

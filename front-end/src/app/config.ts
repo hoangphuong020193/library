@@ -86,5 +86,7 @@ export class Config {
 // tslint:disable-next-line:typedef
 export const PathController = {
     Account: 'account',
-    Book: 'book'
+    Category: 'category',
+    Book: 'book',
+    Cart: 'cart'
 };

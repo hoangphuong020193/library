@@ -23,5 +23,7 @@ namespace Library.Library.Books.ViewModels
         public string Format { get; set; }
         public DateTime PublicationDate { get; set; }
         public int Pages { get; set; }
+        public int MaximumDateBorrow { get; set; }
+        public bool Favorite { get; set; }
     }
 }

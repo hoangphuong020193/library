@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/reducers';
 import * as bookAction from '../../../store/actions/book.action';
 import { Config } from '../../../config';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
     selector: 'book-item',
@@ -18,7 +19,8 @@ export class BookItemComponent implements OnInit {
 
     constructor(
         private routerService: RouterService,
-        private store: Store<fromRoot.State>) { }
+        private store: Store<fromRoot.State>,
+        private cartService: CartService) { }
 
     public ngOnInit(): void {
         this.bookImgURL = Config.getBookImgApiUrl(this.book.bookCode);
@@ -27,5 +29,9 @@ export class BookItemComponent implements OnInit {
     private navigateToBookDetail(): void {
         this.routerService.bookDetail(this.book.bookCode);
         this.store.dispatch(new bookAction.SelectedBook(this.book.bookCode));
+    }
+
+    private addBookToCart(): void {
+        this.cartService.addBookToCart(this.book.bookId).subscribe();
     }
 }

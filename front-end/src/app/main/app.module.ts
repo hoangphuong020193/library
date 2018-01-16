@@ -69,9 +69,7 @@ const APP_COMPONENTS: any[] = [
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return LsHelper.getAccessToken();
-        },
+        tokenGetter: () => LsHelper.getAccessToken(),
         whitelistedDomains: ['localhost:5000', 'localhost:3000']
       }
     }),

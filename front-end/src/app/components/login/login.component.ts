@@ -8,13 +8,14 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
 import * as userAction from '../../store/actions/user.action';
 import { KeyCode } from '../../shareds/enums/keycode.enum';
+import { window } from 'rxjs/operator/window';
 
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html'
 })
 
-export class LoginPopupComponent extends DialogComponent<any, any> implements OnInit {
+export class LoginPopupComponent extends DialogComponent<boolean, boolean> implements OnInit {
     private loading: boolean = false;
     private errorMessage: string = '';
     private errorUser: boolean = false;
@@ -31,6 +32,7 @@ export class LoginPopupComponent extends DialogComponent<any, any> implements On
 
     public ngOnInit(): void {
         if (LsHelper.getAccessToken()) {
+            this.result = true;
             this.close();
         }
     }
@@ -56,6 +58,8 @@ export class LoginPopupComponent extends DialogComponent<any, any> implements On
                 this.errorMessage = '';
                 const user: User = this.loginService.createUserFromToken(res.accessToken);
                 this.store.dispatch(new userAction.UpdateUser(user));
+                this.result = true;
+                location.reload();
                 this.close();
             } else {
                 this.errorMessage = 'Sai tên đăng nhập hoặc mật khẩu';

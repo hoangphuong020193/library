@@ -6,6 +6,7 @@ import { Book } from '../../../models/index';
 import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 import { RouterService } from '../../../services/router.service';
 import { Config } from '../../../config';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
     selector: 'book-detail',
@@ -19,6 +20,7 @@ export class BookDetailComponent implements OnInit {
     constructor(
         private store: Store<fromRoot.State>,
         private bookService: BookService,
+        private cartService: CartService,
         private routerService: RouterService) { }
 
     public ngOnInit() {
@@ -38,4 +40,7 @@ export class BookDetailComponent implements OnInit {
         });
     }
 
+    private addBookToCart(): void {
+        this.cartService.addBookToCart(this.book.bookId).subscribe();
+    }
 }

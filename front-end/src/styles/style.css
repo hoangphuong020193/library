@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-    url('fonts/icomoon.ttf?f90hx3') format('truetype'),
-    url('fonts/icomoon.woff?f90hx3') format('woff'),
-    url('fonts/icomoon.svg?f90hx3#icomoon') format('svg');
+    url('fonts/icomoon.ttf?yco2rs') format('truetype'),
+    url('fonts/icomoon.woff?yco2rs') format('woff'),
+    url('fonts/icomoon.svg?yco2rs#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -200,27 +200,30 @@
 .icon-stop:before {
   content: "\e93a";
 }
-.icon-tasklist:before {
+.icon-tags:before {
   content: "\e93b";
 }
-.icon-tasks:before {
+.icon-tasklist:before {
   content: "\e93c";
 }
-.icon-transfer:before {
+.icon-tasks:before {
   content: "\e93d";
 }
-.icon-transferto:before {
+.icon-transfer:before {
   content: "\e93e";
 }
-.icon-triangle:before {
+.icon-transferto:before {
   content: "\e93f";
 }
-.icon-triangle-up:before {
+.icon-triangle:before {
   content: "\e940";
 }
-.icon-venus:before {
+.icon-triangle-up:before {
   content: "\e941";
 }
-.icon-warning:before {
+.icon-venus:before {
   content: "\e942";
+}
+.icon-warning:before {
+  content: "\e943";
 }

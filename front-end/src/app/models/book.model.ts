@@ -15,4 +15,19 @@ export class Book {
     public format: string;
     public publicationDate: Date;
     public pages: number;
+    public maximumDateBorrow: number;
+    public favorite: boolean;
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class BookInCart {
+    public bookId: number;
+    public bookCode: string;
+    public bookName: string;
+    public amount: number;
+    public amountAvailable: number;
+    public author: string;
+    public status: number;
+    public modifiedDate: Date;
+    public maximumDateBorrow: number;
 }
