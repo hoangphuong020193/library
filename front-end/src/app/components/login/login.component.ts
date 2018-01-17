@@ -15,11 +15,12 @@ import { window } from 'rxjs/operator/window';
     templateUrl: 'login.component.html'
 })
 
-export class LoginPopupComponent extends DialogComponent<boolean, boolean> implements OnInit {
+export class LoginPopupComponent extends DialogComponent<any, boolean> implements OnInit {
     private loading: boolean = false;
     private errorMessage: string = '';
     private errorUser: boolean = false;
     private errorPassword: boolean = false;
+    public reloadPage: boolean = true;
 
     constructor(
         private loginService: LoginService,
@@ -59,7 +60,9 @@ export class LoginPopupComponent extends DialogComponent<boolean, boolean> imple
                 const user: User = this.loginService.createUserFromToken(res.accessToken);
                 this.store.dispatch(new userAction.UpdateUser(user));
                 this.result = true;
-                location.reload();
+                if (this.reloadPage) {
+                    location.reload();
+                }
                 this.close();
             } else {
                 this.errorMessage = 'Sai tên đăng nhập hoặc mật khẩu';

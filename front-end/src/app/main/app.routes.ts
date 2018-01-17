@@ -4,6 +4,9 @@ import { Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from '../components/home';
 import { ChooseBookComponent } from '../components/choose-book/choose-book.component';
 import { CheckOutComponent } from '../components/check-out/check-out.component';
+import {
+  BookInCartCheckComponent
+} from '../components/check-out/book-in-cart-check/book-in-cart-check.component';
 
 // GUARD
 import { HomeGuard } from '../guards/home.guard';
@@ -34,6 +37,10 @@ export const ROUTES: Routes = [
       {
         path: 'checkout/cart',
         component: CheckOutComponent
+      },
+      {
+        path: 'checkout/checkout',
+        component: BookInCartCheckComponent
       }
     ]
   },

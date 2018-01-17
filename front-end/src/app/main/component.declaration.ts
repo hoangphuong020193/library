@@ -19,6 +19,7 @@ export const Components: any = [
     fromChooseBook.BookDetailComponent,
     fromCheckOut.CheckOutComponent,
     fromCheckOut.BookInCartComponent,
+    fromCheckOut.BookInCartCheckComponent
 ];
 
 // Modal

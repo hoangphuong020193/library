@@ -144,3 +144,20 @@ CREATE TABLE BookFavorite(
 	UserId INT FOREIGN KEY REFERENCES [User](Id),
 	BookId INT FOREIGN KEY REFERENCES Book(Id),
 )
+GO
+CREATE TABLE UserBookRequest(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	UserId INT FOREIGN KEY REFERENCES [User](Id),
+	RequestCode nvarchar(10) not null unique,
+	RequestDate DateTime not null default GETDATE(),
+)
+GO
+CREATE TABLE UserBook(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	UserId INT FOREIGN KEY REFERENCES [User](Id),
+	RequestId INT FOREIGN KEY REFERENCES [UserBookRequest](Id),
+	BookId INT FOREIGN KEY REFERENCES Book(Id),
+	ReceiveDate DateTime null,
+	ReturnDate DateTime null,
+	Status INT NOT NULL DEFAULT 0,
+)

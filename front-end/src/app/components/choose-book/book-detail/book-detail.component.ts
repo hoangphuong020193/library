@@ -43,4 +43,8 @@ export class BookDetailComponent implements OnInit {
     private addBookToCart(): void {
         this.cartService.addBookToCart(this.book.bookId).subscribe();
     }
+
+    private favoriteBook(): void {
+        this.bookService.userFavoriteBook(this.book.bookId).subscribe();
+    }
 }

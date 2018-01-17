@@ -24,7 +24,7 @@
         <i class=" icon icon-shopping-basket color-white icon-16 "></i>
         <div>Thêm vào giỏ sách</div>
       </button>
-      <favorite-star class="padding-left-15" [favorited]="book.favorited"></favorite-star>
+      <favorite-star class="padding-left-15" [favorited]="book.favorite" (callback)="favoriteBook()"></favorite-star>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-15 " id="section-detail ">
       <div class="font-style-sermi-bold ">THÔNG TIN CHI TIẾT</div>

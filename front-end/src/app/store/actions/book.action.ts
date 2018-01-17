@@ -31,7 +31,7 @@ export class FetchBookInCart implements Action {
 
 // tslint:disable-next-line:max-classes-per-file
 export class AddBookInCart implements Action {
-    public readonly type: string = ActionTypes.FETCH_BOOK_IN_CART;
+    public readonly type: string = ActionTypes.ADD_BOOK_IN_CART;
     constructor(public payload: BookInCart) { }
 }
 

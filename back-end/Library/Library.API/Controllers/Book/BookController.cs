@@ -1,6 +1,7 @@
 ﻿using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
+using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,15 +14,17 @@ namespace Library.API.Controllers.Book
         private readonly IGetListBookNewQuery _getListBookNewQuery;
         private readonly IGetBookDetailQuery _getBookDetailQuery;
         private readonly IGetBookPhotoQuery _getBookPhotoQuery;
+        private readonly IUpdateBookFavoriteCommand _updateBookFavoriteCommand;
 
         public BookController(IGetListBookNewQuery getListBookNewQuery,
             IGetBookDetailQuery getBookDetailQuery,
-            IGetBookPhotoQuery getBookPhotoQuery
-            )
+            IGetBookPhotoQuery getBookPhotoQuery,
+            IUpdateBookFavoriteCommand updateBookFavoriteCommand)
         {
             _getListBookNewQuery = getListBookNewQuery;
             _getBookDetailQuery = getBookDetailQuery;
             _getBookPhotoQuery = getBookPhotoQuery;
+            _updateBookFavoriteCommand = updateBookFavoriteCommand;
         }
 
         [HttpGet]
@@ -48,6 +51,14 @@ namespace Library.API.Controllers.Book
         public async Task<IActionResult> PhotoAsync(string bookCode)
         {
             var result = await _getBookPhotoQuery.ExecuteAsync(bookCode);
+            return new ObjectResult(result);
+        }
+
+        [HttpPost]
+        [Route("UserFavoriteBook")]
+        public async Task<IActionResult> UserFavoriteBookAsync([FromBody] int bookId)
+        {
+            var result = await _updateBookFavoriteCommand.ExecuteAsync(bookId);
             return new ObjectResult(result);
         }
     }

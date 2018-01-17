@@ -12,6 +12,8 @@ namespace Library.Data.Entities.Account
             BookCart = new HashSet<BookCart>();
             BookFavorite = new HashSet<BookFavorite>();
             PermissionGroupMember = new HashSet<PermissionGroupMember>();
+            UserBook = new HashSet<UserBook>();
+            UserBookRequest = new HashSet<UserBookRequest>();
         }
 
         public int Id { get; set; }
@@ -32,5 +34,7 @@ namespace Library.Data.Entities.Account
         public ICollection<BookCart> BookCart { get; set; }
         public ICollection<BookFavorite> BookFavorite { get; set; }
         public ICollection<PermissionGroupMember> PermissionGroupMember { get; set; }
+        public ICollection<UserBook> UserBook { get; set; }
+        public ICollection<UserBookRequest> UserBookRequest { get; set; }
     }
 }

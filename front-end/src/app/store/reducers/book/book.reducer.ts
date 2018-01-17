@@ -23,7 +23,12 @@ export function reducer(state: State = initialState, action: bookAction.Actions)
         case bookAction.ActionTypes.FETCH_BOOK_IN_CART:
             return Object.assign({}, state, { bookInCart: action.payload });
         case bookAction.ActionTypes.ADD_BOOK_IN_CART:
-            state.bookInCart.unshift(action.payload);
+            if (state.bookInCart.find((x) => x.bookId === action.payload.bookId)) {
+                return state;
+            }
+            return Object.assign({}, state, {
+                bookInCart: state.bookInCart.concat(action.payload)
+            });
         case bookAction.ActionTypes.UPDATE_STATUS_BOOK_IN_CART:
             return Object.assign({}, state, {
                 bookInCart: state.bookInCart.map((x) => {

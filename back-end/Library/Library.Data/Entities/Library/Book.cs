@@ -10,6 +10,7 @@ namespace Library.Data.Entities.Library
         {
             BookCart = new HashSet<BookCart>();
             BookFavorite = new HashSet<BookFavorite>();
+            UserBook = new HashSet<UserBook>();
         }
 
         public int Id { get; set; }
@@ -37,5 +38,6 @@ namespace Library.Data.Entities.Library
         public Supplier Supplier { get; set; }
         public ICollection<BookCart> BookCart { get; set; }
         public ICollection<BookFavorite> BookFavorite { get; set; }
+        public ICollection<UserBook> UserBook { get; set; }
     }
 }

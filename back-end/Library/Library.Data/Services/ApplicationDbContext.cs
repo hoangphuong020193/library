@@ -23,6 +23,8 @@ namespace Library.Data.Services
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Title> Title { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserBook> UserBook { get; set; }
+        public virtual DbSet<UserBookRequest> UserBookRequest { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -217,6 +219,50 @@ namespace Library.Data.Services
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.TitleId)
                     .HasConstraintName("FK__User__TitleId__276EDEB3");
+            });
+
+            modelBuilder.Entity<UserBook>(entity =>
+            {
+                entity.Property(e => e.ReceiveDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.UserBook)
+                    .HasForeignKey(d => d.BookId)
+                    .HasConstraintName("FK__UserBook__BookId__2180FB33");
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.UserBook)
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK__UserBook__Reques__208CD6FA");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserBook)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__UserBook__UserId__1F98B2C1");
+            });
+
+            modelBuilder.Entity<UserBookRequest>(entity =>
+            {
+                entity.HasIndex(e => e.RequestCode)
+                    .HasName("UQ__UserBook__CBAB82F6E235EAE4")
+                    .IsUnique();
+
+                entity.Property(e => e.RequestCode)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.RequestDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserBookRequest)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__UserBookR__UserI__1BC821DD");
             });
         }
 

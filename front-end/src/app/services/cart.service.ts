@@ -21,47 +21,16 @@ export class CartService {
 
     public getBookInCart(): Observable<BookInCart[]> {
         return this.store.select(fromRoot.getCurrentUser).first().mergeMap((user) => {
-            let books: BookInCart[]
-                = LsHelper.getItem(LsHelper.CartStorage) as BookInCart[];
-            if (!user || user.isLoggedOut) {
-                this.store.dispatch(new bookAction.FetchBookInCart(books));
-                return Observable.of(books);
-            } else {
-                return this.http.get(this.apiURL + '/ReturnBookInCart').pipe(
-                    tap(
-                        (res: BookInCart[]) => {
-                            const listBook: BookInCart[] = [];
-                            books = books ? books : [];
-                            res.forEach((item) => {
-                                const book: BookInCart
-                                    = books.find((x) => x.bookId === item.bookId);
-                                if (book) {
-                                    if (moment(book.modifiedDate)
-                                        .isAfter(moment(item.modifiedDate))) {
-                                        listBook.push(book);
-                                    } else {
-                                        listBook.push(item);
-                                    }
-                                    books = books.filter((x) => x.bookId !== book.bookId);
-                                } else {
-                                    listBook.push(item);
-                                }
-                            });
-
-                            listBook.push(...books);
-                            listBook.sort((a, b) => {
-                                return moment(b.modifiedDate).diff(moment(a.modifiedDate));
-                            });
-
-                            this.store.dispatch(new bookAction.FetchBookInCart(listBook));
-                            LsHelper.removeKey(LsHelper.CartStorage);
-                            return res as BookInCart[];
-                        }
-                    ),
-                    catchError((err) => {
-                        return Observable.of(null);
-                    }));
-            }
+            return this.http.get(this.apiURL + '/ReturnBookInCart').pipe(
+                tap(
+                    (res: BookInCart[]) => {
+                        this.store.dispatch(new bookAction.FetchBookInCart(res));
+                        return res as BookInCart[];
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
         });
     }
 
@@ -71,7 +40,7 @@ export class CartService {
         return this.http.post(this.apiURL + '/AddBookInCart', bookId, { headers }).pipe(
             tap(
                 (res: any) => {
-                    this.store.dispatch(new bookAction.AddBookInCart(res));
+                    this.store.dispatch(new bookAction.AddBookInCart(res.data));
                     return res;
                 }
             ),

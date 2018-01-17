@@ -30,4 +30,8 @@ export class RouterService {
     public checkOutCart(): void {
         this.router.navigate(['/checkout/cart']);
     }
+
+    public checkOutBook(): void {
+        this.router.navigate(['/checkout/checkout']);
+    }
 }

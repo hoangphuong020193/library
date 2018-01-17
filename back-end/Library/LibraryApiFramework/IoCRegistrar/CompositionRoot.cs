@@ -9,6 +9,7 @@ using Library.Library.Cart.Commands.AddBookToCart;
 using Library.Library.Cart.Commands.DeleteToCart;
 using Library.Library.Cart.Commands.UpdateStatusBookInCart;
 using Library.Library.Categories.Queries.GetCategory;
+using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
@@ -46,7 +47,10 @@ namespace Library.ApiFramework.IoCRegistrar
             // Cart
             registrator.Register<IAddBookToCartCommand, AddBookToCartCommand>(Reuse.InWebRequest);
             registrator.Register<IDeleteToCartCommand, DeleteToCartCommand>(Reuse.InWebRequest);
-           registrator.Register<IUpdateStatusBookInCartCommand, UpdateStatusBookInCartCommand>(Reuse.InWebRequest);
+            registrator.Register<IUpdateStatusBookInCartCommand, UpdateStatusBookInCartCommand>(Reuse.InWebRequest);
+
+            // Favorite
+            registrator.Register<IUpdateBookFavoriteCommand, UpdateBookFavoriteCommand>(Reuse.InWebRequest);
         }
     }
 }

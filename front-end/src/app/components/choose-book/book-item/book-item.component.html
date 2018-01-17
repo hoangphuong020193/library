@@ -1,5 +1,5 @@
 <div class="book-item">
-  <favorite-star [favorited]="book.favorited"></favorite-star>
+  <favorite-star [favorited]="book.favorite" (callback)="favoriteBook()"></favorite-star>
   <div class="image cursor-pointer" (click)="navigateToBookDetail()">
     <div>
       <img class="img-fluid" src="{{bookImgURL}}" alt="">
