@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
     this.user = null;
     event.stopPropagation();
     this.toggleMenuLogin = false;
+    location.reload();
   }
 
   private viewMenuNotify(): void {
@@ -80,13 +81,29 @@ export class HomeComponent implements OnInit {
 
   private viewBookInCart(): void {
     if (!this.user) {
-      this.dialogService.addDialog(LoginPopupComponent, {}).subscribe((res) => {
+      this.dialogService.addDialog(LoginPopupComponent, {
+        reloadPage: false
+      }).subscribe((res) => {
         if (res) {
           this.routerService.checkOutCart();
         }
       });
     } else {
       this.routerService.checkOutCart();
+    }
+  }
+
+  private viewMyBook(): void {
+    if (!this.user) {
+      this.dialogService.addDialog(LoginPopupComponent, {
+        reloadPage: false
+      }).subscribe((res) => {
+        if (res) {
+          this.routerService.myBook();
+        }
+      });
+    } else {
+      this.routerService.myBook();
     }
   }
 }

@@ -9,6 +9,7 @@ import * as fromRoot from '../../store/reducers';
 import * as userAction from '../../store/actions/user.action';
 import { KeyCode } from '../../shareds/enums/keycode.enum';
 import { window } from 'rxjs/operator/window';
+import { CartService } from '../../services/cart.service';
 
 @Component({
     selector: 'login',
@@ -24,6 +25,7 @@ export class LoginPopupComponent extends DialogComponent<any, boolean> implement
 
     constructor(
         private loginService: LoginService,
+        private cartService: CartService,
         private routerService: RouterService,
         public dialogService: DialogService,
         private store: Store<fromRoot.State>
@@ -63,6 +65,7 @@ export class LoginPopupComponent extends DialogComponent<any, boolean> implement
                 if (this.reloadPage) {
                     location.reload();
                 }
+                this.cartService.getBookInCart().subscribe();
                 this.close();
             } else {
                 this.errorMessage = 'Sai tên đăng nhập hoặc mật khẩu';

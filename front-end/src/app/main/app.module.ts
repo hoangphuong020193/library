@@ -36,6 +36,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LsHelper } from '../shareds/helpers/ls.helper';
 import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 const APP_PROVIDERS: any[] = [
   ...APP_RESOLVER_PROVIDERS,
@@ -82,13 +83,16 @@ const APP_COMPONENTS: any[] = [
     QuillModule,
     ToastModule.forRoot(),
     NgxCarouselModule,
+    NgxQRCodeModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     environment.ENV_PROVIDERS,
     APP_PROVIDERS
   ],
   entryComponents: [
-    components.LoginPopupComponent
+    components.LoginPopupComponent,
+    components.PopupConfirmComponent,
+    components.PopupCheckOutSuccessComponent,
   ]
 })
 

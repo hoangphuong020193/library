@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using HRM.CrossCutting.Command;
+using Library.Common;
+using Library.Common.Enum;
+using Library.Data.Entities.Library;
+using Library.Data.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+
+namespace Library.Library.Cart.Commands.BorrowBook
+{
+    public class BorrowBookCommand : IBorrowBookCommand
+    {
+        private readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<UserBook> _userBookRepository;
+        private readonly IRepository<Book> _bookRepository;
+        private readonly IRepository<UserBookRequest> _bookRequestRepository;
+        private readonly HttpContext _httpContext;
+
+        private static Random random = new Random();
+
+        public BorrowBookCommand(
+            IRepository<BookCart> bookCartRepository,
+            IRepository<UserBook> userBookRepository,
+            IRepository<Book> bookRepository,
+            IRepository<UserBookRequest> bookRequestRepository,
+            IHttpContextAccessor httpContextAccessor)
+        {
+            _bookCartRepository = bookCartRepository;
+            _userBookRepository = userBookRepository;
+            _bookRepository = bookRepository;
+            _bookRequestRepository = bookRequestRepository;
+            _httpContext = httpContextAccessor.HttpContext;
+        }
+
+        public async Task<CommandResult> ExecuteAsync()
+        {
+            var userId = int.Parse(_httpContext?.User?.UserId());
+
+            var slotAvaiable = 10 - (await _userBookRepository.TableNoTracking
+                .Where(x => x.UserId == userId && (x.Status == (int)BookStatus.Borrowing || x.Status == (int)BookStatus.Pending))
+                .CountAsync());
+
+            if (slotAvaiable <= 0)
+            {
+                return CommandResult.Failed(new CommandResultError()
+                {
+                    Code = (int)HttpStatusCode.LengthRequired,
+                    Description = "Out of slot"
+                });
+            }
+
+            var bookCart = _bookCartRepository.TableNoTracking.Where(x => x.UserId == userId && x.Status == (int)BookStatus.InOrder);
+
+            var listBookBorrow = await (from cart in bookCart
+                                        join book in _bookRepository.TableNoTracking on cart.BookId equals book.Id
+                                        select book).ToListAsync();
+
+            if (listBookBorrow.Count() > slotAvaiable || listBookBorrow.Any(x => x.AmountAvailable == 0))
+            {
+                return CommandResult.Failed(new CommandResultError()
+                {
+                    Code = (int)HttpStatusCode.LengthRequired,
+                    Description = "Out of slot"
+                });
+            }
+
+            var listEnity = listBookBorrow.Select(x => new UserBook
+            {
+                UserId = userId,
+                BookId = x.Id,
+                Status = (int)BookStatus.Pending
+            }).ToList();
+
+            UserBookRequest request = new UserBookRequest();
+            request.UserId = userId;
+            request.RequestDate = DateTime.Now;
+            request.RequestCode = GenerationCode();
+            request.UserBook = listEnity;
+
+            if (await _bookRequestRepository.InsertAsync(request))
+            {
+                listBookBorrow.ForEach(book =>
+                {
+                    book.AmountAvailable = book.AmountAvailable - 1;
+                });
+
+                await bookCart.ForEachAsync(item =>
+                {
+                    item.Status = (int)BookStatus.Borrowing;
+                });
+
+                await _bookRepository.UpdateAsync(listBookBorrow);
+                await _bookCartRepository.UpdateAsync(bookCart);
+
+                return CommandResult.SuccessWithData(request.RequestCode);
+            }
+
+            return CommandResult.Failed();
+        }
+
+
+        public string GenerationCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 6)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+    }
+}

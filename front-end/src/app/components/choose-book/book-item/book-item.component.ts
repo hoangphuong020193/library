@@ -36,22 +36,6 @@ export class BookItemComponent implements OnInit {
         this.store.dispatch(new bookAction.SelectedBook(this.book.bookCode));
     }
 
-    private addBookToCart(): void {
-        this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
-            if (user && !user.isLoggedOut) {
-                this.cartService.addBookToCart(this.book.bookId).subscribe();
-            } else {
-                this.dialogService.addDialog(LoginPopupComponent, {
-                    reloadPage: false
-                }).subscribe((res) => {
-                    if (res) {
-                        this.cartService.addBookToCart(this.book.bookId).subscribe();
-                    }
-                });
-            }
-        });
-    }
-
     private favoriteBook(): void {
         this.bookService.userFavoriteBook(this.book.bookId).subscribe();
     }

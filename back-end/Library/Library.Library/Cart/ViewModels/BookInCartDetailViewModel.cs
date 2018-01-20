@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Library.Library.Books.ViewModels
+namespace Library.Library.Cart.ViewModels
 {
-    public class BookInCartViewModel
+    public class BookInCartDetailViewModel
     {
         public int BookId { get; set; }
         public string BookCode { get; set; }
@@ -13,5 +13,6 @@ namespace Library.Library.Books.ViewModels
         public int Status { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int MaximumDateBorrow { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }

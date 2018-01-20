@@ -2,12 +2,16 @@
 using DryIoc;
 using Library.Data.Services;
 using Library.Library.Books.Queries.GetBookDetail;
-using Library.Library.Books.Queries.GetBookInCart;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Cart.Commands.AddBookToCart;
+using Library.Library.Cart.Commands.BorrowBook;
 using Library.Library.Cart.Commands.DeleteToCart;
 using Library.Library.Cart.Commands.UpdateStatusBookInCart;
+using Library.Library.Cart.Queries.GetBookInCartDetail;
+using Library.Library.Cart.Queries.GetBookInCartForBorrow;
+using Library.Library.Cart.Queries.GetListBookInCart;
+using Library.Library.Cart.Queries.GetSlotAvailable;
 using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
@@ -42,12 +46,16 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IGetBookPhotoQuery, GetBookPhotoQuery>(Reuse.InWebRequest);
             registrator.Register<IGetListBookNewQuery, GetListBookNewQuery>(Reuse.InWebRequest);
             registrator.Register<IGetBookDetailQuery, GetBookDetailQuery>(Reuse.InWebRequest);
-            registrator.Register<IGetBookInCartQuery, GetBookInCartQuery>(Reuse.InWebRequest);
 
             // Cart
+            registrator.Register<IGetBookInCartForBorrowQuery, GetBookInCartForBorrowQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetListBookInCartQuery, GetListBookInCartQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetBookInCartDetailQuery, GetBookInCartDetailQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetSlotAvailableQuery, GetSlotAvailableQuery>(Reuse.InWebRequest);
             registrator.Register<IAddBookToCartCommand, AddBookToCartCommand>(Reuse.InWebRequest);
             registrator.Register<IDeleteToCartCommand, DeleteToCartCommand>(Reuse.InWebRequest);
             registrator.Register<IUpdateStatusBookInCartCommand, UpdateStatusBookInCartCommand>(Reuse.InWebRequest);
+            registrator.Register<IBorrowBookCommand, BorrowBookCommand>(Reuse.InWebRequest);
 
             // Favorite
             registrator.Register<IUpdateBookFavoriteCommand, UpdateBookFavoriteCommand>(Reuse.InWebRequest);

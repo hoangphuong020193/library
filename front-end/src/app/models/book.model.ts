@@ -21,6 +21,14 @@ export class Book {
 
 // tslint:disable-next-line:max-classes-per-file
 export class BookInCart {
+    public id: number;
+    public bookId: number;
+    public status: number;
+    public modifiedDate: string;
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class BookInCartDetail {
     public bookId: number;
     public bookCode: string;
     public bookName: string;
@@ -28,6 +36,7 @@ export class BookInCart {
     public amountAvailable: number;
     public author: string;
     public status: number;
-    public modifiedDate: Date;
+    public modifiedDate: string;
     public maximumDateBorrow: number;
+    public returnDate: string;
 }

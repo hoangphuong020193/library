@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HRM.CrossCutting.Command;
 using Library.Common;
+using Library.Common.Enum;
 using Library.Data.Entities.Library;
 using Library.Data.Services;
-using Library.Library.Books.ViewModels;
+using Library.Library.Cart.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,55 +25,34 @@ namespace Library.Library.Cart.Commands.AddBookToCart
             _httpContext = httpContextAccessor.HttpContext;
         }
 
-        public async Task<CommandResult> ExecuteAsync(int bookId)
+        public async Task<CommandResult> ExecuteAsync(List<int> bookIds)
         {
             var userId = int.Parse(_httpContext?.User?.UserId());
 
-            BookInCartViewModel book = await _bookCartRepository.TableNoTracking
-                .Include(x => x.Book)
-                .Where(x => x.UserId == userId && x.BookId == bookId)
-                .Select(x => new BookInCartViewModel
-                {
-                    BookId = x.BookId.Value,
-                    BookCode = x.Book.BookCode,
-                    BookName = x.Book.BookName,
-                    Author = x.Book.Author,
-                    Amoun = x.Book.Amount.Value,
-                    AmountAvailable = x.Book.AmountAvailable.Value,
-                    Status = x.Status,
-                    ModifiedDate = x.ModifiedDate.Value
+            List<int> listBooKInCartExisted = await _bookCartRepository.TableNoTracking
+                .Where(x => x.UserId == userId && bookIds.Contains(x.BookId.Value))
+                .Select(x => x.BookId.Value)
+                .ToListAsync();
 
-                }).FirstOrDefaultAsync();
+            List<int> listBooKInCartNew = bookIds.Where(x => !listBooKInCartExisted.Contains(x)).ToList();
 
-            if (book != null)
+            if (!listBooKInCartNew.Any())
             {
-                return CommandResult.SuccessWithData(book);
+                return CommandResult.Success;
             }
-            else
+
+            List<BookCart> entities = new List<BookCart>();
+            listBooKInCartNew.ForEach(x =>
             {
                 BookCart entity = new BookCart();
-                entity.BookId = bookId;
+                entity.BookId = x;
                 entity.UserId = userId;
-                await _bookCartRepository.InsertAsync(entity);
+                entity.Status = (int)BookStatus.InOrder;
+                entities.Add(entity);
+            });
+            await _bookCartRepository.InsertAsync(entities);
 
-                book = await _bookCartRepository.TableNoTracking
-                .Include(x => x.Book)
-                .Where(x => x.UserId == userId && x.BookId == bookId)
-                .Select(x => new BookInCartViewModel
-                {
-                    BookId = x.BookId.Value,
-                    BookCode = x.Book.BookCode,
-                    BookName = x.Book.BookName,
-                    Author = x.Book.Author,
-                    Amoun = x.Book.Amount.Value,
-                    AmountAvailable = x.Book.AmountAvailable.Value,
-                    Status = x.Status,
-                    ModifiedDate = x.ModifiedDate.Value
-
-                }).FirstOrDefaultAsync();
-
-                return CommandResult.SuccessWithData(book);
-            }
+            return CommandResult.SuccessWithData(entities);
         }
     }
 }

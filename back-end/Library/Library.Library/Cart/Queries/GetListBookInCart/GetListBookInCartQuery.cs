@@ -2,20 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Library.Common;
+using Library.Common.Enum;
 using Library.Data.Entities.Library;
 using Library.Data.Services;
-using Library.Library.Books.ViewModels;
+using Library.Library.Cart.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Library.Books.Queries.GetBookInCart
+namespace Library.Library.Cart.Queries.GetListBookInCart
 {
-    public class GetBookInCartQuery : IGetBookInCartQuery
+    public class GetListBookInCartQuery : IGetListBookInCartQuery
     {
-        public readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<BookCart> _bookCartRepository;
         private readonly HttpContext _httpContext;
 
-        public GetBookInCartQuery(
+        public GetListBookInCartQuery(
             IRepository<BookCart> bookCartRepository,
             IHttpContextAccessor httpContextAccessor)
         {
@@ -28,19 +29,12 @@ namespace Library.Library.Books.Queries.GetBookInCart
             var userId = int.Parse(_httpContext?.User?.UserId());
 
             var result = await _bookCartRepository.TableNoTracking
-                .Include(x => x.Book)
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && (x.Status == (int)BookStatus.InOrder || x.Status == (int)BookStatus.Waiting))
                 .Select(x => new BookInCartViewModel
                 {
+                    Id = x.Id,
                     BookId = x.BookId.Value,
-                    BookCode = x.Book.BookCode,
-                    BookName = x.Book.BookName,
-                    Author = x.Book.Author,
-                    Amoun = x.Book.Amount.Value,
-                    AmountAvailable = x.Book.AmountAvailable.Value,
                     Status = x.Status,
-                    ModifiedDate = x.ModifiedDate.Value,
-                    MaximumDateBorrow = x.Book.MaximumDateBorrow
 
                 }).ToListAsync();
 

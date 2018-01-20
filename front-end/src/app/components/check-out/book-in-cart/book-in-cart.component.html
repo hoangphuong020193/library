@@ -24,8 +24,18 @@
         </div>
       </div>
     </div>
-    <div class="flex-middle-end padding-15 margin-top-20">
+    <div class="flex-middle-end padding-15 margin-top-20" *ngIf="bookAvailable.length > 0">
       <button class="btn btn-blue" (click)="this.router.checkOutBook()">Tiến hành mượn sách</button>
+    </div>
+    <div *ngIf="bookAvailable.length == 0" class="empty-cart">
+      <div class="padding-15 position-relative">
+        <i class="icon icon-shopping-basket"></i>
+        <i class="icon icon-remove-circle"></i>
+      </div>
+      <div class="padding-bottom-15">Không có sách nào trong giỏ sách của bạn.</div>
+      <div>
+        <button class="btn btn-yellow" (click)="navigateToHome()">Tiếp tục chọn sách</button>
+      </div>
     </div>
   </div>
 </div>

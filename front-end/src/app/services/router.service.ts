@@ -34,4 +34,8 @@ export class RouterService {
     public checkOutBook(): void {
         this.router.navigate(['/checkout/checkout']);
     }
+
+    public myBook(): void {
+        this.router.navigate(['/my-book']);
+    }
 }

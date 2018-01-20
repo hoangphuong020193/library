@@ -18,6 +18,8 @@ import { CartService } from '../services/cart.service';
 /* Handlers */
 import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
 import { LsHelper } from '../shareds/helpers';
+import { CheckOutGuard } from '../guards/check-out.guard';
+import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
 
 export const services: any = [
     RouterService,
@@ -34,5 +36,7 @@ export const services: any = [
 
 export const guards: any = [
     HomeGuard,
-    BookDetailGuard
+    BookDetailGuard,
+    CheckOutGuard,
+    BookInCartCheckGuard,
 ];

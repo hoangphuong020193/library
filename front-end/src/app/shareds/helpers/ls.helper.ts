@@ -3,6 +3,7 @@ import * as CryptoJs from 'crypto-js';
 export class LsHelper {
     public static readonly StoragePassport: string = 'StoragePassport';
     public static readonly UserStorage: string = 'user';
+    public static readonly BookInCartStorage: string = 'bookInCart';
 
     public static save(key: string, data: any): boolean {
         try {

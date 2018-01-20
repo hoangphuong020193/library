@@ -20,5 +20,37 @@ check-out {
         }
       }
     }
+    .empty-cart {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+      padding: 15px;
+      text-align: center;
+      .icon-shopping-basket {
+        font-size: 100px;
+      }
+      .icon-remove-circle {
+        position: absolute;
+        font-size: 50px;
+        color: $red;
+        top: 40px;
+        left: 623px;
+      }
+      .btn {
+        width: fit-content;
+      }
+    }
+  }
+}
+
+book-in-cart-check {
+  .error-pannel {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid $red;
+    background: rgba($red, 0.15);
+    color: $red;
   }
 }

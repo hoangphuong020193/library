@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/reducers';
 import { BookService } from '../../../services/book.service';
-import { Book } from '../../../models/index';
+import { Book, User } from '../../../models/index';
 import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 import { RouterService } from '../../../services/router.service';
 import { Config } from '../../../config';
 import { CartService } from '../../../services/cart.service';
+import { DialogService } from 'angularx-bootstrap-modal';
+import { LoginPopupComponent } from '../../login/login.component';
+import * as moment from 'moment';
+import { Format } from '../../../shareds/constant/format.constant';
 
 @Component({
     selector: 'book-detail',
@@ -21,6 +25,7 @@ export class BookDetailComponent implements OnInit {
         private store: Store<fromRoot.State>,
         private bookService: BookService,
         private cartService: CartService,
+        private dialogService: DialogService,
         private routerService: RouterService) { }
 
     public ngOnInit() {
@@ -41,10 +46,42 @@ export class BookDetailComponent implements OnInit {
     }
 
     private addBookToCart(): void {
-        this.cartService.addBookToCart(this.book.bookId).subscribe();
+        this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
+            if (!user) {
+                this.dialogService.addDialog(LoginPopupComponent, {
+                    reloadPage: false
+                }).subscribe((res) => {
+                    if (res) {
+                        this.cartService.addBookToCart([this.book.bookId]).subscribe();
+                        this.bookService.getBookDetailByCode(this.book.bookCode)
+                            .subscribe((book) => {
+                                this.book = book;
+                            });
+                    }
+                });
+            } else {
+                this.cartService.addBookToCart([this.book.bookId]).subscribe();
+            }
+        });
     }
 
     private favoriteBook(): void {
-        this.bookService.userFavoriteBook(this.book.bookId).subscribe();
+        this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
+            if (!user) {
+                this.dialogService.addDialog(LoginPopupComponent, {
+                    reloadPage: false
+                }).subscribe((res) => {
+                    if (res) {
+                        this.bookService.userFavoriteBook(this.book.bookId).subscribe();
+                    }
+                });
+            } else {
+                this.bookService.userFavoriteBook(this.book.bookId).subscribe();
+            }
+        });
+    }
+
+    private parseDateToString(date: Date): string {
+        return moment(date).format(Format.DateFormat);
     }
 }
