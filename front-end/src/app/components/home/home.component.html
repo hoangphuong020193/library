@@ -11,8 +11,8 @@
         <span class="letter" data-letter="N">N</span>
       </div>
       <div class="search-form">
-        <input class="form-control" type="text" name="" id="">
-        <div class="search-label">
+        <input class="form-control" type="text" name="search-box" id="search-box" (keypress)="onKeyPress($event)">
+        <div class="search-label" (click)="searchBook()">
           <i class="icon icon-search"></i>
           <span>Tìm kiếm</span>
         </div>

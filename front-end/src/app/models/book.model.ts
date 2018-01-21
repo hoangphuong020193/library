@@ -40,3 +40,13 @@ export class BookInCartDetail {
     public maximumDateBorrow: number;
     public returnDate: string;
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class SearchBookResult {
+    public total: number;
+    public listBooks: Book[];
+
+    constructor(listBooks: Book[]) {
+        this.listBooks = listBooks;
+    }
+}

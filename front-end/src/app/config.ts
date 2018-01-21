@@ -89,5 +89,6 @@ export const PathController = {
     Category: 'category',
     Book: 'book',
     Cart: 'cart',
-    MyBook: 'mybook'
+    MyBook: 'mybook',
+    SearchBook: 'search'
 };

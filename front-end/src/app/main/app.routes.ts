@@ -8,6 +8,7 @@ import {
   BookInCartCheckComponent
 } from '../components/check-out/book-in-cart-check/book-in-cart-check.component';
 import { MyBookComponent } from '../components/my-book/my-book.component';
+import { SearchResultComponent } from '../components/search-result/search-result.component';
 
 // GUARD
 import { HomeGuard } from '../guards/home.guard';
@@ -50,6 +51,10 @@ export const ROUTES: Routes = [
       {
         path: 'my-book',
         component: MyBookComponent
+      },
+      {
+        path: 'search',
+        component: SearchResultComponent
       },
     ]
   },

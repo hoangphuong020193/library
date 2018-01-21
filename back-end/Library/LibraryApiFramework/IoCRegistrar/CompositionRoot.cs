@@ -5,6 +5,7 @@ using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
+using Library.Library.Books.Queries.SearchBook;
 using Library.Library.Cart.Commands.AddBookToCart;
 using Library.Library.Cart.Commands.BorrowBook;
 using Library.Library.Cart.Commands.DeleteToCart;
@@ -63,6 +64,9 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // User book
             registrator.Register<IGetBookBorrowQuery, GetBookBorrowQuery>(Reuse.InWebRequest);
+
+            // Search
+            registrator.Register<ISearchBookQuery, SearchBookQuery>(Reuse.InWebRequest);
         }
     }
 }

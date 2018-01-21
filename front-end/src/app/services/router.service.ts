@@ -38,4 +38,8 @@ export class RouterService {
     public myBook(): void {
         this.router.navigate(['/my-book']);
     }
+
+    public search(searchString: string): void {
+        this.router.navigate(['/search'], { queryParams: { search: searchString } });
+    }
 }

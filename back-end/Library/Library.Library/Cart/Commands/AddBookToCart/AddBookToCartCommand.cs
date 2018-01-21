@@ -30,7 +30,7 @@ namespace Library.Library.Cart.Commands.AddBookToCart
             var userId = int.Parse(_httpContext?.User?.UserId());
 
             List<int> listBooKInCartExisted = await _bookCartRepository.TableNoTracking
-                .Where(x => x.UserId == userId && bookIds.Contains(x.BookId.Value))
+                .Where(x => x.UserId == userId && bookIds.Contains(x.BookId.Value) && (x.Status == (int)BookStatus.InOrder || x.Status == (int)BookStatus.Waiting))
                 .Select(x => x.BookId.Value)
                 .ToListAsync();
 

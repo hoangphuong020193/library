@@ -13,6 +13,7 @@ import { CartService } from '../../services/cart.service';
 import { BookInCart } from '../../models/index';
 import { Observable } from 'rxjs';
 import { BookStatus } from '../../shareds/enums/book-status.enum';
+import { KeyCode } from '../../shareds/enums/keycode.enum';
 
 @Component({
   selector: 'home',
@@ -105,5 +106,16 @@ export class HomeComponent implements OnInit {
     } else {
       this.routerService.myBook();
     }
+  }
+
+  private onKeyPress(event: any): void {
+    if (event.keyCode === KeyCode.Enter || event.keyChar === KeyCode.Enter) {
+      this.searchBook();
+    }
+  }
+
+  private searchBook(): void {
+    const searchString: string = $('#search-box').val().toString();
+    this.routerService.search(searchString);
   }
 }
