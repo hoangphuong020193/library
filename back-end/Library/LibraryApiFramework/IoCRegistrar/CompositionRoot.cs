@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DryIoc;
 using Library.Data.Services;
+using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetListNewBook;
@@ -59,6 +60,9 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Favorite
             registrator.Register<IUpdateBookFavoriteCommand, UpdateBookFavoriteCommand>(Reuse.InWebRequest);
+
+            // User book
+            registrator.Register<IGetBookBorrowQuery, GetBookBorrowQuery>(Reuse.InWebRequest);
         }
     }
 }

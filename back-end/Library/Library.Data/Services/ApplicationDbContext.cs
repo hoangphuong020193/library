@@ -223,6 +223,8 @@ namespace Library.Data.Services
 
             modelBuilder.Entity<UserBook>(entity =>
             {
+                entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
+
                 entity.Property(e => e.ReceiveDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ReturnDate).HasColumnType("datetime");

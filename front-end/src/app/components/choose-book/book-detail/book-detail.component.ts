@@ -84,4 +84,10 @@ export class BookDetailComponent implements OnInit {
     private parseDateToString(date: Date): string {
         return moment(date).format(Format.DateFormat);
     }
+
+    private generateQR(): string {
+        return 'Book Code: ' + this.book.bookCode
+            + '::Book Name: ' + this.book.bookName
+            + '::Author:' + this.book.author;
+    }
 }

@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="flex-middle-end padding-15 margin-top-20" *ngIf="bookAvailable.length > 0">
-      <button class="btn btn-blue" (click)="this.router.checkOutBook()">Tiến hành mượn sách</button>
+      <button class="btn btn-blue" (click)="this.route.checkOutBook()">Tiến hành mượn sách</button>
     </div>
     <div *ngIf="bookAvailable.length == 0" class="empty-cart">
       <div class="padding-15 position-relative">

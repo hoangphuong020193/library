@@ -10,6 +10,8 @@ export const CommonComponents: any = [
     fromCommon.FavoriteStarComponent,
     fromCommon.ToastComponent,
     fromCommon.PopupConfirmComponent,
+    fromCommon.CheckboxComponent,
+    fromCommon.PaginationComponent,
 ];
 
 export const Components: any = [
@@ -23,7 +25,7 @@ export const Components: any = [
     fromCheckOut.BookInCartComponent,
     fromCheckOut.BookInCartCheckComponent,
     fromCheckOut.PopupCheckOutSuccessComponent,
-    //fromMyBook.MyBookComponent,
+    fromMyBook.MyBookComponent,
 ];
 
 // Modal

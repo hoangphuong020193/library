@@ -3,6 +3,14 @@ book-detail {
     display: flex;
     align-content: center;
   }
+  ngx-qrcode {
+    .qrcode {
+      img {
+        height: 85px;
+        width: 85px;
+      }
+    }
+  }
   #section-detail {
     border-top: 1px solid $border-color;
     padding-top: 15px;

@@ -62,7 +62,7 @@ export class BookInCartCheckComponent implements OnInit {
                             this.dialogService.addDialog(PopupCheckOutSuccessComponent, {
                                 requestCode: res.data
                             }).subscribe((x) => {
-                                this.routeService.home();
+                                this.routeService.myBook();
                             });
                         } else {
                             location.reload();

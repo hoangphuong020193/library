@@ -10,6 +10,7 @@ namespace Library.Data.Entities.Library
         public int? UserId { get; set; }
         public int? RequestId { get; set; }
         public int? BookId { get; set; }
+        public DateTime DeadlineDate { get; set; }
         public DateTime? ReceiveDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public int Status { get; set; }

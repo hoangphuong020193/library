@@ -159,5 +159,6 @@ CREATE TABLE UserBook(
 	BookId INT FOREIGN KEY REFERENCES Book(Id),
 	ReceiveDate DateTime null,
 	ReturnDate DateTime null,
+	DeadlineDate DateTime not null,
 	Status INT NOT NULL DEFAULT 0,
 )

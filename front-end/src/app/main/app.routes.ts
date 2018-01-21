@@ -7,7 +7,7 @@ import { CheckOutComponent } from '../components/check-out/check-out.component';
 import {
   BookInCartCheckComponent
 } from '../components/check-out/book-in-cart-check/book-in-cart-check.component';
-//import { MyBookComponent } from '../components/my-book/my-book.component';
+import { MyBookComponent } from '../components/my-book/my-book.component';
 
 // GUARD
 import { HomeGuard } from '../guards/home.guard';
@@ -47,10 +47,10 @@ export const ROUTES: Routes = [
         component: BookInCartCheckComponent,
         canActivate: [BookInCartCheckGuard]
       },
-      // {
-      //   path: 'my-book',
-      //   component: MyBookComponent
-      // },
+      {
+        path: 'my-book',
+        component: MyBookComponent
+      },
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

@@ -55,11 +55,9 @@ namespace Library.Library.Cart.Commands.BorrowBook
                 });
             }
 
-            var bookCart = _bookCartRepository.TableNoTracking.Where(x => x.UserId == userId && x.Status == (int)BookStatus.InOrder);
+            var bookCart = await _bookCartRepository.TableNoTracking.Where(x => x.UserId == userId && x.Status == (int)BookStatus.InOrder).ToListAsync();
 
-            var listBookBorrow = await (from cart in bookCart
-                                        join book in _bookRepository.TableNoTracking on cart.BookId equals book.Id
-                                        select book).ToListAsync();
+            var listBookBorrow = await _bookRepository.TableNoTracking.Where(x => bookCart.Select(y => y.BookId).Contains(x.Id)).ToListAsync();
 
             if (listBookBorrow.Count() > slotAvaiable || listBookBorrow.Any(x => x.AmountAvailable == 0))
             {
@@ -74,7 +72,8 @@ namespace Library.Library.Cart.Commands.BorrowBook
             {
                 UserId = userId,
                 BookId = x.Id,
-                Status = (int)BookStatus.Pending
+                Status = (int)BookStatus.Pending,
+                DeadlineDate = DateTime.Now.Date.AddDays(x.MaximumDateBorrow)
             }).ToList();
 
             UserBookRequest request = new UserBookRequest();
@@ -90,7 +89,7 @@ namespace Library.Library.Cart.Commands.BorrowBook
                     book.AmountAvailable = book.AmountAvailable - 1;
                 });
 
-                await bookCart.ForEachAsync(item =>
+                bookCart.ForEach(item =>
                 {
                     item.Status = (int)BookStatus.Borrowing;
                 });

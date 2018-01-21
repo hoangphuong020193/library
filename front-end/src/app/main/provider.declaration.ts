@@ -14,6 +14,7 @@ import { LoginService } from '../services/login.service';
 import { CategoryService } from '../services/category.service';
 import { BookService } from '../services/book.service';
 import { CartService } from '../services/cart.service';
+import { MyBookService } from '../services/my-book.service';
 
 /* Handlers */
 import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
@@ -27,6 +28,7 @@ export const services: any = [
     CategoryService,
     BookService,
     CartService,
+    MyBookService,
     {
         provide: ErrorHandler,
         useClass: SystemErrorHandler
