@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
 
 @Component({
     selector: 'check-out',
@@ -7,5 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CheckOutComponent implements OnInit {
     constructor() { }
 
-    public ngOnInit(): void { }
+    public ngOnInit(): void {
+        JQueryHelper.showLoading();
+    }
 }

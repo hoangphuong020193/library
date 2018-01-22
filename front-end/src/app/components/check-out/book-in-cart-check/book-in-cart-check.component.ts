@@ -7,9 +7,11 @@ import { DialogService } from 'angularx-bootstrap-modal';
 import { PopupConfirmComponent, TypeButton } from '../../common/index';
 import { BookStatus } from '../../../shareds/enums/book-status.enum';
 import { RouterService } from '../../../services/router.service';
+import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 import {
     PopupCheckOutSuccessComponent
 } from '../../check-out/popup-check-out-success/popup-check-out-success.component';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'book-in-cart-check',
@@ -25,13 +27,16 @@ export class BookInCartCheckComponent implements OnInit {
         private dialogService: DialogService) { }
 
     public ngOnInit() {
-        this.cartService.getBookInCartForBorrow().subscribe((res) => {
-            this.books = res;
-        });
+        JQueryHelper.showLoading();
 
-        this.cartService.getSlotAvailable().subscribe((res) => {
-            this.slotAvailable = res;
-        });
+        Observable.zip(
+            this.cartService.getBookInCartForBorrow(),
+            this.cartService.getSlotAvailable(),
+            (books, slotAvailable) => {
+                this.books = books;
+                this.slotAvailable = slotAvailable;
+                JQueryHelper.hideLoading();
+            }).subscribe();
     }
 
     private parseDateToString(date: Date): string {

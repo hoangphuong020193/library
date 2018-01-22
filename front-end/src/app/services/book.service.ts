@@ -50,4 +50,17 @@ export class BookService {
                 return Observable.of(null);
             }));
     }
+
+    public getTopBookInSection(sectionType: string): Observable<Book[]> {
+        return this.http.get(this.apiURL + '/ReturnTopBookInSection/10?sectionType='
+            + sectionType).pipe(
+            tap(
+                (res: any) => {
+                    return res as Book[];
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
 }

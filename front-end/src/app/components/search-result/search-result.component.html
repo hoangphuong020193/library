@@ -18,4 +18,7 @@
   <div class="no-result" *ngIf="totalResult == 0">
     <div>Sách bạn đang tìm không có.</div>
   </div>
+  <div class="flex-middle-center color-blue cursor-pointer margin-top-15" *ngIf="listBook.length < totalResult" (click)="loadMoreBook()">
+    Tải thêm
+  </div>
 </section>

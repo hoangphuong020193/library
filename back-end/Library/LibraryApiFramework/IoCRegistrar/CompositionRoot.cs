@@ -4,6 +4,7 @@ using Library.Data.Services;
 using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
+using Library.Library.Books.Queries.GetBookSection;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Books.Queries.SearchBook;
 using Library.Library.Cart.Commands.AddBookToCart;
@@ -48,6 +49,7 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IGetBookPhotoQuery, GetBookPhotoQuery>(Reuse.InWebRequest);
             registrator.Register<IGetListBookNewQuery, GetListBookNewQuery>(Reuse.InWebRequest);
             registrator.Register<IGetBookDetailQuery, GetBookDetailQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetBookSectionQuery, GetBookSectionQuery>(Reuse.InWebRequest);
 
             // Cart
             registrator.Register<IGetBookInCartForBorrowQuery, GetBookInCartForBorrowQuery>(Reuse.InWebRequest);

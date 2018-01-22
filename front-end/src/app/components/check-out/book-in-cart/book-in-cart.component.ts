@@ -6,6 +6,7 @@ import { BookStatus } from '../../../shareds/enums/book-status.enum';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/reducers';
 import { RouterService } from '../../../services/router.service';
+import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 
 @Component({
     selector: 'book-in-cart',
@@ -27,6 +28,7 @@ export class BookInCartComponent implements OnInit {
             if (res) {
                 this.bookAvailable = res.filter((x) => x.status === BookStatus.InOrder);
                 this.bookWaiting = res.filter((x) => x.status === BookStatus.Waiting);
+                JQueryHelper.hideLoading();
             }
         });
     }

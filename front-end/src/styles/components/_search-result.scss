@@ -10,6 +10,8 @@ search-result {
       padding: 15px;
       border: 1px solid transparent;
       background: $white;
+      width: 100%;
+      max-width: calc(100% / 5);
       &:hover {
         box-shadow: 0 0 20px rgba(0, 0, 0, .1);
       }

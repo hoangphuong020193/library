@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../../models/book.model';
 import { NgxCarousel } from 'ngx-carousel';
 import { BookService } from '../../../services/book.service';
+import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
+import { BookSection } from '../../../shareds/constant/book-section.constant';
 
 @Component({
     selector: 'book-section',
@@ -9,6 +11,8 @@ import { BookService } from '../../../services/book.service';
 })
 
 export class BookSectionComponent implements OnInit {
+    @Input('typeSection') public typeSection: string = '';
+
     public carouselOption: NgxCarousel;
 
     private books: Book[] = [];
@@ -29,8 +33,27 @@ export class BookSectionComponent implements OnInit {
             easing: 'ease'
         };
 
+        switch (this.typeSection) {
+            case BookSection.New:
+                this.getLListNewBook();
+                break;
+            default:
+                this.getTopBookSection();
+                break;
+        }
+    }
+
+    private getLListNewBook(): void {
         this.bookService.getListNewBook().subscribe((res) => {
             this.books = res;
+            JQueryHelper.hideLoading();
+        });
+    }
+
+    private getTopBookSection(): void {
+        this.bookService.getTopBookInSection(this.typeSection).subscribe((res) => {
+            this.books = res;
+            JQueryHelper.hideLoading();
         });
     }
 }

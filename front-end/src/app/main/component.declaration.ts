@@ -13,6 +13,7 @@ export const CommonComponents: any = [
     fromCommon.PopupConfirmComponent,
     fromCommon.CheckboxComponent,
     fromCommon.PaginationComponent,
+    fromCommon.LoadingPageComponent,
 ];
 
 export const Components: any = [

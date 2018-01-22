@@ -11,6 +11,7 @@ import { User } from '../../models/user.model';
 import { DialogService } from 'angularx-bootstrap-modal';
 import { LoginPopupComponent } from '../../components/login/login.component';
 import { CartService } from '../../services/cart.service';
+import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
 
 @Component({
     selector: 'search-result',
@@ -34,6 +35,7 @@ export class SearchResultComponent implements OnInit {
         private store: Store<fromRoot.State>) { }
 
     public ngOnInit(): void {
+        JQueryHelper.showLoading();
         this.activatedRoute.queryParams.subscribe((params) => {
             this.searchString = params['search'];
             $('#search-box').val(this.searchString);
@@ -72,6 +74,7 @@ export class SearchResultComponent implements OnInit {
                         }
                         index++;
                     });
+                    JQueryHelper.hideLoading();
                 }
             });
     }
@@ -90,5 +93,29 @@ export class SearchResultComponent implements OnInit {
                 this.cartService.addBookToCart([bookId]).subscribe();
             }
         });
+    }
+
+    private loadMoreBook(): void {
+        JQueryHelper.showLoading();
+        this.pageCurrent++;
+        this.searchBookService.searchBook(this.searchString, this.pageCurrent)
+            .subscribe((res: SearchBookResult) => {
+                if (res) {
+                    this.listBook.push(...res.listBooks);
+                    let listTemp: Book[] = [];
+                    this.listBookShow = [];
+                    let index: number = 1;
+                    this.listBook.forEach((book) => {
+                        listTemp.push(book);
+                        if (listTemp.length === 5 || index === this.listBook.length) {
+                            this.listBookShow.push(
+                                new SearchBookResult(JsHelper.cloneObject(listTemp)));
+                            listTemp = [];
+                        }
+                        index++;
+                    });
+                    JQueryHelper.hideLoading();
+                }
+            });
     }
 }

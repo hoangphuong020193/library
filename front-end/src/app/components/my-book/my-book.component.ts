@@ -7,6 +7,7 @@ import { Format } from '../../shareds/constant/format.constant';
 import { PagedList } from '../../models/paged-list.model';
 import { StorageKey } from '../../shareds/constant/storage-key.constant';
 import { RouterService } from '../../services/router.service';
+import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
 
 @Component({
     selector: 'my-book',
@@ -28,6 +29,7 @@ export class MyBookComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
+        JQueryHelper.showLoading();
         const pageSize: string = localStorage.getItem(StorageKey.PageSize);
         if ($.isNumeric(pageSize)) {
             this.defaultItemsPerPage = parseInt(pageSize, 10);
@@ -42,10 +44,12 @@ export class MyBookComponent implements OnInit {
         this.myBookService.getListMyBook(this.listStatus.join(','), page, this.defaultItemsPerPage)
             .subscribe((res) => {
                 this.listMyBook = res;
+                JQueryHelper.hideLoading();
             });
     }
 
     private selectStatus(status: number, checked: boolean): void {
+        JQueryHelper.showLoading();
         if (checked) {
             this.listStatus.push(status);
             if (this.listStatus.length === 4) {
