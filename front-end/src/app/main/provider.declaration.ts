@@ -8,6 +8,12 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HomeGuard } from '../guards/home.guard';
 import { BookDetailGuard } from '../guards/book-detail.guard';
 
+/* Handlers */
+import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
+import { LsHelper } from '../shareds/helpers';
+import { CheckOutGuard } from '../guards/check-out.guard';
+import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
+
 /* Services */
 import { RouterService } from '../services/router.service';
 import { LoginService } from '../services/login.service';
@@ -16,12 +22,7 @@ import { BookService } from '../services/book.service';
 import { CartService } from '../services/cart.service';
 import { MyBookService } from '../services/my-book.service';
 import { SearchBookService } from '../services/search-book.service';
-
-/* Handlers */
-import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
-import { LsHelper } from '../shareds/helpers';
-import { CheckOutGuard } from '../guards/check-out.guard';
-import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
+import { NotificationService } from '../services/notification.service';
 
 export const services: any = [
     RouterService,
@@ -31,6 +32,7 @@ export const services: any = [
     CartService,
     MyBookService,
     SearchBookService,
+    NotificationService,
     {
         provide: ErrorHandler,
         useClass: SystemErrorHandler

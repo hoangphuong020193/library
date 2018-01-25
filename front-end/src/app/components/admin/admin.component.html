@@ -1,0 +1,8 @@
+<section class="margin-bottom-15">
+  <div class="tab-section">
+    <div [class.active]="selectedTab == borrowReturnBookTab" (click)="selectTab(borrowReturnBookTab)">Mượn sách - Trả sách</div>
+    <div [class.active]="selectedTab == bookManagementTab" (click)="selectTab(bookManagementTab)">Quản lý sách</div>
+    <div [class.active]="selectedTab == debtListTab" (click)="selectTab(debtListTab)">Danh sách nợ sách</div>
+  </div>
+</section>
+<borrow-return-book *ngIf="selectedTab == borrowReturnBookTab"></borrow-return-book>

@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using DryIoc;
 using Library.Data.Services;
+using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
+using Library.Library.Books.Commands.TakenBook;
 using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetBookSection;
+using Library.Library.Books.Queries.GetBookViewByCategory;
+using Library.Library.Books.Queries.GetListBookByRequestCode;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Books.Queries.SearchBook;
 using Library.Library.Cart.Commands.AddBookToCart;
@@ -20,6 +24,7 @@ using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
+using Library.Library.Users.Queries.GetUserNotification;
 using System;
 using System.Net.Http;
 
@@ -60,15 +65,24 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IDeleteToCartCommand, DeleteToCartCommand>(Reuse.InWebRequest);
             registrator.Register<IUpdateStatusBookInCartCommand, UpdateStatusBookInCartCommand>(Reuse.InWebRequest);
             registrator.Register<IBorrowBookCommand, BorrowBookCommand>(Reuse.InWebRequest);
+            registrator.Register<IGetBookViewByCategoryQuery, GetBookViewByCategoryQuery>(Reuse.InWebRequest);
 
             // Favorite
             registrator.Register<IUpdateBookFavoriteCommand, UpdateBookFavoriteCommand>(Reuse.InWebRequest);
 
             // User book
             registrator.Register<IGetBookBorrowQuery, GetBookBorrowQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetListBookByRequestCodeQuery, GetListBookByRequestCodeQuery>(Reuse.InWebRequest);
+            registrator.Register<ITakenBookCommand, TakenBookCommand>(Reuse.InWebRequest);
 
             // Search
             registrator.Register<ISearchBookQuery, SearchBookQuery>(Reuse.InWebRequest);
+
+            // User notification
+            registrator.Register<IGetUserNotificationQuery, GetUserNotificationQuery>(Reuse.InWebRequest);
+
+            // Request
+            registrator.Register<IGetRequestInfoByCodeQuery, GetRequestInfoByCodeQuery>(Reuse.InWebRequest);
         }
     }
 }

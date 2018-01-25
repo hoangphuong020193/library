@@ -42,4 +42,16 @@ export class RouterService {
     public search(searchString: string): void {
         this.router.navigate(['/search'], { queryParams: { search: searchString } });
     }
+
+    public bookView(view: string): void {
+        this.router.navigate(['/book-view'], { queryParams: { view } });
+    }
+
+    public notification(): void {
+        this.router.navigate(['/notification']);
+    }
+
+    public admin(): void {
+        this.router.navigate(['/admin']);
+    }
 }

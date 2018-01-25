@@ -78,7 +78,8 @@ export class LoginService {
         user.accessToken = token;
         try {
             const decodedToken: any = this.jwtHelperService.decodeToken(token);
-            user.userId = parseInt(decodedToken.userId, 2);
+            // tslint:disable-next-line:radix
+            user.userId = parseInt(decodedToken.userId);
             user.userName = decodedToken.sub;
             user.displayName = decodedToken.dispName;
             user.firstName = decodedToken.fistName;

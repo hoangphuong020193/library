@@ -6,6 +6,9 @@ import * as fromChooseBook from '../components/choose-book';
 import * as fromCheckOut from '../components/check-out';
 import * as fromMyBook from '../components/my-book';
 import * as fromSearchResult from '../components/search-result';
+import * as fromBookView from '../components/book-view';
+import * as fromNotification from '../components/notification';
+import * as fromAdmin from '../components/admin';
 
 export const CommonComponents: any = [
     fromCommon.FavoriteStarComponent,
@@ -29,6 +32,10 @@ export const Components: any = [
     fromCheckOut.PopupCheckOutSuccessComponent,
     fromMyBook.MyBookComponent,
     fromSearchResult.SearchResultComponent,
+    fromBookView.BookViewComponent,
+    fromNotification.NotificationComponent,
+    fromAdmin.AdminComponent,
+    fromAdmin.BorrowReturnBookComponent,
 ];
 
 // Modal

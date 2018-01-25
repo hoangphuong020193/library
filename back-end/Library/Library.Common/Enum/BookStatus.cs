@@ -2,6 +2,7 @@
 {
     public enum BookStatus
     {
+        Cancel = 0,
         InOrder = 1,
         Waiting = 2,
         Pending = 3,

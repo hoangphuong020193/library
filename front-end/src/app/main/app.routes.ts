@@ -1,5 +1,12 @@
 import { Routes, CanActivate } from '@angular/router';
 
+// GUARD
+import { HomeGuard } from '../guards/home.guard';
+import { BookDetailComponent } from '../components/choose-book/book-detail/book-detail.component';
+import { BookDetailGuard } from '../guards/book-detail.guard';
+import { CheckOutGuard } from '../guards/check-out.guard';
+import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
+
 // COMPONENT
 import { HomeComponent } from '../components/home';
 import { ChooseBookComponent } from '../components/choose-book/choose-book.component';
@@ -9,13 +16,9 @@ import {
 } from '../components/check-out/book-in-cart-check/book-in-cart-check.component';
 import { MyBookComponent } from '../components/my-book/my-book.component';
 import { SearchResultComponent } from '../components/search-result/search-result.component';
-
-// GUARD
-import { HomeGuard } from '../guards/home.guard';
-import { BookDetailComponent } from '../components/choose-book/book-detail/book-detail.component';
-import { BookDetailGuard } from '../guards/book-detail.guard';
-import { CheckOutGuard } from '../guards/check-out.guard';
-import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
+import { BookViewComponent } from '../components/book-view/book-view.component';
+import { NotificationComponent } from '../components/notification/notification.component';
+import { AdminComponent } from '../components/admin/admin.component';
 
 export const ROUTES: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
@@ -55,6 +58,18 @@ export const ROUTES: Routes = [
       {
         path: 'search',
         component: SearchResultComponent
+      },
+      {
+        path: 'book-view',
+        component: BookViewComponent
+      },
+      {
+        path: 'notification',
+        component: NotificationComponent
+      },
+      {
+        path: 'admin',
+        component: AdminComponent
       },
     ]
   },

@@ -4,6 +4,7 @@ import { NgxCarousel } from 'ngx-carousel';
 import { BookService } from '../../../services/book.service';
 import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 import { BookSection } from '../../../shareds/constant/book-section.constant';
+import { RouterService } from '../../../services/router.service';
 
 @Component({
     selector: 'book-section',
@@ -17,7 +18,9 @@ export class BookSectionComponent implements OnInit {
 
     private books: Book[] = [];
 
-    constructor(private bookService: BookService) { }
+    constructor(
+        private bookService: BookService,
+        private routerService: RouterService) { }
 
     public ngOnInit(): void {
         this.carouselOption = {

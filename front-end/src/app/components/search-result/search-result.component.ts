@@ -12,6 +12,7 @@ import { DialogService } from 'angularx-bootstrap-modal';
 import { LoginPopupComponent } from '../../components/login/login.component';
 import { CartService } from '../../services/cart.service';
 import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
+import { Config } from '../../config';
 
 @Component({
     selector: 'search-result',
@@ -41,6 +42,10 @@ export class SearchResultComponent implements OnInit {
             $('#search-box').val(this.searchString);
             this.searchBook(1);
         });
+    }
+
+    private bookImgUrl(bookCode: string): string {
+        return Config.getBookImgApiUrl(bookCode);
     }
 
     private navigateToBookDetail(bookCode: string): void {

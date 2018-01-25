@@ -90,5 +90,6 @@ export const PathController = {
     Book: 'book',
     Cart: 'cart',
     MyBook: 'mybook',
-    SearchBook: 'search'
+    SearchBook: 'search',
+    User: 'user',
 };

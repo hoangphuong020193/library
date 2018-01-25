@@ -14,6 +14,8 @@ import { BookInCart } from '../../models/index';
 import { Observable } from 'rxjs';
 import { BookStatus } from '../../shareds/enums/book-status.enum';
 import { KeyCode } from '../../shareds/enums/keycode.enum';
+import { NotificationService } from '../../services/notification.service';
+import { Notifications } from '../../models/notification.model';
 
 @Component({
   selector: 'home',
@@ -28,12 +30,14 @@ export class HomeComponent implements OnInit {
   private toggleMenuLogin: boolean = false;
 
   private numberBookInCart: number = 0;
+  private listNotification: Notifications[] = [];
 
   constructor(
     private store: Store<fromRoot.State>,
     private dialogService: DialogService,
     private routerService: RouterService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private notificationService: NotificationService) { }
 
   public ngOnInit(): void {
     this.store.select(fromRoot.getCurrentUser).subscribe((user: User) => {
@@ -53,6 +57,14 @@ export class HomeComponent implements OnInit {
         this.numberBookInCart = res.filter((x) => x.status === BookStatus.InOrder).length;
       }
     });
+
+    this.notificationService.getNotification().subscribe();
+    this.store.select(fromRoot.getNotification).subscribe((res) => {
+      if (res) {
+        this.listNotification = res.slice(0, 5);
+      }
+    });
+
   }
 
   private viewMenuLogin(): void {
@@ -77,7 +89,11 @@ export class HomeComponent implements OnInit {
   }
 
   private viewMenuNotify(): void {
-    this.toggleMenuNotify = !this.toggleMenuNotify;
+    if (!this.user) {
+      this.dialogService.addDialog(LoginPopupComponent, {}).subscribe();
+    } else {
+      this.toggleMenuNotify = !this.toggleMenuNotify;
+    }
   }
 
   private viewBookInCart(): void {

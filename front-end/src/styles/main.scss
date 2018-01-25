@@ -24,3 +24,14 @@ body {
 a {
   color: $blue;
 }
+
+input {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+}
+
+label {
+  color: $black05;
+  font-size: $font-size-sm;
+}

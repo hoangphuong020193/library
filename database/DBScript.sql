@@ -162,3 +162,10 @@ CREATE TABLE UserBook(
 	DeadlineDate DateTime not null,
 	Status INT NOT NULL DEFAULT 0,
 )
+GO
+CREATE TABLE UserNotifications(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	UserId INT FOREIGN KEY REFERENCES [User](Id),
+	Message nvarchar(1000) not null,
+	MessageDate DateTime not null default GETDATE()
+)

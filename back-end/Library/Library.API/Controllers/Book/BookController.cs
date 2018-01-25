@@ -1,10 +1,18 @@
-﻿using Library.Library.Books.Queries.GetBookDetail;
+﻿using HRM.CrossCutting.Command;
+using Library.Constants;
+using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
+using Library.Library.Books.Commands.TakenBook;
+using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetBookSection;
+using Library.Library.Books.Queries.GetBookViewByCategory;
+using Library.Library.Books.Queries.GetListBookByRequestCode;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Library.API.Controllers.Book
@@ -17,18 +25,30 @@ namespace Library.API.Controllers.Book
         private readonly IGetBookPhotoQuery _getBookPhotoQuery;
         private readonly IUpdateBookFavoriteCommand _updateBookFavoriteCommand;
         private readonly IGetBookSectionQuery _getBookSectionQuery;
+        private readonly IGetBookViewByCategoryQuery _getBookViewByCategoryQuery;
+        private readonly IGetListBookByRequestCodeQuery _getListBookByRequestCodeQuery;
+        private readonly IGetRequestInfoByCodeQuery _getRequestInfoByCodeQuery;
+        private readonly ITakenBookCommand _takenBookCommand;
 
         public BookController(IGetListBookNewQuery getListBookNewQuery,
             IGetBookDetailQuery getBookDetailQuery,
             IGetBookPhotoQuery getBookPhotoQuery,
             IUpdateBookFavoriteCommand updateBookFavoriteCommand,
-            IGetBookSectionQuery getBookSectionQuery)
+            IGetBookSectionQuery getBookSectionQuery,
+            IGetBookViewByCategoryQuery getBookViewByCategoryQuery,
+            IGetListBookByRequestCodeQuery getListBookByRequestCodeQuery,
+            IGetRequestInfoByCodeQuery getRequestInfoByCodeQuery,
+            ITakenBookCommand takenBookCommand)
         {
             _getListBookNewQuery = getListBookNewQuery;
             _getBookDetailQuery = getBookDetailQuery;
             _getBookPhotoQuery = getBookPhotoQuery;
             _updateBookFavoriteCommand = updateBookFavoriteCommand;
             _getBookSectionQuery = getBookSectionQuery;
+            _getBookViewByCategoryQuery = getBookViewByCategoryQuery;
+            _getListBookByRequestCodeQuery = getListBookByRequestCodeQuery;
+            _getRequestInfoByCodeQuery = getRequestInfoByCodeQuery;
+            _takenBookCommand = takenBookCommand;
         }
 
         [HttpGet]
@@ -73,6 +93,43 @@ namespace Library.API.Controllers.Book
         {
             var result = await _getBookSectionQuery.ExecuteAsync(sectionType, take);
             return new ObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("BookView/{page:int=0}/{pageSize:int=1}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BookViewAsync(int page, int pageSize, string view)
+        {
+            var result = await _getBookViewByCategoryQuery.ExecuteAsync(view, page, pageSize);
+            return new ObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("ReturnListBookByCode")]
+        public async Task<IActionResult> ReturnListBookByCodeAsync(string code)
+        {
+            var result = await _getListBookByRequestCodeQuery.ExecuteAsync(code);
+            return new ObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("ReturnRequestInfo")]
+        public async Task<IActionResult> ReturnRequestInfoAsync(string code)
+        {
+            var result = await _getRequestInfoByCodeQuery.ExecuteAsync(code);
+            return new ObjectResult(result);
+        }
+
+        [HttpPut]
+        [Route("TakenBook")]
+        public async Task<IActionResult> TakenAsync([FromBody] JObject jsonObject)
+        {
+            int userId = int.Parse(jsonObject["userId"].ToString());
+            string bookCode = jsonObject["bookCode"].ToString();
+            int requestId = int.Parse(jsonObject["requestId"].ToString());
+
+            var result = await _takenBookCommand.ExecuteAsync(userId, bookCode, requestId);
+            return StatusCode(result.Succeeded ? (int)HttpStatusCode.OK : result.GetFirstErrorCode() ?? (int)HttpStatusCode.InternalServerError, result.Data);
         }
     }
 }

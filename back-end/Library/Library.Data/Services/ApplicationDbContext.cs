@@ -25,6 +25,7 @@ namespace Library.Data.Services
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserBook> UserBook { get; set; }
         public virtual DbSet<UserBookRequest> UserBookRequest { get; set; }
+        public virtual DbSet<UserNotifications> UserNotifications { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -265,6 +266,22 @@ namespace Library.Data.Services
                     .WithMany(p => p.UserBookRequest)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__UserBookR__UserI__1BC821DD");
+            });
+
+            modelBuilder.Entity<UserNotifications>(entity =>
+            {
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.MessageDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserNotifications)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__UserNotif__UserI__3C34F16F");
             });
         }
 

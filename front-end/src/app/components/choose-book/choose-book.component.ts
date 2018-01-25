@@ -50,7 +50,7 @@ export class ChooseBookComponent implements OnInit {
         return false;
     }
 
-    private navigateToSearch(categoryName: string): void {
-        this.routerService.search(categoryName);
+    private navigateToBookView(categoryName: string): void {
+        this.routerService.bookView(categoryName);
     }
 }

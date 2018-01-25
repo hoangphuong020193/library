@@ -14,6 +14,7 @@ namespace Library.Data.Entities.Account
             PermissionGroupMember = new HashSet<PermissionGroupMember>();
             UserBook = new HashSet<UserBook>();
             UserBookRequest = new HashSet<UserBookRequest>();
+            UserNotifications = new HashSet<UserNotifications>();
         }
 
         public int Id { get; set; }
@@ -36,5 +37,6 @@ namespace Library.Data.Entities.Account
         public ICollection<PermissionGroupMember> PermissionGroupMember { get; set; }
         public ICollection<UserBook> UserBook { get; set; }
         public ICollection<UserBookRequest> UserBookRequest { get; set; }
+        public ICollection<UserNotifications> UserNotifications { get; set; }
     }
 }

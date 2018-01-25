@@ -47,6 +47,7 @@ namespace Library.Library.Books.Queries.SearchBook
                             || book.Author.ToLower().Contains(search)
                             || (publisher != null && publisher.Name.ToLower().Contains(search))
                             || (supplier != null && supplier.Name.ToLower().Contains(search))
+                            orderby book.DateImport descending, book.PublicationDate descending
                             select new BookViewModel
                             {
                                 BookId = book.Id,

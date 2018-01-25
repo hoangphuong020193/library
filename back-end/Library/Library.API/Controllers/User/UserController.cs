@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Library.Users.Queries.GetUserNotification;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Library.API.Controllers.User
 {
@@ -6,11 +8,19 @@ namespace Library.API.Controllers.User
     public class UserController : Controller
     {
 
-        public UserController()
-        {
+        private readonly IGetUserNotificationQuery _getUserNotificationQuery;
 
+        public UserController(IGetUserNotificationQuery getUserNotificationQuery)
+        {
+            _getUserNotificationQuery = getUserNotificationQuery;
         }
 
-
+        [HttpGet]
+        [Route("ReturnUserNotification")]
+        public async Task<IActionResult> ReturnUserNotificationAsync()
+        {
+            var result = await _getUserNotificationQuery.ExecuteAsync();
+            return new ObjectResult(result);
+        }
     }
 }
