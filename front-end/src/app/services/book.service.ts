@@ -112,7 +112,37 @@ export class BookService {
             JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
             tap(
                 (res: any) => {
-                    return res.status === HttpStatusCode.OK;
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public returnBook(userId: number, bookCode: string, requestId: number): Observable<boolean> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json; charset=utf-8');
+        return this.http.put(this.apiURL + '/ReturnBook/',
+            JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public cancelBook(userId: number, bookCode: string, requestId: number): Observable<boolean> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json; charset=utf-8');
+        return this.http.put(this.apiURL + '/CancelBook/',
+            JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
                 }
             ),
             catchError((err) => {

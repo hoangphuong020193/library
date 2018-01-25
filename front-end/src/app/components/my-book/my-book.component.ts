@@ -78,6 +78,8 @@ export class MyBookComponent implements OnInit {
                 return 'Hết hạn mượn';
             case BookStatus.Returned:
                 return 'Đã trả';
+            case BookStatus.Cancel:
+                return 'Huỷ';
         }
     }
 

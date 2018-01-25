@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   private toggleMenuLogin: boolean = false;
 
   private numberBookInCart: number = 0;
+  private numberNewNotification: number = 0;
   private listNotification: Notifications[] = [];
 
   constructor(
@@ -61,6 +62,7 @@ export class HomeComponent implements OnInit {
     this.notificationService.getNotification().subscribe();
     this.store.select(fromRoot.getNotification).subscribe((res) => {
       if (res) {
+        this.numberNewNotification = res.filter((x) => x.isNew).length;
         this.listNotification = res.slice(0, 5);
       }
     });
@@ -93,6 +95,7 @@ export class HomeComponent implements OnInit {
       this.dialogService.addDialog(LoginPopupComponent, {}).subscribe();
     } else {
       this.toggleMenuNotify = !this.toggleMenuNotify;
+      this.numberNewNotification = 0;
     }
   }
 

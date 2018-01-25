@@ -61,7 +61,7 @@
               <span>|</span>
               <span class="color-blue cursor-pointer">Huỷ sách</span>
             </div>
-            <span class="color-blue cursor-pointer" *ngIf="book.status == BookStatus.Borrowing">Trả sách</span>
+            <span class="color-blue cursor-pointer" *ngIf="book.status == BookStatus.Borrowing" (click)="returnBook(book.bookCode, i)">Trả sách</span>
           </td>
         </tr>
       </tbody>

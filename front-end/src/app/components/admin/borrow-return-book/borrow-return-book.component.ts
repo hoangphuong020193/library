@@ -61,7 +61,7 @@ export class BorrowReturnBookComponent implements OnInit {
         if (date == null) {
             return '-';
         }
-        return moment(date).format(Format.DateFormat);
+        return moment(date).format(Format.DateTimeFormat);
     }
 
     private getStatus(status: number): string {
@@ -74,6 +74,8 @@ export class BorrowReturnBookComponent implements OnInit {
                 return 'Hết hạn mượn';
             case BookStatus.Returned:
                 return 'Đã trả';
+            case BookStatus.Cancel:
+                return 'Huỷ';
         }
     }
 
@@ -82,6 +84,30 @@ export class BorrowReturnBookComponent implements OnInit {
             .subscribe((res) => {
                 if (res) {
                     this.listBooks[index].status = BookStatus.Borrowing;
+                    this.listBooks[index].receiveDate = new Date();
+                } else {
+                    // TODO
+                }
+            });
+    }
+
+    private returnBook(bookCode: string, index: number): void {
+        this.bookService.returnBook(this.requestInfo.userId, bookCode, this.requestInfo.requestId)
+            .subscribe((res) => {
+                if (res) {
+                    this.listBooks[index].status = BookStatus.Returned;
+                    this.listBooks[index].returnDate = new Date();
+                } else {
+                    // TODO
+                }
+            });
+    }
+
+    private cancelBook(bookCode: string, index: number): void {
+        this.bookService.cancelBook(this.requestInfo.userId, bookCode, this.requestInfo.requestId)
+            .subscribe((res) => {
+                if (res) {
+                    this.listBooks[index].status = BookStatus.Cancel;
                 } else {
                     // TODO
                 }

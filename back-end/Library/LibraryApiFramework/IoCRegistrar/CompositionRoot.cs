@@ -2,6 +2,8 @@
 using DryIoc;
 using Library.Data.Services;
 using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
+using Library.Library.Books.Commands.CancelBook;
+using Library.Library.Books.Commands.ReturnBook;
 using Library.Library.Books.Commands.TakenBook;
 using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookDetail;
@@ -74,6 +76,8 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IGetBookBorrowQuery, GetBookBorrowQuery>(Reuse.InWebRequest);
             registrator.Register<IGetListBookByRequestCodeQuery, GetListBookByRequestCodeQuery>(Reuse.InWebRequest);
             registrator.Register<ITakenBookCommand, TakenBookCommand>(Reuse.InWebRequest);
+            registrator.Register<IReturnBookCommand, ReturnBookCommand>(Reuse.InWebRequest);
+            registrator.Register<ICancelBookCommand, CancelBookCommand>(Reuse.InWebRequest);
 
             // Search
             registrator.Register<ISearchBookQuery, SearchBookQuery>(Reuse.InWebRequest);

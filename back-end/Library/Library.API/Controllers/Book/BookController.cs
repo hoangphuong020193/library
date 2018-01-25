@@ -1,6 +1,8 @@
 ﻿using HRM.CrossCutting.Command;
 using Library.Constants;
 using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
+using Library.Library.Books.Commands.CancelBook;
+using Library.Library.Books.Commands.ReturnBook;
 using Library.Library.Books.Commands.TakenBook;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
@@ -29,6 +31,8 @@ namespace Library.API.Controllers.Book
         private readonly IGetListBookByRequestCodeQuery _getListBookByRequestCodeQuery;
         private readonly IGetRequestInfoByCodeQuery _getRequestInfoByCodeQuery;
         private readonly ITakenBookCommand _takenBookCommand;
+        private readonly IReturnBookCommand _returnBookCommand;
+        private readonly ICancelBookCommand _cancelBookCommand;
 
         public BookController(IGetListBookNewQuery getListBookNewQuery,
             IGetBookDetailQuery getBookDetailQuery,
@@ -38,7 +42,9 @@ namespace Library.API.Controllers.Book
             IGetBookViewByCategoryQuery getBookViewByCategoryQuery,
             IGetListBookByRequestCodeQuery getListBookByRequestCodeQuery,
             IGetRequestInfoByCodeQuery getRequestInfoByCodeQuery,
-            ITakenBookCommand takenBookCommand)
+            ITakenBookCommand takenBookCommand,
+            IReturnBookCommand returnBookCommand,
+            ICancelBookCommand cancelBookCommand)
         {
             _getListBookNewQuery = getListBookNewQuery;
             _getBookDetailQuery = getBookDetailQuery;
@@ -49,6 +55,8 @@ namespace Library.API.Controllers.Book
             _getListBookByRequestCodeQuery = getListBookByRequestCodeQuery;
             _getRequestInfoByCodeQuery = getRequestInfoByCodeQuery;
             _takenBookCommand = takenBookCommand;
+            _returnBookCommand = returnBookCommand;
+            _cancelBookCommand = cancelBookCommand;
         }
 
         [HttpGet]
@@ -122,14 +130,38 @@ namespace Library.API.Controllers.Book
 
         [HttpPut]
         [Route("TakenBook")]
-        public async Task<IActionResult> TakenAsync([FromBody] JObject jsonObject)
+        public async Task<IActionResult> TakenBookAsync([FromBody] JObject jsonObject)
         {
             int userId = int.Parse(jsonObject["userId"].ToString());
             string bookCode = jsonObject["bookCode"].ToString();
             int requestId = int.Parse(jsonObject["requestId"].ToString());
 
             var result = await _takenBookCommand.ExecuteAsync(userId, bookCode, requestId);
-            return StatusCode(result.Succeeded ? (int)HttpStatusCode.OK : result.GetFirstErrorCode() ?? (int)HttpStatusCode.InternalServerError, result.Data);
+            return new ObjectResult(result.Succeeded);
+        }
+
+        [HttpPut]
+        [Route("ReturnBook")]
+        public async Task<IActionResult> ReturnBookAsync([FromBody] JObject jsonObject)
+        {
+            int userId = int.Parse(jsonObject["userId"].ToString());
+            string bookCode = jsonObject["bookCode"].ToString();
+            int requestId = int.Parse(jsonObject["requestId"].ToString());
+
+            var result = await _returnBookCommand.ExecuteAsync(userId, bookCode, requestId);
+            return new ObjectResult(result.Succeeded);
+        }
+
+        [HttpPut]
+        [Route("CancelBook")]
+        public async Task<IActionResult> CancelBookAsync([FromBody] JObject jsonObject)
+        {
+            int userId = int.Parse(jsonObject["userId"].ToString());
+            string bookCode = jsonObject["bookCode"].ToString();
+            int requestId = int.Parse(jsonObject["requestId"].ToString());
+
+            var result = await _cancelBookCommand.ExecuteAsync(userId, bookCode, requestId);
+            return new ObjectResult(result.Succeeded);
         }
     }
 }

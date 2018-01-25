@@ -7,18 +7,20 @@ using Library.Data.Entities.Library;
 using Library.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Library.Books.Commands.TakenBook
+namespace Library.Library.Books.Commands.ReturnBook
 {
-    public class TakenBookCommand : ITakenBookCommand
+    public class ReturnBookCommand : IReturnBookCommand
     {
         private readonly IRepository<UserBook> _userBookRepository;
+        private readonly IRepository<Book> _bookRepository;
         private readonly IRepository<UserNotifications> _notificationRepository;
 
-        public TakenBookCommand(
-            IRepository<UserBook> userBookRepository,
+        public ReturnBookCommand(IRepository<UserBook> userBookRepository,
+            IRepository<Book> bookRepository,
             IRepository<UserNotifications> notificationRepository)
         {
             _userBookRepository = userBookRepository;
+            _bookRepository = bookRepository;
             _notificationRepository = notificationRepository;
         }
 
@@ -39,14 +41,18 @@ namespace Library.Library.Books.Commands.TakenBook
                     });
                 }
 
-                userBook.Status = (int)BookStatus.Borrowing;
-                userBook.ReceiveDate = DateTime.Now;
+                userBook.Status = (int)BookStatus.Returned;
+                userBook.ReturnDate = DateTime.Now;
 
                 if (await _userBookRepository.UpdateAsync(userBook))
                 {
+                    var book = await _bookRepository.GetByIdAsync(userBook.BookId);
+                    book.AmountAvailable += 1;
+                    await _bookRepository.UpdateAsync(book);
+
                     UserNotifications notify = new UserNotifications();
                     notify.UserId = userBook.UserId;
-                    notify.Message = "Bạn đã nhận sách " + userBook.Book.BookName;
+                    notify.Message = "Bạn đã trả sách " + userBook.Book.BookName;
                     notify.MessageDate = DateTime.Now;
                     await _notificationRepository.InsertAsync(notify);
 
