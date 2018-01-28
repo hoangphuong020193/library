@@ -12,6 +12,8 @@ import * as fromUser from './user';
 import * as fromBook from './book';
 import * as fromCategory from './category';
 import * as fromNotification from './notification';
+import * as fromPublisher from './publisher';
+import * as fromSupplier from './supplier';
 
 export interface State {
   router: fromRouter.RouterReducerState;
@@ -19,6 +21,8 @@ export interface State {
   category: fromCategory.State;
   book: fromBook.State;
   notification: fromNotification.State;
+  publisher: fromPublisher.State;
+  supplier: fromSupplier.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -27,6 +31,8 @@ export const reducers: ActionReducerMap<State> = {
   category: fromCategory.reducer,
   book: fromBook.reducer,
   notification: fromNotification.reducer,
+  publisher: fromPublisher.reducer,
+  supplier: fromSupplier.reducer,
 };
 
 // STATES
@@ -35,6 +41,8 @@ export const getUserState = (state: State) => state.user;
 export const getCategoryState = (state: State) => state.category;
 export const getBookState = (state: State) => state.book;
 export const getNotificationState = (state: State) => state.notification;
+export const getPublisherState = (state: State) => state.publisher;
+export const getSupplierState = (state: State) => state.supplier;
 
 // ROUTE
 export const getRouter = createSelector(getRouterState, (state) => state);
@@ -53,3 +61,11 @@ export const getBookInCart = createSelector(getBookState, fromBook.getBookInCart
 // NOTIFICATION
 export const getNotification
   = createSelector(getNotificationState, fromNotification.getNotification);
+
+// PUBLISHER
+export const getPublisher
+  = createSelector(getPublisherState, fromPublisher.getPublisher);
+
+// SUPPLIER
+export const getSupplier
+  = createSelector(getSupplierState, fromSupplier.getSupplier);

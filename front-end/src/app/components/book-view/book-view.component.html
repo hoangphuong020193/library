@@ -7,7 +7,7 @@
     <div class="book-item" *ngFor="let book of books.listBooks">
       <div class="image cursor-pointer" (click)="navigateToBookDetail(book.bookCode)">
         <div>
-          <img class="img-fluid" src="{{bookImgUrl(book.bookCode)}}" alt="">
+          <book-image [code]="book.bookCode"></book-image>
         </div>
       </div>
       <div class="book-name cursor-pointer" (click)="navigateToBookDetail(book.bookCode)">{{book.bookName}}</div>

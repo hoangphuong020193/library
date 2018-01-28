@@ -4,12 +4,15 @@ export class Book {
     public bookName: string;
     public categoryId: number;
     public categoryName: string;
+    public categoryType: string;
     public tag: string;
     public description: string;
     public amount: number;
     public amountAvailable: number;
     public author: string;
+    public publisherId: number;
     public publisher: string;
+    public supplierId: number;
     public supplier: string;
     public size: string;
     public format: string;
@@ -17,6 +20,7 @@ export class Book {
     public pages: number;
     public maximumDateBorrow: number;
     public favorite: boolean;
+    public dateImport: Date;
 }
 
 // tslint:disable-next-line:max-classes-per-file

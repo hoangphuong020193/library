@@ -23,6 +23,8 @@ import { CartService } from '../services/cart.service';
 import { MyBookService } from '../services/my-book.service';
 import { SearchBookService } from '../services/search-book.service';
 import { NotificationService } from '../services/notification.service';
+import { PublisherService } from '../services/publisher.service';
+import { SupplierService } from '../services/supplier.service';
 
 export const services: any = [
     RouterService,
@@ -33,6 +35,8 @@ export const services: any = [
     MyBookService,
     SearchBookService,
     NotificationService,
+    PublisherService,
+    SupplierService,
     {
         provide: ErrorHandler,
         useClass: SystemErrorHandler

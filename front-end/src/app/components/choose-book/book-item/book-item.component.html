@@ -2,7 +2,7 @@
   <!-- <favorite-star [favorited]="book.favorite" (callback)="favoriteBook()"></favorite-star> -->
   <div class="image cursor-pointer" (click)="navigateToBookDetail()">
     <div>
-      <img class="img-fluid" src="{{bookImgURL}}" alt="">
+      <book-image [code]="book.bookCode"></book-image>
     </div>
   </div>
   <div class="book-name cursor-pointer" (click)="navigateToBookDetail()">{{book.bookName}}</div>

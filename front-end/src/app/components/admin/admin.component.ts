@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SupplierService } from '../../services/supplier.service';
+import { PublisherService } from '../../services/publisher.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
     selector: 'admin',
@@ -11,9 +14,16 @@ export class AdminComponent implements OnInit {
     private debtListTab: number = 3;
     private selectedTab: number = this.borrowReturnBookTab;
 
-    constructor() { }
+    constructor(
+        private categoryService: CategoryService,
+        private supplierService: SupplierService,
+        private publisherService: PublisherService) { }
 
-    public ngOnInit() { }
+    public ngOnInit() {
+        this.categoryService.getListCategory().subscribe();
+        this.supplierService.getListSupplier().subscribe();
+        this.publisherService.getListPublisher().subscribe();
+    }
 
     private selectTab(tab: number): void {
         this.selectedTab = tab;

@@ -34,7 +34,18 @@ table {
   tbody tr:nth-of-type(odd) {
     background-color: $table-tr-odd;
   }
-} // Responsive tables
+}
+
+.table-row-select {
+  tbody {
+    tr:hover {
+      background: rgba($blue, 0.5);
+      cursor: pointer;
+    }
+  }
+}
+
+// Responsive tables
 // Only applies <768px. Everything above that
 // will display normally.
 @media (max-width: map-get($grid-breakpoints, "md")) {

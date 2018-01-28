@@ -33,10 +33,6 @@ export class BookInCartComponent implements OnInit {
         });
     }
 
-    private getBookImgURL(bookCode: string): string {
-        return Config.getBookImgApiUrl(bookCode);
-    }
-
     private deleteBookInCart(bookId: number): void {
         this.cartService.deleteBookToCart(bookId).subscribe();
     }

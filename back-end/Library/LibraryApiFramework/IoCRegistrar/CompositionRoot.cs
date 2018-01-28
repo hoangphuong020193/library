@@ -4,12 +4,17 @@ using Library.Data.Services;
 using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
 using Library.Library.Books.Commands.CancelBook;
 using Library.Library.Books.Commands.ReturnBook;
+using Library.Library.Books.Commands.SaveBook;
+using Library.Library.Books.Commands.SaveBookImage;
 using Library.Library.Books.Commands.TakenBook;
+using Library.Library.Books.Queries.CheckBookExistsCode;
 using Library.Library.Books.Queries.GetBookBorrow;
+using Library.Library.Books.Queries.GetBookByBookCode;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetBookSection;
 using Library.Library.Books.Queries.GetBookViewByCategory;
+using Library.Library.Books.Queries.GetListBook;
 using Library.Library.Books.Queries.GetListBookByRequestCode;
 using Library.Library.Books.Queries.GetListNewBook;
 using Library.Library.Books.Queries.SearchBook;
@@ -24,6 +29,8 @@ using Library.Library.Cart.Queries.GetSlotAvailable;
 using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
+using Library.Library.Publishers.Queries.GetListPublisher;
+using Library.Library.Suppliers.Queries;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
 using Library.Library.Users.Queries.GetUserNotification;
@@ -57,6 +64,11 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<IGetListBookNewQuery, GetListBookNewQuery>(Reuse.InWebRequest);
             registrator.Register<IGetBookDetailQuery, GetBookDetailQuery>(Reuse.InWebRequest);
             registrator.Register<IGetBookSectionQuery, GetBookSectionQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetListBookQuery, GetListBookQuery>(Reuse.InWebRequest);
+            registrator.Register<ICheckBookCodeExistsQuery, CheckBookCodeExistsQuery>(Reuse.InWebRequest);
+            registrator.Register<ISaveBookCommand, SaveBookCommand>(Reuse.InWebRequest);
+            registrator.Register<IGetBookByBookCodeQuery, GetBookByBookCodeQuery>(Reuse.InWebRequest);
+            registrator.Register<ISaveBookImageCommand, SaveBookImageCommand>(Reuse.InWebRequest);
 
             // Cart
             registrator.Register<IGetBookInCartForBorrowQuery, GetBookInCartForBorrowQuery>(Reuse.InWebRequest);
@@ -87,6 +99,12 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Request
             registrator.Register<IGetRequestInfoByCodeQuery, GetRequestInfoByCodeQuery>(Reuse.InWebRequest);
+
+            // Publisher
+            registrator.Register<IGetListPublisherQuery, GetListPublisherQuery>(Reuse.InWebRequest);
+
+            // Supplier
+            registrator.Register<IGetListSupplier, GetListSupplier>(Reuse.InWebRequest);
         }
     }
 }

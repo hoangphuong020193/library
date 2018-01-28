@@ -24,7 +24,8 @@ namespace Library.Library.Categories.Queries.GetCategory
                 {
                     Id = x.Id,
                     CategoryName = x.CategoryName,
-                    Type = x.Type
+                    Type = x.Type,
+                    Enabled = x.Enabled.Value
                 }).ToListAsync();
 
             return result;

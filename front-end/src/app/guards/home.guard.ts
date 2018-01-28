@@ -20,7 +20,8 @@ export class HomeGuard implements CanActivate {
         : Observable<boolean> | boolean {
         this.store.select(fromRoot.getCurrentUser).first().subscribe((user) => {
             const storageUser: User = LsHelper.getUser() as User;
-            if (this.loginService.isUserValid(storageUser)) {
+            if (this.loginService.isUserValid(storageUser)
+                && !this.loginService.isTokenExpired()) {
                 this.store.dispatch(new userAction.CreateUser(storageUser));
             } else {
                 LsHelper.clearStorage();

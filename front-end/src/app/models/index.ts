@@ -7,3 +7,5 @@ export * from './my-book.model';
 export * from './paged-list.model';
 export * from './notification.model';
 export * from './user-book-request.model';
+export * from './publisher.model';
+export * from './supplier.model';

@@ -17,6 +17,8 @@ export const CommonComponents: any = [
     fromCommon.CheckboxComponent,
     fromCommon.PaginationComponent,
     fromCommon.LoadingPageComponent,
+    fromCommon.DropDownComponent,
+    fromCommon.BookImageComponent,
 ];
 
 export const Components: any = [
@@ -36,9 +38,12 @@ export const Components: any = [
     fromNotification.NotificationComponent,
     fromAdmin.AdminComponent,
     fromAdmin.BorrowReturnBookComponent,
+    fromAdmin.BookManagementComponent,
+    fromAdmin.BookEditorPopupComponent,
 ];
 
 // Modal
 export const LoginPopupComponent: any = fromLogin.LoginPopupComponent;
 export const PopupConfirmComponent: any = fromCommon.PopupConfirmComponent;
 export const PopupCheckOutSuccessComponent: any = fromCheckOut.PopupCheckOutSuccessComponent;
+export const BookEditorPopupComponent: any = fromAdmin.BookEditorPopupComponent;

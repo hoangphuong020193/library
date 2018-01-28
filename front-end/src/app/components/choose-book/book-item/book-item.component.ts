@@ -18,8 +18,6 @@ import { LoginPopupComponent } from '../../login/login.component';
 export class BookItemComponent implements OnInit {
     @Input('book') public book: Book;
 
-    private bookImgURL = '';
-
     constructor(
         private routerService: RouterService,
         private store: Store<fromRoot.State>,
@@ -27,9 +25,7 @@ export class BookItemComponent implements OnInit {
         private bookService: BookService,
         private dialogService: DialogService) { }
 
-    public ngOnInit(): void {
-        this.bookImgURL = Config.getBookImgApiUrl(this.book.bookCode);
-    }
+    public ngOnInit(): void { }
 
     private navigateToBookDetail(): void {
         this.routerService.bookDetail(this.book.bookCode);

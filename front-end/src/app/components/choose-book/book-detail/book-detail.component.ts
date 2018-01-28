@@ -19,7 +19,6 @@ import { Format } from '../../../shareds/constant/format.constant';
 
 export class BookDetailComponent implements OnInit {
     private book: Book = new Book();
-    private bookImgURL = '';
 
     constructor(
         private store: Store<fromRoot.State>,
@@ -35,7 +34,6 @@ export class BookDetailComponent implements OnInit {
                 this.bookService.getBookDetailByCode(bookCode).subscribe((res) => {
                     if (res) {
                         this.book = res;
-                        this.bookImgURL = Config.getBookImgApiUrl(this.book.bookCode);
                         JQueryHelper.hideLoading();
                     } else {
                         this.routerService.home();

@@ -7,6 +7,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { MyBook } from '../models/my-book.model';
 import { UserBookRequest } from '../models/user-book-request.model';
 import { HttpStatusCode } from '../shareds/enums/statuscode.enum';
+import { PagedList } from '../models/paged-list.model';
 
 @Injectable()
 export class BookService {
@@ -148,5 +149,53 @@ export class BookService {
             catchError((err) => {
                 return Observable.of(null);
             }));
+    }
+
+    public getListBook(search: string, page: number, pageSize: number = 10)
+        : Observable<PagedList<Book>> {
+        return this.http.get(this.apiURL + '/ReturnListBook/'
+            + page + '/' + pageSize + '?search=' + search).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public checkBookCodeExists(bookId: number, bookCode: string)
+        : Observable<boolean> {
+        return this.http.get(this.apiURL + '/CheckBookCodeExists/' + bookId + '/' + bookCode).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public saveBook(book: Book): Observable<Book> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json; charset=utf-8');
+        return this.http.put(this.apiURL + '/SaveBook/',
+            JSON.stringify({ book }), { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public saveImage(fileToUpload: any) {
+        const input: any = new FormData();
+        input.append('file', fileToUpload);
+        return this.http.post(this.apiURL + '/SaveImage/', input);
     }
 }

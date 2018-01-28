@@ -1,20 +1,24 @@
-﻿using HRM.CrossCutting.Command;
-using Library.Constants;
-using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
+﻿using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
 using Library.Library.Books.Commands.CancelBook;
 using Library.Library.Books.Commands.ReturnBook;
+using Library.Library.Books.Commands.SaveBook;
+using Library.Library.Books.Commands.SaveBookImage;
 using Library.Library.Books.Commands.TakenBook;
+using Library.Library.Books.Queries.CheckBookExistsCode;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
 using Library.Library.Books.Queries.GetBookSection;
 using Library.Library.Books.Queries.GetBookViewByCategory;
+using Library.Library.Books.Queries.GetListBook;
 using Library.Library.Books.Queries.GetListBookByRequestCode;
 using Library.Library.Books.Queries.GetListNewBook;
+using Library.Library.Books.ViewModels;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using System.Net;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Library.API.Controllers.Book
@@ -33,6 +37,10 @@ namespace Library.API.Controllers.Book
         private readonly ITakenBookCommand _takenBookCommand;
         private readonly IReturnBookCommand _returnBookCommand;
         private readonly ICancelBookCommand _cancelBookCommand;
+        private readonly IGetListBookQuery _getListBookQuery;
+        private readonly ICheckBookCodeExistsQuery _checkBookCodeExistsQuery;
+        private readonly ISaveBookCommand _saveBookCommand;
+        private readonly ISaveBookImageCommand _saveBookImageCommand;
 
         public BookController(IGetListBookNewQuery getListBookNewQuery,
             IGetBookDetailQuery getBookDetailQuery,
@@ -44,7 +52,11 @@ namespace Library.API.Controllers.Book
             IGetRequestInfoByCodeQuery getRequestInfoByCodeQuery,
             ITakenBookCommand takenBookCommand,
             IReturnBookCommand returnBookCommand,
-            ICancelBookCommand cancelBookCommand)
+            ICancelBookCommand cancelBookCommand,
+            IGetListBookQuery getListBookQuery,
+            ICheckBookCodeExistsQuery checkBookCodeExistsQuery,
+            ISaveBookCommand saveBookCommand,
+            ISaveBookImageCommand saveBookImageCommand)
         {
             _getListBookNewQuery = getListBookNewQuery;
             _getBookDetailQuery = getBookDetailQuery;
@@ -57,6 +69,10 @@ namespace Library.API.Controllers.Book
             _takenBookCommand = takenBookCommand;
             _returnBookCommand = returnBookCommand;
             _cancelBookCommand = cancelBookCommand;
+            _getListBookQuery = getListBookQuery;
+            _checkBookCodeExistsQuery = checkBookCodeExistsQuery;
+            _saveBookCommand = saveBookCommand;
+            _saveBookImageCommand = saveBookImageCommand;
         }
 
         [HttpGet]
@@ -162,6 +178,45 @@ namespace Library.API.Controllers.Book
 
             var result = await _cancelBookCommand.ExecuteAsync(userId, bookCode, requestId);
             return new ObjectResult(result.Succeeded);
+        }
+
+        [HttpGet]
+        [Route("ReturnListBook/{page:int=0}/{pageSize:int=1}")]
+        public async Task<IActionResult> ReturnListBookAsync(int page, int pageSize, string search)
+        {
+            var result = await _getListBookQuery.ExecuteAsync(page, pageSize, search);
+            return new ObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("CheckBookCodeExists/{bookId:int=0}/{bookCode=}")]
+        public async Task<IActionResult> CheckBookCodeExistsAsync(int bookId, string bookCode)
+        {
+            var result = await _checkBookCodeExistsQuery.ExecuteAsync(bookId, bookCode);
+            return new ObjectResult(result);
+        }
+
+        [HttpPost]
+        [Route("SaveBook")]
+        public async Task<IActionResult> SaveBookAsync([FromBody] BookViewModel model)
+        {
+            var result = await _saveBookCommand.ExecuteAsync(model);
+            return new ObjectResult(result.Succeeded ? result.Data : null);
+        }
+
+        [HttpPost]
+        [Route("SaveImage/{bookId:int=0}")]
+        public async Task<IActionResult> SaveImageAsync(IFormFile file, int bookId)
+        {
+            using (Stream stream = file.OpenReadStream())
+            {
+                using (var binaryReader = new BinaryReader(stream))
+                {
+                    var fileContent = binaryReader.ReadBytes((int)file.Length);
+                    var result = await _saveBookImageCommand.ExecuteAsync(fileContent, bookId);
+                    return new ObjectResult(result.Succeeded);
+                }
+            }
         }
     }
 }

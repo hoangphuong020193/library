@@ -8,6 +8,7 @@ namespace Library.Library.Books.ViewModels
         public string BookCode { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryType { get; set; }
         public string BookName { get; set; }
         public string Tag { get; set; }
         public string Description { get; set; }
@@ -17,7 +18,9 @@ namespace Library.Library.Books.ViewModels
         public int AmountAvailable { get; set; }
         public bool Enabled { get; set; }
         public string Author { get; set; }
+        public int PublisherId { get; set; }
         public string Publisher { get; set; }
+        public int SupplierId { get; set; }
         public string Supplier { get; set; }
         public string Size { get; set; }
         public string Format { get; set; }

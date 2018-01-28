@@ -2,7 +2,7 @@
   <div class="flex-middle">
     <span class="padding-right-15">Mã mượn sách/ Mã bạn đọc</span>
     <span id="search-request-code">
-      <input type="text" id="search-code-box" (keypress)="onKeyPress($event)">
+      <input type="text" id="search-code-box" (keypress)="onKeyPress($event)" placeholder="A1B2C">
       <i class="icon icon-search" (click)="searchCode()"></i>
     </span>
   </div>
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <table class="margin-top-20">
+    <table class="table table-striped margin-top-20">
       <thead>
         <tr>
           <th *ngIf="!onlyRequest">Mã yêu cầu</th>
@@ -48,7 +48,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let book of listBooks; let i = index">
-          <td *ngIf="!onlyRequest" (click)="getRequestInfo(book.requestCode)">{{book.requestCode}}</td>
+          <td *ngIf="!onlyRequest" (click)="getRequestInfo(book.requestCode)" class="color-blue cursor-pointer">{{book.requestCode}}</td>
           <td>{{book.bookCode}}</td>
           <td>{{book.bookName}}</td>
           <td>{{getStatus(book.status)}}</td>

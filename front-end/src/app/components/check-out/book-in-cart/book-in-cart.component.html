@@ -6,7 +6,7 @@
   <div class="book-in-cart-item">
     <div class="book-item" *ngFor="let book of bookAvailable">
       <div class="book-img">
-        <img class="img-fluid" src="{{getBookImgURL(book.bookCode)}}" alt="">
+        <book-image [code]="book.bookCode"></book-image>
       </div>
       <div class="book-info">
         <div class="font-size-lg font-style-bold">{{book.bookName}}</div>
@@ -47,7 +47,7 @@
   <div class="book-in-cart-item-wating">
     <div class="book-item" *ngFor="let book of bookWaiting">
       <div class="book-img">
-        <img class="img-fluid" src="{{getBookImgURL(book.bookCode)}}" alt="">
+        <book-image [code]="book.bookCode"></book-image>
       </div>
       <div class="book-info">
         <div class="font-size-lg font-style-bold">{{book.bookName}}</div>

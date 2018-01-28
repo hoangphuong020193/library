@@ -44,10 +44,6 @@ export class SearchResultComponent implements OnInit {
         });
     }
 
-    private bookImgUrl(bookCode: string): string {
-        return Config.getBookImgApiUrl(bookCode);
-    }
-
     private navigateToBookDetail(bookCode: string): void {
         this.routerService.bookDetail(bookCode);
         this.store.dispatch(new bookAction.SelectedBook(bookCode));

@@ -92,4 +92,6 @@ export const PathController = {
     MyBook: 'mybook',
     SearchBook: 'search',
     User: 'user',
+    Publisher: 'publisher',
+    Supplier: 'supplier',
 };

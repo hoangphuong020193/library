@@ -1,7 +1,7 @@
 <section class="row color-background-white padding-15">
   <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
     <div>
-      <img class="img-fluid" src="{{bookImgURL}}" alt="">
+      <book-image [code]="book.bookCode"></book-image>
     </div>
   </div>
   <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 row">
@@ -59,7 +59,7 @@
               <td>{{book.pages}}</td>
             </tr>
             <tr>
-              <td>Ngày xuất bản</td>
+              <td>Ngày phát hành</td>
               <td>{{parseDateToString(book.publicationDate)}}</td>
             </tr>
           </tbody>
