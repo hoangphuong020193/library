@@ -22,7 +22,11 @@ namespace Library.Library.Books.Commands.SaveBookImage
             {
                 var entity = await _bookRepository.GetByIdAsync(bookId);
                 entity.BookImage = img;
-                return CommandResult.Success;
+                if (await _bookRepository.UpdateAsync(entity))
+                {
+                    return CommandResult.Success;
+                }
+                return CommandResult.Failed();
             }
             catch (Exception ex)
             {

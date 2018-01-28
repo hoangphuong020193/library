@@ -99,7 +99,12 @@ namespace Library.API.Controllers.Book
         public async Task<IActionResult> PhotoAsync(string bookCode)
         {
             var result = await _getBookPhotoQuery.ExecuteAsync(bookCode);
-            return new ObjectResult(result);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return new FileContentResult(result.Content, "image/jpeg");
         }
 
         [HttpPost]

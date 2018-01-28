@@ -1,9 +1,12 @@
 <section class="padding-15 color-background-white">
-  <div class="flex-middle">
+  <div class="flex-space-between-center">
     <span class="padding-right-15">Mã sách/ Tên sách</span>
     <span id="search-book">
       <input type="text" id="search-book-box" (keypress)="onKeyPress($event)" placeholder="B000000001">
       <i class="icon icon-search" (click)="getListBook(1, defaultItemsPerPage)"></i>
+    </span>
+    <span class="flex-grow-1 text-align-right">
+      <button class="btn btn-blue" (click)="addNewBook()">Thêm sách</button>
     </span>
   </div>
   <div class="margin-top-20">

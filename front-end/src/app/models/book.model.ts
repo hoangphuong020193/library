@@ -2,7 +2,7 @@ export class Book {
     public bookId: number;
     public bookCode: string;
     public bookName: string;
-    public categoryId: number;
+    public categoryId: number = 0;
     public categoryName: string;
     public categoryType: string;
     public tag: string;
@@ -10,13 +10,13 @@ export class Book {
     public amount: number;
     public amountAvailable: number;
     public author: string;
-    public publisherId: number;
+    public publisherId: number = 0;
     public publisher: string;
-    public supplierId: number;
+    public supplierId: number = 0;
     public supplier: string;
     public size: string;
     public format: string;
-    public publicationDate: Date;
+    public publicationDate: string;
     public pages: number;
     public maximumDateBorrow: number;
     public favorite: boolean;

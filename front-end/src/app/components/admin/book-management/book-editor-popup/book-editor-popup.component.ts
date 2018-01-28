@@ -8,6 +8,9 @@ import * as fromRoot from '../../../../store/reducers';
 import { DropDownData } from '../../../common/dropdown/dropdown.component';
 import { getSupplier } from '../../../../store/reducers/index';
 import { BookService } from '../../../../services/book.service';
+import { Config } from '../../../../config';
+import * as moment from 'moment';
+import { Format } from '../../../../shareds/constant/format.constant';
 
 @Component({
     selector: 'book-editor-popup',
@@ -19,12 +22,13 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
     private categories: DropDownData[] = [];
     private publishers: DropDownData[] = [];
     private suppliers: DropDownData[] = [];
+    private errorMessage: string = '';
 
     @ViewChild('fileInput') private fileInput;
 
     private urlImg: string;
     private bookCodeExisted: boolean = false;
-    private fileToUpload: any;
+    private fileToUpload: any = null;
 
     private options: any = {
         toolbar: [
@@ -77,6 +81,12 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
                 });
             }
         });
+
+        this.urlImg = Config.getBookImgApiUrl(this.book.bookCode);
+    }
+
+    private selectPublishDate(date: Date): void {
+        this.book.publicationDate = moment(date).format(Format.DateFormatJson);
     }
 
     private bookCodeChange(bookCode: string): void {
@@ -101,14 +111,22 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
     }
 
     private onSave(): void {
-        this.bookService.saveBook(this.book).subscribe((res) => {
-            if (res) {
-                this.book.bookId = res.bookId;
-                this.result = this.book;
-                this.bookService.saveImage(this.fileToUpload).subscribe();
-                this.close();
-            }
-        });
+        if (this.validationData()) {
+            this.errorMessage = '';
+            this.bookService.saveBook(this.book).subscribe((res) => {
+                if (res) {
+                    this.book.bookId = res.bookId;
+                    this.result = this.book;
+                    if (this.fileToUpload !== null) {
+                        this.bookService.saveImage(this.fileToUpload, this.book.bookId).subscribe();
+                    }
+
+                    this.close();
+                }
+            });
+        } else {
+            this.errorMessage = 'Vui lòng điền đầy đủ các trường bắt buộc';
+        }
     }
 
     private onChooseFile(): void {
@@ -122,7 +140,19 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
                 this.urlImg = e.target['result'];
             });
             reader.readAsDataURL(fileInput.target.files[0]);
-            // this.fileToUpload = fileInput.files[0];
+            this.fileToUpload = fileInput.target.files[0];
         }
+    }
+
+    private validationData(): boolean {
+        if (this.book.bookName === ''
+            || this.book.bookCode === ''
+            || this.book.categoryId === 0
+            || this.book.supplierId === 0
+            || this.book.publisherId === 0) {
+            return false;
+        }
+
+        return true;
     }
 }

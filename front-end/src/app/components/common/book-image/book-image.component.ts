@@ -1,21 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Config } from '../../../config';
 
 @Component({
     selector: 'book-image',
     templateUrl: './book-image.component.html'
 })
-export class BookImageComponent {
+export class BookImageComponent implements OnChanges {
     @Input('src') private src: string = '';
     @Input('code') private code: string = '';
 
     constructor() {
-        if (this.code === '' || this.src === '') {
+        this.generateImg();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['src'] || changes['code']) {
+            this.generateImg();
+        }
+    }
+
+    private generateImg(): void {
+        if (this.code === '' && this.src === '') {
             this.noImg();
-        } else if (this.code !== '' && this.src === '') {
+        } else if (this.code !== '') {
             this.getBookImgURL(this.code);
         }
-
     }
 
     private noImg(): void {

@@ -40,15 +40,22 @@
             <dropdown [listData]="categories" [selectedItemId]="book.categoryId" (selectedItemEmit)="selectCategory($event)"></dropdown>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
-            <label for="publisher">Công ty phát hành</label>
+            <label for="publisher">
+              <span>Công ty phát hành</span>
+              <span class="color-red">*</span>
+            </label>
             <dropdown [listData]="suppliers" [selectedItemId]="book.supplierId" (selectedItemEmit)="selectSupplier($event)"></dropdown>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
-            <label for="supplier">Nhà xuất bản</label>
+            <label for="supplier">
+              <span>Nhà xuất bản</span>
+              <span class="color-red">*</span>
+            </label>
             <dropdown [listData]="publishers" [selectedItemId]="book.publisherId" (selectedItemEmit)="selectPublisher($event)"></dropdown>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
             <label for="publicationDate">Ngày phát hành</label>
+            <datetimepicker [setDate]="book.publicationDate" (selectedDateEmit)="selectPublishDate($event)"></datetimepicker>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 flex-column margin-bottom-5">
             <label for="format">Loại bìa</label>
@@ -83,6 +90,7 @@
       </div>
     </div>
     <div class="modal-footer">
+      <span class="color-red font-size-sm">{{errorMessage}}</span>
       <button class="btn btn-blue" (click)="onSave()">Lưu</button>
       <button class="btn btn-warning" (click)="this.close()">Huỷ</button>
     </div>

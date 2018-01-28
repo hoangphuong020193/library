@@ -6,3 +6,4 @@ export * from './pagination/pagination.component';
 export * from './loading-page/loading-page.component';
 export * from './dropdown/dropdown.component';
 export * from './book-image/book-image.component';
+export * from './datetimepicker';

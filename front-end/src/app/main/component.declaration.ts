@@ -19,6 +19,10 @@ export const CommonComponents: any = [
     fromCommon.LoadingPageComponent,
     fromCommon.DropDownComponent,
     fromCommon.BookImageComponent,
+    fromCommon.DateTimePickerComponent,
+    fromCommon.DayComponent,
+    fromCommon.MonthComponent,
+    fromCommon.YearComponent,
 ];
 
 export const Components: any = [

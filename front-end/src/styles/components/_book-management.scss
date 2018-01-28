@@ -33,4 +33,11 @@ book-editor-popup {
   .border-error {
     border: 1px $red solid !important;
   }
+  datetimepicker {
+    .datetimepicker-content {
+      .date-input {
+        width: 100%;
+      }
+    }
+  }
 }

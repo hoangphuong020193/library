@@ -181,8 +181,8 @@ export class BookService {
     public saveBook(book: Book): Observable<Book> {
         let headers = new HttpHeaders();
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
-        return this.http.put(this.apiURL + '/SaveBook/',
-            JSON.stringify({ book }), { headers }).pipe(
+        return this.http.post(this.apiURL + '/SaveBook/',
+            book, { headers }).pipe(
             tap(
                 (res: any) => {
                     return res;
@@ -193,9 +193,9 @@ export class BookService {
             }));
     }
 
-    public saveImage(fileToUpload: any) {
+    public saveImage(fileToUpload: any, bookId: number) {
         const input: any = new FormData();
         input.append('file', fileToUpload);
-        return this.http.post(this.apiURL + '/SaveImage/', input);
+        return this.http.post(this.apiURL + '/SaveImage/' + bookId, input);
     }
 }

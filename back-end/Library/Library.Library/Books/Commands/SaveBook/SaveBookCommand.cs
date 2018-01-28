@@ -35,7 +35,6 @@ namespace Library.Library.Books.Commands.SaveBook
                     entity.BookName = model.BookName;
                     entity.Tag = model.Tag;
                     entity.Description = model.Description;
-                    entity.BookImage = null;
                     entity.DateImport = DateTime.Now;
                     entity.Amount = model.Amount;
                     entity.AmountAvailable = model.Amount;
@@ -58,7 +57,6 @@ namespace Library.Library.Books.Commands.SaveBook
                     entity.BookName = model.BookName;
                     entity.Tag = model.Tag;
                     entity.Description = model.Description;
-                    entity.BookImage = null;
                     entity.Amount = model.Amount;
                     entity.Author = model.Author;
                     entity.PublisherId = model.PublisherId;

@@ -55,6 +55,20 @@ export class BookManagementComponent implements OnInit {
     private editBook(book: Book): void {
         this.dialogService.addDialog(BookEditorPopupComponent, {
             book
-        }).subscribe((res) => { });
+        }).subscribe((res) => {
+            if (res) {
+                this.getListBook(this.currentPage);
+            }
+        });
+    }
+
+    private addNewBook(): void {
+        this.dialogService.addDialog(BookEditorPopupComponent, {
+            book: new Book()
+        }).subscribe((res) => {
+            if (res) {
+                this.getListBook(this.currentPage);
+            }
+        });
     }
 }
