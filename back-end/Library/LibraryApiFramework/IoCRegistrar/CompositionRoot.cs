@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DryIoc;
 using Library.Data.Services;
+using Library.Library.Admin.Queries.GetListUserNotReturnBook;
 using Library.Library.BookRequest.Queries.GetRequestInfoByCode;
 using Library.Library.Books.Commands.CancelBook;
 using Library.Library.Books.Commands.ReturnBook;
@@ -105,6 +106,9 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Supplier
             registrator.Register<IGetListSupplier, GetListSupplier>(Reuse.InWebRequest);
+
+            // Admin
+            registrator.Register<IGetListUserNotReturnBookQuery, GetListUserNotReturnBookQuery>(Reuse.InWebRequest);
         }
     }
 }

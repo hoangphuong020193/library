@@ -44,6 +44,7 @@ export const Components: any = [
     fromAdmin.BorrowReturnBookComponent,
     fromAdmin.BookManagementComponent,
     fromAdmin.BookEditorPopupComponent,
+    fromAdmin.UserDebtBookComponent,
 ];
 
 // Modal

@@ -94,4 +94,5 @@ export const PathController = {
     User: 'user',
     Publisher: 'publisher',
     Supplier: 'supplier',
+    Admin: 'admin'
 };

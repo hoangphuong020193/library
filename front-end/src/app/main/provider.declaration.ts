@@ -7,6 +7,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 /* Guards */
 import { HomeGuard } from '../guards/home.guard';
 import { BookDetailGuard } from '../guards/book-detail.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
 /* Handlers */
 import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
@@ -26,9 +27,10 @@ import { NotificationService } from '../services/notification.service';
 import { PublisherService } from '../services/publisher.service';
 import { SupplierService } from '../services/supplier.service';
 import { UserService } from '../services/user.service';
-import { AdminGuard } from '../guards/admin.guard';
+import { AdminService } from '../services/admin.service';
 
 export const services: any = [
+    AdminService,
     UserService,
     RouterService,
     LoginService,

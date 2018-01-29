@@ -2,8 +2,11 @@
   <div class="tab-section">
     <div [class.active]="selectedTab == borrowReturnBookTab" (click)="selectTab(borrowReturnBookTab)">Mượn sách - Trả sách</div>
     <div [class.active]="selectedTab == bookManagementTab" (click)="selectTab(bookManagementTab)">Quản lý sách</div>
-    <div [class.active]="selectedTab == debtListTab" (click)="selectTab(debtListTab)">Danh sách nợ sách</div>
+    <div [class.active]="selectedTab == publisherManagementTab" (click)="selectTab(publisherManagementTab)">Quản lý NPH</div>
+    <div [class.active]="selectedTab == supplierManagementTab" (click)="selectTab(supplierManagementTab)">Quản lý NXB</div>
+    <div [class.active]="selectedTab == debtListTab" (click)="selectTab(debtListTab)">Bạn đọc nợ sách</div>
   </div>
 </section>
 <borrow-return-book *ngIf="selectedTab == borrowReturnBookTab"></borrow-return-book>
 <book-management *ngIf="selectedTab == bookManagementTab"></book-management>
+<user-debt-book *ngIf="selectedTab == debtListTab"></user-debt-book>
