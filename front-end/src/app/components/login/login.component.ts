@@ -11,6 +11,7 @@ import { KeyCode } from '../../shareds/enums/keycode.enum';
 import { window } from 'rxjs/operator/window';
 import { CartService } from '../../services/cart.service';
 import { NotificationService } from '../../services/notification.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'login',
@@ -28,6 +29,7 @@ export class LoginPopupComponent extends DialogComponent<any, boolean> implement
         private loginService: LoginService,
         private cartService: CartService,
         private notificationService: NotificationService,
+        private userService: UserService,
         private routerService: RouterService,
         public dialogService: DialogService,
         private store: Store<fromRoot.State>
@@ -69,6 +71,7 @@ export class LoginPopupComponent extends DialogComponent<any, boolean> implement
                 }
                 this.cartService.getBookInCart().subscribe();
                 this.notificationService.getNotification().subscribe();
+                this.userService.getUserPermission().subscribe();
                 this.close();
             } else {
                 this.errorMessage = 'Sai tên đăng nhập hoặc mật khẩu';

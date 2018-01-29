@@ -8,12 +8,14 @@ import { LoginService } from '../services/login.service';
 import { User } from '../models/user.model';
 import { LsHelper } from '../shareds/helpers/ls.helper';
 import { map } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class HomeGuard implements CanActivate {
     constructor(
         private store: Store<fromRoot.State>,
-        private loginService: LoginService) {
+        private loginService: LoginService,
+        private userService: UserService) {
     }
 
     public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
@@ -23,6 +25,7 @@ export class HomeGuard implements CanActivate {
             if (this.loginService.isUserValid(storageUser)
                 && !this.loginService.isTokenExpired()) {
                 this.store.dispatch(new userAction.CreateUser(storageUser));
+                this.userService.getUserPermission().subscribe();
             } else {
                 LsHelper.clearStorage();
             }

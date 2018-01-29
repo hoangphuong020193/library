@@ -6,6 +6,7 @@ import { BookDetailComponent } from '../components/choose-book/book-detail/book-
 import { BookDetailGuard } from '../guards/book-detail.guard';
 import { CheckOutGuard } from '../guards/check-out.guard';
 import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
 // COMPONENT
 import { HomeComponent } from '../components/home';
@@ -69,7 +70,8 @@ export const ROUTES: Routes = [
       },
       {
         path: 'admin',
-        component: AdminComponent
+        component: AdminComponent,
+        canActivate: [AdminGuard]
       },
     ]
   },

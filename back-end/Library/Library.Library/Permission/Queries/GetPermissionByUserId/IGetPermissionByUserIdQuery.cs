@@ -6,6 +6,6 @@ namespace Library.Library.Permission.Queries.GetPermissionByUserId
 {
     public interface IGetPermissionByUserIdQuery
     {
-        Task<List<PermissionViewModel>> ExecuteAsync(int userId);
+        Task<List<PermissionViewModel>> ExecuteAsync(int userId = 0);
     }
 }

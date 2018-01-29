@@ -9,3 +9,4 @@ export * from './notification.model';
 export * from './user-book-request.model';
 export * from './publisher.model';
 export * from './supplier.model';
+export * from './permission.model';

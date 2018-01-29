@@ -10,12 +10,13 @@ import { JQueryHelper } from '../../shareds/helpers/jquery.helper';
 import { RouterService } from '../../services/router.service';
 import { LoginPopupComponent } from '../login/login.component';
 import { CartService } from '../../services/cart.service';
-import { BookInCart } from '../../models/index';
+import { BookInCart, Permission } from '../../models/index';
 import { Observable } from 'rxjs';
 import { BookStatus } from '../../shareds/enums/book-status.enum';
 import { KeyCode } from '../../shareds/enums/keycode.enum';
 import { NotificationService } from '../../services/notification.service';
 import { Notifications } from '../../models/notification.model';
+import { PermissionId } from '../../shareds/enums/permission.enum';
 
 @Component({
   selector: 'home',
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
   private numberBookInCart: number = 0;
   private numberNewNotification: number = 0;
   private listNotification: Notifications[] = [];
+  private isAdmin: boolean = false;
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -57,6 +59,10 @@ export class HomeComponent implements OnInit {
       if (res) {
         this.numberBookInCart = res.filter((x) => x.status === BookStatus.InOrder).length;
       }
+    });
+
+    this.store.select(fromRoot.getPermission).subscribe((res) => {
+      this.isAdmin = res.some((x) => x.groupPermissionId === PermissionId.ADMIN);
     });
 
     this.notificationService.getNotification().subscribe();

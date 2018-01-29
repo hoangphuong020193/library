@@ -25,8 +25,11 @@ import { SearchBookService } from '../services/search-book.service';
 import { NotificationService } from '../services/notification.service';
 import { PublisherService } from '../services/publisher.service';
 import { SupplierService } from '../services/supplier.service';
+import { UserService } from '../services/user.service';
+import { AdminGuard } from '../guards/admin.guard';
 
 export const services: any = [
+    UserService,
     RouterService,
     LoginService,
     CategoryService,
@@ -49,4 +52,5 @@ export const guards: any = [
     BookDetailGuard,
     CheckOutGuard,
     BookInCartCheckGuard,
+    AdminGuard,
 ];

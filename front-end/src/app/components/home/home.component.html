@@ -18,11 +18,18 @@
         </div>
       </div>
       <div class="user-control">
-        <div class="user-book-tracking" (click)="viewMyBook()">
+        <div class="user-book-tracking" *ngIf="!isAdmin" (click)="viewMyBook()">
           <i class="icon icon-books color-blue"></i>
           <div class="">
             <div class="font-size-sm">Tình trạng sách</div>
             <div class="font-size-xs">của tôi</div>
+          </div>
+        </div>
+        <div class="user-book-tracking" *ngIf="isAdmin" (click)="this.routerService.admin()">
+          <i class="icon icon-id-card color-blue"></i>
+          <div class="">
+            <div class="font-size-sm">Quản lý</div>
+            <div class="font-size-xs">hệ thống</div>
           </div>
         </div>
         <div class="user-notify" (click)="viewMenuNotify()">
@@ -51,6 +58,7 @@
           </div>
           <div class="menu-login menu" [class.show]="toggleMenuLogin">
             <div>
+              <div *ngIf="!isAdmin" (click)="viewMyBook()">Tình trạng sách của tôi</div>
               <div (click)="logout($event)">Đăng xuất</div>
             </div>
           </div>
