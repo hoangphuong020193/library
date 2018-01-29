@@ -31,7 +31,7 @@ using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.Publishers.Queries.GetListPublisher;
-using Library.Library.Suppliers.Queries;
+using Library.Library.Suppliers.Queries.GetListSupplier;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
 using Library.Library.Users.Queries.GetUserNotification;

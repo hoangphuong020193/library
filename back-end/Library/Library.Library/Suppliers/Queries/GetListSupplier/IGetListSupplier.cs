@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Library.Library.Suppliers.Queries
+namespace Library.Library.Suppliers.Queries.GetListSupplier
 {
     public interface IGetListSupplier
     {

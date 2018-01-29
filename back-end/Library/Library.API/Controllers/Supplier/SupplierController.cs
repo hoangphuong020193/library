@@ -1,4 +1,4 @@
-﻿using Library.Library.Suppliers.Queries;
+﻿using Library.Library.Suppliers.Queries.GetListSupplier;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

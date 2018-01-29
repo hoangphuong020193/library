@@ -1,6 +1,6 @@
 export class Supplier {
     public id: number;
-    public name: string;
+    public name: string = 'Nhà cung cấp';
     public address: string;
     public phone: string;
     public email: string;

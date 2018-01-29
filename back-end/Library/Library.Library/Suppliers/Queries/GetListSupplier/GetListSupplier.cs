@@ -6,7 +6,7 @@ using Library.Data.Services;
 using Library.Library.Suppliers.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Library.Suppliers.Queries
+namespace Library.Library.Suppliers.Queries.GetListSupplier
 {
     public class GetListSupplier : IGetListSupplier
     {
