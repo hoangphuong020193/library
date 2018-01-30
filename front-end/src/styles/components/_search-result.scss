@@ -27,6 +27,10 @@ search-result {
         align-content: center;
         >div {
           width: 60%;
+          img {
+            max-height: 215px;
+            min-height: 215px;
+          }
         }
       }
       .book-name {

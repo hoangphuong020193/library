@@ -47,6 +47,8 @@ export const Components: any = [
     fromAdmin.UserDebtBookComponent,
     fromAdmin.SupplierManagementComponent,
     fromAdmin.SupplierEditorPopupComponent,
+    fromAdmin.PublisherManagementComponent,
+    fromAdmin.PublisherEditorPopupComponent,
 ];
 
 // Modal
@@ -55,3 +57,4 @@ export const PopupConfirmComponent: any = fromCommon.PopupConfirmComponent;
 export const PopupCheckOutSuccessComponent: any = fromCheckOut.PopupCheckOutSuccessComponent;
 export const BookEditorPopupComponent: any = fromAdmin.BookEditorPopupComponent;
 export const SupplierEditorPopupComponent: any = fromAdmin.SupplierEditorPopupComponent;
+export const PublisherEditorPopupComponent: any = fromAdmin.PublisherEditorPopupComponent;

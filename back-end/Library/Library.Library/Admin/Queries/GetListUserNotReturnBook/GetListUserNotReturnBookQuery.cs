@@ -25,7 +25,7 @@ namespace Library.Library.Admin.Queries.GetListUserNotReturnBook
                 .Include(x => x.Request)
                 .Include(x => x.Book)
                 .Include(x => x.User)
-                .Where(x => x.Status == (int)BookStatus.Borrowing && x.DeadlineDate < DateTime.Now.Date)
+                .Where(x => (x.Status == (int)BookStatus.Borrowing && x.DeadlineDate < DateTime.Now.Date) || x.Status == (int)BookStatus.OutDeadline)
                 .Select(x => new UserNotReturnBookViewModel()
                 {
                     UserId = x.UserId.Value,

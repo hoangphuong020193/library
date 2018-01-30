@@ -38,6 +38,8 @@ namespace Library.Library.Books.Queries.GetBookBorrow
             }
             var listStatus = status.Split(",").Select(x => int.Parse(x)).ToList();
 
+            await ChangeStatusOfBookOverDeadline(userId);
+
             List<BookBorrowViewModel> listBooks = new List<BookBorrowViewModel>();
 
             if (listStatus.Any() && listStatus[0] == 0)
@@ -54,7 +56,7 @@ namespace Library.Library.Books.Queries.GetBookBorrow
                         RequestDate = x.Request.RequestDate,
                         ReceiveDate = x.ReceiveDate,
                         ReturnDate = x.ReturnDate,
-                        Status = CheckStatus(x),
+                        Status = x.Status,
                         DeadlineDate = x.DeadlineDate
                     }).OrderByDescending(x => x.DeadlineDate).ToListAsync();
             }
@@ -81,14 +83,18 @@ namespace Library.Library.Books.Queries.GetBookBorrow
             return new PagedList<BookBorrowViewModel>(result, page, pageSize, listBooks.Count());
         }
 
-        private int CheckStatus(UserBook book)
+        private async Task ChangeStatusOfBookOverDeadline(int userId)
         {
-            if (DateTime.Now.Date > book.DeadlineDate.Date)
-            {
-                return (int)BookStatus.OutDeadline;
-            }
+            var listBooks = await _userBookRepository.TableNoTracking
+                .Where(x => x.UserId == userId && x.Status == (int)BookStatus.Borrowing && DateTime.Now.Date > x.DeadlineDate.Date)
+                .ToListAsync();
 
-            return book.Status;
+            listBooks.ForEach(book =>
+            {
+                book.Status = (int)BookStatus.OutDeadline;
+            });
+
+            await _userBookRepository.UpdateAsync(listBooks);
         }
     }
 }

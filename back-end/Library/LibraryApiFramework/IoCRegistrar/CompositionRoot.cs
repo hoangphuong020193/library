@@ -30,6 +30,7 @@ using Library.Library.Cart.Queries.GetSlotAvailable;
 using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
+using Library.Library.Publishers.Commands.SavePublisher;
 using Library.Library.Publishers.Queries.GetListPublisher;
 using Library.Library.Suppliers.Commands.SaveSupplier;
 using Library.Library.Suppliers.Queries.GetListSupplier;
@@ -104,6 +105,7 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Publisher
             registrator.Register<IGetListPublisherQuery, GetListPublisherQuery>(Reuse.InWebRequest);
+            registrator.Register<ISavePublisherCommand, SavePublisherCommand>(Reuse.InWebRequest);
 
             // Supplier
             registrator.Register<IGetListSupplier, GetListSupplier>(Reuse.InWebRequest);

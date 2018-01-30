@@ -8,6 +8,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HomeGuard } from '../guards/home.guard';
 import { BookDetailGuard } from '../guards/book-detail.guard';
 import { AdminGuard } from '../guards/admin.guard';
+import { MyBookGuard } from '../guards/my-book.guard';
 
 /* Handlers */
 import { SystemErrorHandler, ResponseHandler } from '../shareds/helpers';
@@ -55,4 +56,5 @@ export const guards: any = [
     CheckOutGuard,
     BookInCartCheckGuard,
     AdminGuard,
+    MyBookGuard,
 ];

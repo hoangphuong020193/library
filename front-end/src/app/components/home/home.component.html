@@ -58,7 +58,7 @@
           </div>
           <div class="menu-login menu" [class.show]="toggleMenuLogin">
             <div>
-              <div *ngIf="!isAdmin" (click)="viewMyBook()">Tình trạng sách của tôi</div>
+              <div *ngIf="isAdmin" (click)="viewMyBook()">Tình trạng sách của tôi</div>
               <div (click)="logout($event)">Đăng xuất</div>
             </div>
           </div>

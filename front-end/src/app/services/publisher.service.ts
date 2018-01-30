@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Config, PathController } from '../config';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -23,6 +23,21 @@ export class PublisherService {
                 (res: any) => {
                     this.store.dispatch(new publisherAction.FetchPublisher(res));
                     return res as Publisher[];
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public savePublisher(supplier: Publisher): Observable<number> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(this.apiURL + '/SavePublisher/',
+            supplier, { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
                 }
             ),
             catchError((err) => {

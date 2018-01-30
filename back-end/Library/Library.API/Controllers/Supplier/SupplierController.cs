@@ -31,7 +31,7 @@ namespace Library.API.Controllers.Publisher
 
         [HttpPost]
         [Route("SaveSupplier")]
-        public async Task<IActionResult> SaveAsync([FromBody] SupplierViewModel model)
+        public async Task<IActionResult> SaveSupplierAsync([FromBody] SupplierViewModel model)
         {
             var result = await _saveSupplierCommand.ExecuteAsync(model);
             return new ObjectResult(result.Data);

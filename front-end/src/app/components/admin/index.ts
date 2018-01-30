@@ -5,3 +5,5 @@ export * from './book-management/book-editor-popup/book-editor-popup.component';
 export * from './user-debt-book/user-debt-book.component';
 export * from './supplier-management/supplier-management.component';
 export * from './supplier-management/supplier-editor-popup/supplier-editor-popup.component';
+export * from './publisher-management/publisher-management.component';
+export * from './publisher-management/publisher-editor-popup/publisher-editor-popup.component';

@@ -7,6 +7,7 @@ import { BookDetailGuard } from '../guards/book-detail.guard';
 import { CheckOutGuard } from '../guards/check-out.guard';
 import { BookInCartCheckGuard } from '../guards/book-in-cart-check.guard';
 import { AdminGuard } from '../guards/admin.guard';
+import { MyBookGuard } from '../guards/my-book.guard';
 
 // COMPONENT
 import { HomeComponent } from '../components/home';
@@ -54,7 +55,8 @@ export const ROUTES: Routes = [
       },
       {
         path: 'my-book',
-        component: MyBookComponent
+        component: MyBookComponent,
+        canActivate: [MyBookGuard]
       },
       {
         path: 'search',

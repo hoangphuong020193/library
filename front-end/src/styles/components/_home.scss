@@ -166,8 +166,14 @@ home {
           color: $blue;
           border-top: 1px solid $border-color;
           padding: 5px;
-          &:hover {
-            background: rgba($black, 0.05);
+          width: fit-content;
+          white-space: nowrap;
+          >div {
+            width: 100%;
+            &:hover {
+              background: $blue;
+              color: $white;
+            }
           }
         }
         &.show {
