@@ -4,5 +4,5 @@ export class Supplier {
     public address: string;
     public phone: string;
     public email: string;
-    public enabled: boolean;
+    public enabled: boolean = true;
 }

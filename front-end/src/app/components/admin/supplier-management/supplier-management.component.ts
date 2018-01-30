@@ -5,6 +5,8 @@ import { Supplier } from '../../../models/index';
 import { DialogService } from 'angularx-bootstrap-modal';
 import { SupplierEditorPopupComponent } from './supplier-editor-popup/supplier-editor-popup.component';
 import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
+import { JsHelper } from '../../../shareds/helpers/js.helper';
+import { SupplierService } from '../../../services/supplier.service';
 
 @Component({
     selector: 'supplier-management',
@@ -17,13 +19,16 @@ export class SupplierManagementComponent implements OnInit {
 
     constructor(
         private store: Store<fromRoot.State>,
+        private supplierService: SupplierService,
         private dialogService: DialogService) { }
 
     public ngOnInit(): void {
         JQueryHelper.showLoading();
         this.store.select(fromRoot.getSupplier).subscribe((res) => {
-            this.listSuppliers = res;
-            JQueryHelper.hideLoading();
+            if (res) {
+                this.listSuppliers = res;
+                JQueryHelper.hideLoading();
+            }
         });
     }
 
@@ -31,13 +36,20 @@ export class SupplierManagementComponent implements OnInit {
         this.supplierEditor(new Supplier());
     }
 
-    private supplierEditor(supplier: Supplier): void {
+    private supplierEditor(supplier: Supplier, index: number = -1): void {
         this.dialogService.addDialog(SupplierEditorPopupComponent, {
-            supplier
+            supplier: JsHelper.cloneObject(supplier)
         }).subscribe((res) => {
-            if (res) {
-
+            if (index === -1) {
+                this.listSuppliers.push(res);
+            } else {
+                this.listSuppliers[index] = res;
             }
         });
+    }
+
+    private updateStatus(index: number, enabled: boolean): void {
+        this.listSuppliers[index].enabled = enabled;
+        this.supplierService.saveSupplier(this.listSuppliers[index]).subscribe();
     }
 }

@@ -31,6 +31,7 @@ using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
 using Library.Library.Publishers.Queries.GetListPublisher;
+using Library.Library.Suppliers.Commands.SaveSupplier;
 using Library.Library.Suppliers.Queries.GetListSupplier;
 using Library.Library.UserAccount.Queries.GetUserInfo;
 using Library.Library.UserAccount.Queries.GetUserInfoLogin;
@@ -106,6 +107,7 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Supplier
             registrator.Register<IGetListSupplier, GetListSupplier>(Reuse.InWebRequest);
+            registrator.Register<ISaveSupplierCommand, SaveSupplierCommand>(Reuse.InWebRequest);
 
             // Admin
             registrator.Register<IGetListUserNotReturnBookQuery, GetListUserNotReturnBookQuery>(Reuse.InWebRequest);

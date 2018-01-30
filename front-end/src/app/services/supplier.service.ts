@@ -30,7 +30,7 @@ export class SupplierService {
             }));
     }
 
-    public saveSupplier(supplier: Supplier): Observable<Supplier> {
+    public saveSupplier(supplier: Supplier): Observable<number> {
         let headers = new HttpHeaders();
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SaveSupplier/',

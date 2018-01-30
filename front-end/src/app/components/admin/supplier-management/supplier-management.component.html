@@ -22,12 +22,12 @@
     <tbody>
       <tr *ngFor="let supplier of listSuppliers; let i = index;">
         <td class="col-stt" (click)="supplierEditor(supplier)">{{i + 1}}</td>
-        <td (click)="supplierEditor(supplier)">{{supplier.name}}</td>
-        <td (click)="supplierEditor(supplier)">{{supplier.address}}</td>
-        <td (click)="supplierEditor(supplier)">{{supplier.phone}}</td>
-        <td (click)="supplierEditor(supplier)">{{supplier.email}}</td>
+        <td (click)="supplierEditor(supplier, i)">{{supplier.name}}</td>
+        <td (click)="supplierEditor(supplier, i)">{{supplier.address}}</td>
+        <td (click)="supplierEditor(supplier, i)">{{supplier.phone}}</td>
+        <td (click)="supplierEditor(supplier, i)">{{supplier.email}}</td>
         <td class="col-enabled">
-          <checkbox [checked]="supplier.enabled"></checkbox>
+          <checkbox [checked]="supplier.enabled" (checkedCallback)="updateStatus(i, $event)"></checkbox>
         </td>
       </tr>
     </tbody>
