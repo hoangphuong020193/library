@@ -27,6 +27,7 @@ using Library.Library.Cart.Queries.GetBookInCartDetail;
 using Library.Library.Cart.Queries.GetBookInCartForBorrow;
 using Library.Library.Cart.Queries.GetListBookInCart;
 using Library.Library.Cart.Queries.GetSlotAvailable;
+using Library.Library.Categories.Commands.SaveCategory;
 using Library.Library.Categories.Queries.GetCategory;
 using Library.Library.Favorites.Commands.UpdateBookFavorite;
 using Library.Library.Permission.Queries.GetPermissionByUserId;
@@ -61,6 +62,7 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Category
             registrator.Register<IGetCategoryQuery, GetCategoryQuery>(Reuse.InWebRequest);
+            registrator.Register<ISaveCategoryCommand, SaveCategoryCommand>(Reuse.InWebRequest);
 
             // Book
             registrator.Register<IGetBookPhotoQuery, GetBookPhotoQuery>(Reuse.InWebRequest);

@@ -1,4 +1,6 @@
-﻿using Library.Library.Categories.Queries.GetCategory;
+﻿using Library.Library.Categories.Commands.SaveCategory;
+using Library.Library.Categories.Queries.GetCategory;
+using Library.Library.Categories.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,10 +11,14 @@ namespace Library.API.Controllers.User
     public class CategoryController : Controller
     {
         private readonly IGetCategoryQuery _getCategoryQuery;
+        private readonly ISaveCategoryCommand _saveCategoryCommand;
 
-        public CategoryController(IGetCategoryQuery getCategoryQuery)
+        public CategoryController(
+            IGetCategoryQuery getCategoryQuery,
+            ISaveCategoryCommand saveCategoryCommand)
         {
             _getCategoryQuery = getCategoryQuery;
+            _saveCategoryCommand = saveCategoryCommand;
         }
 
         [HttpGet]
@@ -22,6 +28,14 @@ namespace Library.API.Controllers.User
         {
             var result = await _getCategoryQuery.ExecuteAsync();
             return new ObjectResult(result);
+        }
+
+        [HttpPost]
+        [Route("SaveCategory")]
+        public async Task<IActionResult> SaveCategoryAsync([FromBody] CategoryViewModel model)
+        {
+            var result = await _saveCategoryCommand.ExecuteAsync(model);
+            return new ObjectResult(result.Data);
         }
     }
 }

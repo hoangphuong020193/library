@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Config, PathController } from '../config';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -23,6 +23,21 @@ export class CategoryService {
                 (res: any) => {
                     this.store.dispatch(new categoryAction.FetchCategory(res));
                     return res as Category[];
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
+    }
+
+    public saveCategory(category: Category): Observable<number> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(this.apiURL + '/SaveCategory/',
+            category, { headers }).pipe(
+            tap(
+                (res: any) => {
+                    return res;
                 }
             ),
             catchError((err) => {

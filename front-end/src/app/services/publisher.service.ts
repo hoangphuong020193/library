@@ -30,11 +30,11 @@ export class PublisherService {
             }));
     }
 
-    public savePublisher(supplier: Publisher): Observable<number> {
+    public savePublisher(publisher: Publisher): Observable<number> {
         let headers = new HttpHeaders();
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SavePublisher/',
-            supplier, { headers }).pipe(
+            publisher, { headers }).pipe(
             tap(
                 (res: any) => {
                     return res;

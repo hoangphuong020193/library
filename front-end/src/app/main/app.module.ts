@@ -96,6 +96,7 @@ const APP_COMPONENTS: any[] = [
     components.BookEditorPopupComponent,
     components.SupplierEditorPopupComponent,
     components.PublisherEditorPopupComponent,
+    components.CategoryEditorPopupComponent,
   ]
 })
 

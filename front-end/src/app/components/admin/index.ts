@@ -7,3 +7,5 @@ export * from './supplier-management/supplier-management.component';
 export * from './supplier-management/supplier-editor-popup/supplier-editor-popup.component';
 export * from './publisher-management/publisher-management.component';
 export * from './publisher-management/publisher-editor-popup/publisher-editor-popup.component';
+export * from './category-management/category-management.component';
+export * from './category-management/category-editor-popup/category-editor-popup.component';

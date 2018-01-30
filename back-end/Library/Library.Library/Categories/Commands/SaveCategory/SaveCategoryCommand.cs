@@ -4,20 +4,20 @@ using System.Threading.Tasks;
 using HRM.CrossCutting.Command;
 using Library.Data.Entities.Library;
 using Library.Data.Services;
-using Library.Library.Publishers.ViewModels;
+using Library.Library.Categories.ViewModels;
 
-namespace Library.Library.Publishers.Commands.SavePublisher
+namespace Library.Library.Categories.Commands.SaveCategory
 {
-    public class SavePublisherCommand : ISavePublisherCommand
+    public class SaveCategoryCommand : ISaveCategoryCommand
     {
-        private readonly IRepository<Publisher> _publisherRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
-        public SavePublisherCommand(IRepository<Publisher> publisherRepository)
+        public SaveCategoryCommand(IRepository<Category> categoryRepository)
         {
-            _publisherRepository = publisherRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<CommandResult> ExecuteAsync(PublisherViewModel model)
+        public async Task<CommandResult> ExecuteAsync(CategoryViewModel model)
         {
             try
             {
@@ -32,8 +32,8 @@ namespace Library.Library.Publishers.Commands.SavePublisher
 
                 if (model.Id != 0)
                 {
-                    var publisher = await _publisherRepository.GetByIdAsync(model.Id);
-                    if (publisher == null)
+                    var category = await _categoryRepository.GetByIdAsync(model.Id);
+                    if (category == null)
                     {
                         return CommandResult.Failed(new CommandResultError()
                         {
@@ -42,23 +42,19 @@ namespace Library.Library.Publishers.Commands.SavePublisher
                         });
                     }
 
-                    publisher.Name = model.Name;
-                    publisher.Address = model.Address;
-                    publisher.Phone = model.Phone;
-                    publisher.Email = model.Email;
-                    publisher.Enabled = model.Enabled;
+                    category.CategoryName = model.CategoryName;
+                    category.Type = model.Type;
+                    category.Enabled = model.Enabled;
 
-                    await _publisherRepository.UpdateAsync(publisher);
+                    await _categoryRepository.UpdateAsync(category);
                 }
                 else
                 {
-                    Publisher entity = new Publisher();
-                    entity.Name = model.Name;
-                    entity.Address = model.Address;
-                    entity.Phone = model.Phone;
-                    entity.Email = model.Email;
+                    Category entity = new Category();
+                    entity.CategoryName = model.CategoryName;
+                    entity.Type = model.Type;
 
-                    await _publisherRepository.InsertAsync(entity);
+                    await _categoryRepository.InsertAsync(entity);
                     model.Id = entity.Id;
                 }
 
@@ -74,9 +70,9 @@ namespace Library.Library.Publishers.Commands.SavePublisher
             }
         }
 
-        private bool ValidationData(PublisherViewModel model)
+        private bool ValidationData(CategoryViewModel model)
         {
-            if (model == null || model.Name == null)
+            if (model == null || model.CategoryName == null)
             {
                 return false;
             }

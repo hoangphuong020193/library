@@ -57,10 +57,12 @@ export class SupplierManagementComponent implements OnInit {
         this.dialogService.addDialog(SupplierEditorPopupComponent, {
             supplier: JsHelper.cloneObject(supplier)
         }).subscribe((res) => {
-            if (index === -1) {
-                this.listSuppliers.push(res);
-            } else {
-                this.listSuppliers[index] = res;
+            if (res) {
+                if (index === -1) {
+                    this.listSuppliers.push(res);
+                } else {
+                    this.listSuppliers[index] = res;
+                }
             }
         });
     }
