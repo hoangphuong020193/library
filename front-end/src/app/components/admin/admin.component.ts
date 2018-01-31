@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
     private categoryTab: number = 3;
     private publisherManagementTab: number = 4;
     private supplierManagementTab: number = 5;
-    private debtListTab: number = 6;
+    private reportTab: number = 6;
     private selectedTab: number = this.borrowReturnBookTab;
 
     constructor(

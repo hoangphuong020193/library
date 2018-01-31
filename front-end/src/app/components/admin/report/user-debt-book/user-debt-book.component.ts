@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin.service';
-import { PagedList } from '../../../models/paged-list.model';
-import { UserNotReturnBook } from '../../../models/admin.model';
-import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
+import { AdminService } from '../../../../services/admin.service';
+import { PagedList } from '../../../../models/paged-list.model';
+import { UserNotReturnBook } from '../../../../models/admin.model';
+import { JQueryHelper } from '../../../../shareds/helpers/jquery.helper';
 import * as moment from 'moment';
-import { Format } from '../../../shareds/constant/format.constant';
+import { Format } from '../../../../shareds/constant/format.constant';
 
 @Component({
     selector: 'user-debt-book',

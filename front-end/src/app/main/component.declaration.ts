@@ -44,13 +44,14 @@ export const Components: any = [
     fromAdmin.BorrowReturnBookComponent,
     fromAdmin.BookManagementComponent,
     fromAdmin.BookEditorPopupComponent,
-    fromAdmin.UserDebtBookComponent,
     fromAdmin.SupplierManagementComponent,
     fromAdmin.SupplierEditorPopupComponent,
     fromAdmin.PublisherManagementComponent,
     fromAdmin.PublisherEditorPopupComponent,
     fromAdmin.CategoryManagementComponent,
     fromAdmin.CategoryEditorPopupComponent,
+    fromAdmin.ReportComponent,
+    fromAdmin.UserDebtBookComponent,
 ];
 
 // Modal

@@ -16,4 +16,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Books\Queries\BookBorrowAmount\" />
+  </ItemGroup>
+
 </Project>
