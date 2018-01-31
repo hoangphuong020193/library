@@ -8,6 +8,7 @@ using Library.Library.Books.Commands.ReturnBook;
 using Library.Library.Books.Commands.SaveBook;
 using Library.Library.Books.Commands.SaveBookImage;
 using Library.Library.Books.Commands.TakenBook;
+using Library.Library.Books.Queries.BookBorrowAmount;
 using Library.Library.Books.Queries.CheckBookExistsCode;
 using Library.Library.Books.Queries.GetBookBorrow;
 using Library.Library.Books.Queries.GetBookByBookCode;
@@ -74,6 +75,7 @@ namespace Library.ApiFramework.IoCRegistrar
             registrator.Register<ISaveBookCommand, SaveBookCommand>(Reuse.InWebRequest);
             registrator.Register<IGetBookByBookCodeQuery, GetBookByBookCodeQuery>(Reuse.InWebRequest);
             registrator.Register<ISaveBookImageCommand, SaveBookImageCommand>(Reuse.InWebRequest);
+            registrator.Register<IBookBorrowAmountQuery, BookBorrowAmountQuery>(Reuse.InWebRequest);
 
             // Cart
             registrator.Register<IGetBookInCartForBorrowQuery, GetBookInCartForBorrowQuery>(Reuse.InWebRequest);

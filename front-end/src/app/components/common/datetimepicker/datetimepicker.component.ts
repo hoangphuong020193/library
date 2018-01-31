@@ -7,9 +7,9 @@ import * as moment from 'moment';
 import { DayComponent, ObjectDay } from './day/day.component';
 import { MonthComponent, ObjectMonth } from './month/month.component';
 import { ObjectYear, YearComponent } from './year/year.component';
+import { Format } from '../../../shareds/constant/format.constant';
 import { JQueryHelper } from '../../../shareds/helpers/jquery.helper';
 import { KeyCode } from '../../../shareds/enums/keycode.enum';
-import { Format } from '../../../shareds/constant/format.constant';
 
 @Component({
     selector: '[datetimepicker], datetimepicker',
@@ -35,7 +35,7 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
     // tslint:disable-next-line:no-output-rename
     @Output('onTabPress') public tabPress: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('dateInput') private dateInput: any;
+    @ViewChild('datetInput') private datetInput: any;
     @ViewChild('datetimePickerPanel') private datetimePickerPanel: any;
 
     // Variable
@@ -46,6 +46,10 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
     private monthSelected: number = moment().month();
     private yearSelected: number = moment().year();
     private dateSelected: moment.Moment = moment();
+    private hourFormat: string = 'HH';
+    private minuteFormat: string = 'mm';
+    private hourSelected: string;
+    private minuteSelected: string;
 
     private pageCurrent: number = 0;
     private title: string;
@@ -69,8 +73,6 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
     private dateInputClassString: string = 'date-input';
 
     private datetimepickerPanelClass: string = '.datetimepicker-panel';
-    private listHour: string[] = [];
-    private listMinute: string[] = [];
 
     constructor(private elementRef: ElementRef) { }
 
@@ -95,7 +97,6 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
     }
 
     private showDateTimePicker(): void {
-        this.daySelected = this.daySelected;
         $(this.datetimepickerPanelClass).removeClass('show');
         if (!this.disabled) {
             $(this.datetimePickerPanel.nativeElement).addClass('show');
@@ -220,23 +221,25 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
 
     private showOnInput(): void {
         const date: Date = new Date(this.yearSelected,
-            this.monthSelected, this.daySelected);
+            this.monthSelected, this.daySelected,
+            // tslint:disable-next-line:radix
+            parseInt(this.hourSelected), parseInt(this.minuteSelected));
         const ouputDate: string = moment(date).format(this.format);
-        this.dateInput.nativeElement.value = ouputDate;
+        this.datetInput.nativeElement.value = ouputDate;
         this.selectedDateEmit.emit(moment(date));
         this.outFocusEmitter.emit();
     }
 
     private handleChangeInput(): void {
-        const inputString: string = this.dateInput.nativeElement.value;
-        const date: moment.Moment = moment(inputString, 'dd/mm/yyyy');
-        if (date.isValid()) {
-            this.daySelected = date.date();
-            this.monthSelected = date.month();
-            this.yearSelected = date.year();
+        const inputString: string = this.datetInput.nativeElement.value;
+        const date: any = new Date(inputString);
+        if (date.toString() !== 'Invalid Date') {
+            this.daySelected = date.getDate();
+            this.monthSelected = date.getMonth();
+            this.yearSelected = date.getFullYear();
             this.changeTitle();
         } else {
-            this.dateInput.nativeElement.value = '';
+            this.datetInput.nativeElement.value = '';
         }
     }
 
@@ -287,6 +290,8 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
         this.daySelected = this.dateSelected.date();
         this.monthSelected = this.dateSelected.month();
         this.yearSelected = this.dateSelected.year();
+        this.hourSelected = moment(this.dateSelected).format(this.hourFormat);
+        this.minuteSelected = moment(this.dateSelected).format(this.minuteFormat);
         this.changeTitle();
     }
 

@@ -4,6 +4,24 @@ import {
 } from '@angular/core';
 import * as moment from 'moment';
 
+export class ObjectYear {
+    public year: number;
+    public disabled: boolean;
+    constructor(year: number, disabled: boolean) {
+        this.year = year;
+        this.disabled = disabled;
+    }
+}
+
+class YearArray {
+    public row: number;
+    public listYears: ObjectYear[];
+    constructor(row: number, listYears: ObjectYear[]) {
+        this.row = row;
+        this.listYears = listYears;
+    }
+}
+
 @Component({
     selector: 'years',
     templateUrl: './year.component.html'
@@ -64,25 +82,5 @@ export class YearComponent implements OnInit, OnChanges {
             return true;
         }
         return false;
-    }
-}
-
-// tslint:disable-next-line:max-classes-per-file
-export class ObjectYear {
-    public year: number;
-    public disabled: boolean;
-    constructor(year: number, disabled: boolean) {
-        this.year = year;
-        this.disabled = disabled;
-    }
-}
-
-// tslint:disable-next-line:max-classes-per-file
-class YearArray {
-    public row: number;
-    public listYears: ObjectYear[];
-    constructor(row: number, listYears: ObjectYear[]) {
-        this.row = row;
-        this.listYears = listYears;
     }
 }

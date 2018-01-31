@@ -2,7 +2,7 @@
   <i class="icon icon-calendar" [ngClass]="{'disabled': disabled}" (click)="showDateTimePicker()" *ngIf="showIcon"></i>
   <input type="text" value="{{parseDate(setDate)}}" class="date-input" [class.no-icon]="!showIcon" (focusout)="focusOutInput($event)"
     (keydown)="onKeyDown($event)" [disabled]="disabled" onkeydown="return false" (click)="showDateTimePicker()" (focus)="showDateTimePicker()"
-    #dateInput placeholder="{{placeholder}}">
+    #datetInput placeholder="{{placeholder}}">
   <div class="datetimepicker-panel" #datetimePickerPanel>
     <div class="dt-nav">
       <div class="previous" (click)="onPreviousPage(ShowScreen)">

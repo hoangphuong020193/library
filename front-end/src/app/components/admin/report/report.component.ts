@@ -10,10 +10,9 @@ export class ReportComponent implements OnInit {
     private typeSelected: number = ReportType.DebtBook;
     private ReportType: any = ReportType;
 
-    constructor() { }
-
     public ngOnInit(): void {
         this.listData.push(new DropDownData(ReportType.DebtBook, 'Bạn đọc nợ sách'));
+        this.listData.push(new DropDownData(ReportType.TopBook, 'Sách được mượn nhiều'));
     }
 
     private selectType(type: DropDownData): void {
@@ -23,4 +22,5 @@ export class ReportComponent implements OnInit {
 
 enum ReportType {
     DebtBook = 1,
+    TopBook = 2
 }

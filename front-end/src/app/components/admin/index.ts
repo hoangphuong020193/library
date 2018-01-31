@@ -10,3 +10,4 @@ export * from './category-management/category-management.component';
 export * from './category-management/category-editor-popup/category-editor-popup.component';
 export * from './report/report.component';
 export * from './report/user-debt-book/user-debt-book.component';
+export * from './report/top-book/top-book.component';

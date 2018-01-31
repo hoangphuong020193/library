@@ -54,3 +54,10 @@ export class SearchBookResult {
         this.listBooks = listBooks;
     }
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class BookBorrowAmount {
+    public bookCode: string;
+    public bookName: string;
+    public amount: number;
+}

@@ -30,8 +30,10 @@ export class UserDebtBookComponent implements OnInit {
         this.pageSize = pageSize;
         this.adminService.getListUserNotReturnBook(this.pageCurrent, this.pageSize)
             .subscribe((res) => {
-                this.listUserDebt = res;
-                JQueryHelper.hideLoading();
+                if (res) {
+                    this.listUserDebt = res;
+                    JQueryHelper.hideLoading();
+                }
             });
     }
 

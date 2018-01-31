@@ -4,6 +4,28 @@ import {
 } from '@angular/core';
 import * as moment from 'moment';
 
+export class ObjectMonth {
+    public monthId: any;
+    public month: any;
+    public year: any;
+    public disabled: boolean;
+    constructor(monthId: any, month: any, year: any, disabled: boolean) {
+        this.monthId = monthId;
+        this.month = month;
+        this.year = year;
+        this.disabled = disabled;
+    }
+}
+
+class MonthArray {
+    public row: number;
+    public listMonths: any[];
+    constructor(row: number, listMonths: any[]) {
+        this.row = row;
+        this.listMonths = listMonths;
+    }
+}
+
 @Component({
     selector: 'months',
     templateUrl: './month.component.html'
@@ -31,10 +53,7 @@ export class MonthComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['pageCurrent']
-            || changes['minDate']
-            || changes['maxDate']
-            || changes['yearSelected']) {
+        if (changes['pageCurrent'] || changes['minDate'] || changes['maxDate'] || changes['yearSelected']) {
             this.generateMonth();
         }
     }
@@ -52,8 +71,7 @@ export class MonthComponent implements OnInit, OnChanges {
         for (let i: number = 1; i <= this.monthDefine.length; i++) {
             const month: any = this.monthDefine[i - 1];
             const year: any = this.yearSelected + this.pageCurrent;
-            months.push(new ObjectMonth(i - 1, month, year,
-                this.checkRange(new Date(year, month, 1))));
+            months.push(new ObjectMonth(i - 1, month, year, this.checkRange(new Date(year, month, 1))));
             if (i % 3 === 0) {
                 this.rows.push(new MonthArray(row, months));
                 row++;
@@ -64,40 +82,15 @@ export class MonthComponent implements OnInit, OnChanges {
 
     private checkRange(date: Date): boolean {
         if (this.minDate !== null && date.getFullYear() < this.minDate.year()
-            && date.getMonth() < this.minDate.month()) {
+        && date.getMonth() < this.minDate.month()) {
             return true;
         }
 
         if (this.maxDate !== null &&
             ((date.getFullYear() > this.maxDate.year())
-                || (date.getFullYear() > this.maxDate.year()
-                    && date.getMonth() > this.maxDate.month()))) {
+                || (date.getFullYear() > this.maxDate.year() && date.getMonth() > this.maxDate.month()))) {
             return true;
         }
         return false;
-    }
-}
-
-// tslint:disable-next-line:max-classes-per-file
-class MonthArray {
-    public row: number;
-    public listMonths: any[];
-    constructor(row: number, listMonths: any[]) {
-        this.row = row;
-        this.listMonths = listMonths;
-    }
-}
-
-// tslint:disable-next-line:max-classes-per-file
-export class ObjectMonth {
-    public monthId: any;
-    public month: any;
-    public year: any;
-    public disabled: boolean;
-    constructor(monthId: any, month: any, year: any, disabled: boolean) {
-        this.monthId = monthId;
-        this.month = month;
-        this.year = year;
-        this.disabled = disabled;
     }
 }

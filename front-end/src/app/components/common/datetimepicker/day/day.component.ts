@@ -5,7 +5,6 @@ import {
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import * as fromRoot from '../../../../store/reducers';
-import { Format } from '../../../../shareds/constant/format.constant';
 
 @Component({
     selector: 'days',
@@ -33,6 +32,7 @@ export class DayComponent implements OnInit, OnChanges {
 
     public ngOnInit(): void {
         this.rows = [];
+        this.generateDay();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -80,8 +80,7 @@ export class DayComponent implements OnInit, OnChanges {
             this.fixTimeZone(date);
             const dateObject: ObjectDay = new ObjectDay(
                 date.getDate(), date.getMonth(), date.getFullYear(),
-                this.checkRange(date), date.getMonth() !== month
-            );
+                this.checkRange(date), date.getMonth() !== month);
             days.push(dateObject);
             if (i % 7 === 0) {
                 this.rows.push(new DayArray(row, days));

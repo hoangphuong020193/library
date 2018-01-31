@@ -19,12 +19,8 @@ export class AdminGuard implements CanActivate {
                 return this.store.select(fromRoot.getPermission).mergeMap((permissions) => {
                     if (permissions.some((x) => x.groupPermissionId === PermissionId.ADMIN)) {
                         return Observable.of(true);
-                    } else {
-                        this.routerService.home();
                     }
                 });
-            } else {
-                this.routerService.home();
             }
         });
     }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Config, PathController } from '../config';
-import { Book, SearchBookResult } from '../models/book.model';
+import { Book, SearchBookResult, BookBorrowAmount } from '../models/book.model';
 import { map, tap, catchError } from 'rxjs/operators';
 import { MyBook } from '../models/my-book.model';
 import { UserBookRequest } from '../models/user-book-request.model';
@@ -197,5 +197,22 @@ export class BookService {
         const input: any = new FormData();
         input.append('file', fileToUpload);
         return this.http.post(this.apiURL + '/SaveImage/' + bookId, input);
+    }
+
+    public topBook(page: number, pageSize: number, startDate: string, endDate: string)
+        : Observable<PagedList<BookBorrowAmount>> {
+        return this.http.get(this.apiURL + '/TopBook/'
+            + page.toString() + '/'
+            + pageSize.toString() + '/'
+            + startDate + '/'
+            + endDate).pipe(
+            tap(
+                (res: any) => {
+                    return res;
+                }
+            ),
+            catchError((err) => {
+                return Observable.of(null);
+            }));
     }
 }

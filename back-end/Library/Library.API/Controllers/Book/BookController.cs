@@ -4,6 +4,7 @@ using Library.Library.Books.Commands.ReturnBook;
 using Library.Library.Books.Commands.SaveBook;
 using Library.Library.Books.Commands.SaveBookImage;
 using Library.Library.Books.Commands.TakenBook;
+using Library.Library.Books.Queries.BookBorrowAmount;
 using Library.Library.Books.Queries.CheckBookExistsCode;
 using Library.Library.Books.Queries.GetBookDetail;
 using Library.Library.Books.Queries.GetBookPhoto;
@@ -41,6 +42,7 @@ namespace Library.API.Controllers.Book
         private readonly ICheckBookCodeExistsQuery _checkBookCodeExistsQuery;
         private readonly ISaveBookCommand _saveBookCommand;
         private readonly ISaveBookImageCommand _saveBookImageCommand;
+        private readonly IBookBorrowAmountQuery _bookBorrowAmountQuery;
 
         public BookController(IGetListBookNewQuery getListBookNewQuery,
             IGetBookDetailQuery getBookDetailQuery,
@@ -56,7 +58,8 @@ namespace Library.API.Controllers.Book
             IGetListBookQuery getListBookQuery,
             ICheckBookCodeExistsQuery checkBookCodeExistsQuery,
             ISaveBookCommand saveBookCommand,
-            ISaveBookImageCommand saveBookImageCommand)
+            ISaveBookImageCommand saveBookImageCommand,
+            IBookBorrowAmountQuery bookBorrowAmountQuery)
         {
             _getListBookNewQuery = getListBookNewQuery;
             _getBookDetailQuery = getBookDetailQuery;
@@ -73,6 +76,7 @@ namespace Library.API.Controllers.Book
             _checkBookCodeExistsQuery = checkBookCodeExistsQuery;
             _saveBookCommand = saveBookCommand;
             _saveBookImageCommand = saveBookImageCommand;
+            _bookBorrowAmountQuery = bookBorrowAmountQuery;
         }
 
         [HttpGet]
@@ -222,6 +226,14 @@ namespace Library.API.Controllers.Book
                     return new ObjectResult(result.Succeeded);
                 }
             }
+        }
+
+        [HttpGet]
+        [Route("TopBook/{page:int=0}/{pageSize=}/{startDate=}/{endDate=}")]
+        public async Task<IActionResult> TopBookAsync(int page, int pageSize, string startDate, string endDate)
+        {
+            var result = await _bookBorrowAmountQuery.ExecuteAsync(page, pageSize, startDate, endDate);
+            return new ObjectResult(result);
         }
     }
 }
