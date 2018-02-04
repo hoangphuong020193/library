@@ -1,24 +1,5 @@
 # library
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Assignment at OU
 
 Technology:
@@ -52,4 +33,3 @@ Type "dotnet run"
 
 Step 5:
 Open browser and navigate to http://localhost:3000
-
