@@ -21,6 +21,7 @@ using Library.ApiFramework.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Library.ApiFramework.AppConfig;
 using Microsoft.AspNetCore.Identity;
+using Library.ApiFramework.ConfigurationExtensions;
 
 namespace Library.API
 {
@@ -90,7 +91,8 @@ namespace Library.API
             });
 
             services.AddSingleton(ctx => Configuration);
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(@"Server=.\SQLEXPRESS;Database=library;Trusted_Connection=True;"));
+            string connectionString = Configuration.GetDbConnectionString();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddCors(options =>
             {
