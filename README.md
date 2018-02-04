@@ -1,24 +1,24 @@
 # library
-Assignment at OU
 
-Technology:
-- Back-end: NET CORE 2.0
-- Font-end: Angular v5+ with webpack 3
 
-Resouce:
-NetCore 2.0: https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.4-windows-x64-installer
-Nodejs: https://nodejs.org/dist/v8.9.4/node-v8.9.4-x86.msi
 
-Software:
-Visual Code, SQL server 2017, Visual studio 2017
 
-How to run?
 
-Step 1: 
 
-Run script DBScript.sql for create DB.
 
-library
+
+
+
+
+
+
+
+
+
+
+
+
+
 Assignment at OU
 
 Technology:
