@@ -33,3 +33,7 @@ Type "dotnet run"
 
 Step 5:
 Open browser and navigate to http://localhost:3000
+
+Account/Passwork
+Sinh viên: 16H1010012/ ou@2017
+Thủ thư: NV0000001/ ou@2017
