@@ -1,4 +1,4 @@
-﻿using Library.Library.Books.Queries.SearchBook;
+﻿using Library.Library.Book.Queries.SearchBook;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

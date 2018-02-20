@@ -12,11 +12,11 @@ namespace Library.Library.Cart.Commands.DeleteToCart
 {
     public class DeleteToCartCommand : IDeleteToCartCommand
     {
-        private readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<BookCarts> _bookCartRepository;
         private readonly HttpContext _httpContext;
 
         public DeleteToCartCommand(
-            IRepository<BookCart> bookCartRepository,
+            IRepository<BookCarts> bookCartRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _bookCartRepository = bookCartRepository;
@@ -27,7 +27,7 @@ namespace Library.Library.Cart.Commands.DeleteToCart
         {
             var userId = int.Parse(_httpContext?.User?.UserId());
 
-            BookCart entity = await _bookCartRepository.TableNoTracking
+            BookCarts entity = await _bookCartRepository.TableNoTracking
                 .Where(x => x.UserId == userId && x.BookId == bookId).FirstOrDefaultAsync();
 
             if (entity == null)

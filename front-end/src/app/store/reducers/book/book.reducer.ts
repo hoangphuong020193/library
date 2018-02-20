@@ -34,6 +34,15 @@ export function reducer(state: State = initialState, action: bookAction.Actions)
             return Object.assign({}, state, {
                 bookInCart: []
             });
+        case bookAction.ActionTypes.UPDATE_STATUS_BOOK_IN_CART:
+            return Object.assign({}, state, {
+                bookInCart: state.bookInCart.map((x) => {
+                    if (x.bookId === action.payload.bookId) {
+                        x.status = action.payload.status;
+                    }
+                    return x;
+                })
+            });
         default:
             return state;
     }

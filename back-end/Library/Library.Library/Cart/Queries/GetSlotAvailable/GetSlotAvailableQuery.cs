@@ -11,11 +11,11 @@ namespace Library.Library.Cart.Queries.GetSlotAvailable
 {
     public class GetSlotAvailableQuery : IGetSlotAvailableQuery
     {
-        private readonly IRepository<UserBook> _userBookRepository;
+        private readonly IRepository<UserBooks> _userBookRepository;
         private readonly HttpContext _httpContext;
 
         public GetSlotAvailableQuery(
-            IRepository<UserBook> userBookRepository,
+            IRepository<UserBooks> userBookRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _userBookRepository = userBookRepository;

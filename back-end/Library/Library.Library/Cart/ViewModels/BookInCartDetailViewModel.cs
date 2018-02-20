@@ -14,5 +14,6 @@ namespace Library.Library.Cart.ViewModels
         public DateTime ModifiedDate { get; set; }
         public int MaximumDateBorrow { get; set; }
         public DateTime ReturnDate { get; set; }
+        public string LibraryName { get; set; }
     }
 }

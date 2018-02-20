@@ -14,6 +14,8 @@ export class Book {
     public publisher: string;
     public supplierId: number = 0;
     public supplier: string;
+    public libraryId: number = 0;
+    public libraryName: string;
     public size: string;
     public format: string;
     public publicationDate: string;
@@ -43,6 +45,7 @@ export class BookInCartDetail {
     public modifiedDate: string;
     public maximumDateBorrow: number;
     public returnDate: string;
+    public libraryName: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file

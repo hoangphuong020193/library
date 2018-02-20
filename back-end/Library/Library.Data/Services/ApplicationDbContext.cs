@@ -13,28 +13,65 @@ namespace Library.Data.Services
 {
     public partial class ApplicationDbContext : DbContext, IDbContext
     {
-        public virtual DbSet<Book> Book { get; set; }
-        public virtual DbSet<BookCart> BookCart { get; set; }
-        public virtual DbSet<BookFavorite> BookFavorite { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
-        public virtual DbSet<PermissionGroupMember> PermissionGroupMember { get; set; }
-        public virtual DbSet<Publisher> Publisher { get; set; }
-        public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<Title> Title { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserBook> UserBook { get; set; }
-        public virtual DbSet<UserBookRequest> UserBookRequest { get; set; }
+        public virtual DbSet<BookCarts> BookCarts { get; set; }
+        public virtual DbSet<BookFavorites> BookFavorites { get; set; }
+        public virtual DbSet<Books> Books { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Libraries> Libraries { get; set; }
+        public virtual DbSet<PermissionGroupMembers> PermissionGroupMembers { get; set; }
+        public virtual DbSet<PermissionGroups> PermissionGroups { get; set; }
+        public virtual DbSet<Publishers> Publishers { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<Titles> Titles { get; set; }
+        public virtual DbSet<UserBookRequests> UserBookRequests { get; set; }
+        public virtual DbSet<UserBooks> UserBooks { get; set; }
         public virtual DbSet<UserNotifications> UserNotifications { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>(entity =>
+            modelBuilder.Entity<BookCarts>(entity =>
+            {
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Status).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BookCarts)
+                    .HasForeignKey(d => d.BookId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BookCarts__BookI__4AB81AF0");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BookCarts)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BookCarts__UserI__49C3F6B7");
+            });
+
+            modelBuilder.Entity<BookFavorites>(entity =>
+            {
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BookFavorites)
+                    .HasForeignKey(d => d.BookId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BookFavor__BookI__5070F446");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BookFavorites)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BookFavor__UserI__4F7CD00D");
+            });
+
+            modelBuilder.Entity<Books>(entity =>
             {
                 entity.HasIndex(e => e.BookCode)
-                    .HasName("UQ__Book__0A5FFCC7FB413A20")
+                    .HasName("UQ__Books__0A5FFCC77A927797")
                     .IsUnique();
 
                 entity.Property(e => e.Amount).HasDefaultValueSql("((0))");
@@ -56,6 +93,7 @@ namespace Library.Data.Services
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Format).HasMaxLength(50);
+
                 entity.Property(e => e.MaximumDateBorrow).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Pages).HasDefaultValueSql("((0))");
@@ -67,54 +105,31 @@ namespace Library.Data.Services
                 entity.Property(e => e.Tag).HasMaxLength(250);
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Book)
+                    .WithMany(p => p.Books)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Book__CategoryId__71D1E811");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Books__CategoryI__3F466844");
+
+                entity.HasOne(d => d.Library)
+                    .WithMany(p => p.Books)
+                    .HasForeignKey(d => d.LibraryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Books__LibraryId__440B1D61");
 
                 entity.HasOne(d => d.Publisher)
-                    .WithMany(p => p.Book)
+                    .WithMany(p => p.Books)
                     .HasForeignKey(d => d.PublisherId)
-                    .HasConstraintName("FK__Book__PublisherI__74AE54BC");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Books__Publisher__4222D4EF");
 
                 entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Book)
+                    .WithMany(p => p.Books)
                     .HasForeignKey(d => d.SupplierId)
-                    .HasConstraintName("FK__Book__SupplierId__75A278F5");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Books__SupplierI__4316F928");
             });
 
-            modelBuilder.Entity<BookCart>(entity =>
-            {
-                entity.Property(e => e.ModifiedDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Status).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.Book)
-                    .WithMany(p => p.BookCart)
-                    .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK__BookCart__BookId__7C4F7684");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.BookCart)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__BookCart__UserId__7B5B524B");
-            });
-
-            modelBuilder.Entity<BookFavorite>(entity =>
-            {
-                entity.HasOne(d => d.Book)
-                    .WithMany(p => p.BookFavorite)
-                    .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK__BookFavor__BookI__02084FDA");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.BookFavorite)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__BookFavor__UserI__01142BA1");
-            });
-
-            modelBuilder.Entity<Category>(entity =>
+            modelBuilder.Entity<Categories>(entity =>
             {
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
@@ -125,31 +140,7 @@ namespace Library.Data.Services
                 entity.Property(e => e.Type).HasMaxLength(250);
             });
 
-            modelBuilder.Entity<PermissionGroup>(entity =>
-            {
-                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.GroupName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-            });
-
-            modelBuilder.Entity<PermissionGroupMember>(entity =>
-            {
-                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.Group)
-                    .WithMany(p => p.PermissionGroupMember)
-                    .HasForeignKey(d => d.GroupId)
-                    .HasConstraintName("FK__Permissio__Group__2E1BDC42");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.PermissionGroupMember)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Permissio__UserI__2F10007B");
-            });
-
-            modelBuilder.Entity<Supplier>(entity =>
+            modelBuilder.Entity<Libraries>(entity =>
             {
                 entity.Property(e => e.Address).HasMaxLength(1000);
 
@@ -162,7 +153,59 @@ namespace Library.Data.Services
                 entity.Property(e => e.Phone).HasMaxLength(15);
             });
 
-            modelBuilder.Entity<Title>(entity =>
+            modelBuilder.Entity<PermissionGroupMembers>(entity =>
+            {
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.PermissionGroupMembers)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Permissio__Group__2E1BDC42");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PermissionGroupMembers)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Permissio__UserI__2F10007B");
+            });
+
+            modelBuilder.Entity<PermissionGroups>(entity =>
+            {
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.GroupName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Publishers>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(1000);
+
+                entity.Property(e => e.Email).HasMaxLength(250);
+
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Name).HasMaxLength(250);
+
+                entity.Property(e => e.Phone).HasMaxLength(15);
+            });
+
+            modelBuilder.Entity<Suppliers>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(1000);
+
+                entity.Property(e => e.Email).HasMaxLength(250);
+
+                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Name).HasMaxLength(250);
+
+                entity.Property(e => e.Phone).HasMaxLength(15);
+            });
+
+            modelBuilder.Entity<Titles>(entity =>
             {
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 
@@ -173,21 +216,77 @@ namespace Library.Data.Services
                 entity.Property(e => e.ShortName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Title>(entity =>
+            modelBuilder.Entity<UserBookRequests>(entity =>
             {
-                entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
+                entity.HasIndex(e => e.RequestCode)
+                    .HasName("UQ__UserBook__CBAB82F6D3B1242E")
+                    .IsUnique();
 
-                entity.Property(e => e.Name)
+                entity.Property(e => e.RequestCode)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(10);
 
-                entity.Property(e => e.ShortName).HasMaxLength(50);
+                entity.Property(e => e.RequestDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserBookRequests)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserBookR__UserI__5441852A");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<UserBooks>(entity =>
+            {
+                entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ReceiveDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.UserBooks)
+                    .HasForeignKey(d => d.BookId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserBooks__BookI__59FA5E80");
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.UserBooks)
+                    .HasForeignKey(d => d.RequestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserBooks__Reque__59063A47");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserBooks)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserBooks__UserI__5812160E");
+            });
+
+            modelBuilder.Entity<UserNotifications>(entity =>
+            {
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.MessageDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserNotifications)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserNotif__UserI__5DCAEF64");
+            });
+
+            modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasIndex(e => e.UserName)
-                    .HasName("UQ__User__C9F284562B4D4164")
+                    .HasName("UQ__Users__C9F28456308A00A5")
                     .IsUnique();
 
                 entity.Property(e => e.BirthDay).HasColumnType("date");
@@ -217,71 +316,10 @@ namespace Library.Data.Services
                     .HasMaxLength(15);
 
                 entity.HasOne(d => d.Title)
-                    .WithMany(p => p.User)
+                    .WithMany(p => p.Users)
                     .HasForeignKey(d => d.TitleId)
-                    .HasConstraintName("FK__User__TitleId__276EDEB3");
-            });
-
-            modelBuilder.Entity<UserBook>(entity =>
-            {
-                entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
-
-                entity.Property(e => e.ReceiveDate).HasColumnType("datetime");
-
-                entity.Property(e => e.ReturnDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Status).HasDefaultValueSql("((0))");
-
-                entity.HasOne(d => d.Book)
-                    .WithMany(p => p.UserBook)
-                    .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK__UserBook__BookId__2180FB33");
-
-                entity.HasOne(d => d.Request)
-                    .WithMany(p => p.UserBook)
-                    .HasForeignKey(d => d.RequestId)
-                    .HasConstraintName("FK__UserBook__Reques__208CD6FA");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserBook)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserBook__UserId__1F98B2C1");
-            });
-
-            modelBuilder.Entity<UserBookRequest>(entity =>
-            {
-                entity.HasIndex(e => e.RequestCode)
-                    .HasName("UQ__UserBook__CBAB82F6E235EAE4")
-                    .IsUnique();
-
-                entity.Property(e => e.RequestCode)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.RequestDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserBookRequest)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserBookR__UserI__1BC821DD");
-            });
-
-            modelBuilder.Entity<UserNotifications>(entity =>
-            {
-                entity.Property(e => e.Message)
-                    .IsRequired()
-                    .HasMaxLength(1000);
-
-                entity.Property(e => e.MessageDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserNotifications)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserNotif__UserI__3C34F16F");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Users__TitleId__276EDEB3");
             });
         }
 

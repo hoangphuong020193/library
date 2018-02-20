@@ -9,9 +9,9 @@ namespace Library.Library.UserAccount.Queries.GetUserInfoLogin
 {
     public class GetUserInfoLoginQuery : IGetUserInfoLoginQuery
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Data.Entities.Account.Users> _userRepository;
 
-        public GetUserInfoLoginQuery(IRepository<User> userRepository)
+        public GetUserInfoLoginQuery(IRepository<Data.Entities.Account.Users> userRepository)
         {
             _userRepository = userRepository;
         }

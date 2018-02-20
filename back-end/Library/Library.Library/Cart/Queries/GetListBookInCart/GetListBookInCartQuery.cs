@@ -13,11 +13,11 @@ namespace Library.Library.Cart.Queries.GetListBookInCart
 {
     public class GetListBookInCartQuery : IGetListBookInCartQuery
     {
-        private readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<BookCarts> _bookCartRepository;
         private readonly HttpContext _httpContext;
 
         public GetListBookInCartQuery(
-            IRepository<BookCart> bookCartRepository,
+            IRepository<BookCarts> bookCartRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _bookCartRepository = bookCartRepository;
@@ -33,7 +33,7 @@ namespace Library.Library.Cart.Queries.GetListBookInCart
                 .Select(x => new BookInCartViewModel
                 {
                     Id = x.Id,
-                    BookId = x.BookId.Value,
+                    BookId = x.BookId,
                     Status = x.Status,
 
                 }).ToListAsync();

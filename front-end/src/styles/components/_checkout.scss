@@ -9,7 +9,11 @@ check-out {
         height: 175px;
         border-bottom: 1px solid $color-border;
         .book-img {
-          width: 145px;
+          book-image {
+            img {
+              height: 145px;
+            }
+          }
         }
         .book-info {
           display: flex;
@@ -34,8 +38,9 @@ check-out {
         position: absolute;
         font-size: 50px;
         color: $red;
-        top: 40px;
-        left: 623px;
+        top: 25px;
+        left: 0;
+        right: 0;
       }
       .btn {
         width: fit-content;

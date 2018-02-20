@@ -94,6 +94,8 @@ namespace Library.API
             string connectionString = Configuration.GetDbConnectionString();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+            // services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(@"Server=.\SQLEXPRESS;Database=library;Trusted_Connection=True;"));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",

@@ -1,6 +1,6 @@
-﻿using Library.Library.Publishers.Commands.SavePublisher;
-using Library.Library.Publishers.Queries.GetListPublisher;
-using Library.Library.Publishers.ViewModels;
+﻿using Library.Library.Publisher.Commands.SavePublisher;
+using Library.Library.Publisher.Queries.GetListPublisher;
+using Library.Library.Publisher.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

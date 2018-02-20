@@ -46,11 +46,19 @@ export class BookInCartCheckComponent implements OnInit {
     private deleteBookInCart(bookId: number): void {
         this.cartService.deleteBookToCart(bookId).subscribe();
         this.books = this.books.filter((x) => x.bookId !== bookId);
+
+        if (this.books.length === 0) {
+            this.routeService.checkOutCart();
+        }
     }
 
     private changeStatusBook(bookId: number): void {
         this.cartService.updateStatusBookInCart(bookId, BookStatus.Waiting).subscribe();
         this.books = this.books.filter((x) => x.bookId !== bookId);
+
+        if (this.books.length === 0) {
+            this.routeService.checkOutCart();
+        }
     }
 
     private onConfirm(): void {

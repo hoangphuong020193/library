@@ -1,5 +1,5 @@
 ﻿using Library.Library.Permission.Queries.GetPermissionByUserId;
-using Library.Library.Users.Queries.GetUserNotification;
+using Library.Library.User.Queries.GetUserNotification;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

@@ -12,13 +12,13 @@ namespace Library.Library.Permission.Queries.GetPermissionByUserId
 {
     public class GetPermissionByUserIdQuery : IGetPermissionByUserIdQuery
     {
-        private readonly IRepository<PermissionGroup> _permissionRepository;
-        private readonly IRepository<PermissionGroupMember> _permissionMemberRepository;
+        private readonly IRepository<PermissionGroups> _permissionRepository;
+        private readonly IRepository<PermissionGroupMembers> _permissionMemberRepository;
         private readonly HttpContext _httpContext;
 
         public GetPermissionByUserIdQuery(
-            IRepository<PermissionGroup> permissionRepository,
-            IRepository<PermissionGroupMember> permissionMemberRepository,
+            IRepository<PermissionGroups> permissionRepository,
+            IRepository<PermissionGroupMembers> permissionMemberRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _permissionRepository = permissionRepository;

@@ -14,11 +14,11 @@ namespace Library.Library.Cart.Commands.AddBookToCart
 {
     public class AddBookToCartCommand : IAddBookToCartCommand
     {
-        private readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<BookCarts> _bookCartRepository;
         private readonly HttpContext _httpContext;
 
         public AddBookToCartCommand(
-            IRepository<BookCart> bookCartRepository,
+            IRepository<BookCarts> bookCartRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _bookCartRepository = bookCartRepository;
@@ -30,8 +30,8 @@ namespace Library.Library.Cart.Commands.AddBookToCart
             var userId = int.Parse(_httpContext?.User?.UserId());
 
             List<int> listBooKInCartExisted = await _bookCartRepository.TableNoTracking
-                .Where(x => x.UserId == userId && bookIds.Contains(x.BookId.Value) && (x.Status == (int)BookStatus.InOrder || x.Status == (int)BookStatus.Waiting))
-                .Select(x => x.BookId.Value)
+                .Where(x => x.UserId == userId && bookIds.Contains(x.BookId) && (x.Status == (int)BookStatus.InOrder || x.Status == (int)BookStatus.Waiting))
+                .Select(x => x.BookId)
                 .ToListAsync();
 
             List<int> listBooKInCartNew = bookIds.Where(x => !listBooKInCartExisted.Contains(x)).ToList();
@@ -41,10 +41,10 @@ namespace Library.Library.Cart.Commands.AddBookToCart
                 return CommandResult.Success;
             }
 
-            List<BookCart> entities = new List<BookCart>();
+            List<BookCarts> entities = new List<BookCarts>();
             listBooKInCartNew.ForEach(x =>
             {
-                BookCart entity = new BookCart();
+                BookCarts entity = new BookCarts();
                 entity.BookId = x;
                 entity.UserId = userId;
                 entity.Status = (int)BookStatus.InOrder;

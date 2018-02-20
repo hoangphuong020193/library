@@ -14,6 +14,7 @@
         <th>STT</th>
         <th>Mã sách</th>
         <th>Tên sách</th>
+        <th>Nơi nhận sách</th>
         <th>Số lượng khả dụng</th>
         <th>Thời gian được mượn (ngày)</th>
         <th>Ngày dự kiến trả sách</th>
@@ -25,6 +26,7 @@
         <td>{{i + 1}}</td>
         <td>{{book.bookCode}}</td>
         <td>{{book.bookName}}</td>
+        <td>{{book.libraryName}}</td>
         <td>{{book.amountAvailable}}</td>
         <td>{{book.maximumDateBorrow}}</td>
         <td>{{parseDateToString(book.returnDate)}}</td>

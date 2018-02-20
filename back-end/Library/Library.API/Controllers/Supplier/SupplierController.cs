@@ -1,6 +1,6 @@
-﻿using Library.Library.Suppliers.Commands.SaveSupplier;
-using Library.Library.Suppliers.Queries.GetListSupplier;
-using Library.Library.Suppliers.ViewModels;
+﻿using Library.Library.Supplier.Commands.SaveSupplier;
+using Library.Library.Supplier.Queries.GetListSupplier;
+using Library.Library.Supplier.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

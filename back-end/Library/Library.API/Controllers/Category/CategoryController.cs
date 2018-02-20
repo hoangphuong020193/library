@@ -1,6 +1,6 @@
-﻿using Library.Library.Categories.Commands.SaveCategory;
-using Library.Library.Categories.Queries.GetCategory;
-using Library.Library.Categories.ViewModels;
+﻿using Library.Library.Category.Commands.SaveCategory;
+using Library.Library.Category.Queries.GetCategory;
+using Library.Library.Category.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

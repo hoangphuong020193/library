@@ -12,9 +12,9 @@ namespace Library.Library.Admin.Queries.GetListUserNotReturnBook
 {
     public class GetListUserNotReturnBookQuery : IGetListUserNotReturnBookQuery
     {
-        private readonly IRepository<UserBook> _userBookRepository;
+        private readonly IRepository<UserBooks> _userBookRepository;
 
-        public GetListUserNotReturnBookQuery(IRepository<UserBook> userBookRepository)
+        public GetListUserNotReturnBookQuery(IRepository<UserBooks> userBookRepository)
         {
             _userBookRepository = userBookRepository;
         }
@@ -28,14 +28,14 @@ namespace Library.Library.Admin.Queries.GetListUserNotReturnBook
                 .Where(x => (x.Status == (int)BookStatus.Borrowing && x.DeadlineDate < DateTime.Now.Date) || x.Status == (int)BookStatus.OutDeadline)
                 .Select(x => new UserNotReturnBookViewModel()
                 {
-                    UserId = x.UserId.Value,
+                    UserId = x.UserId,
                     UserName = x.User.UserName,
                     FirstName = x.User.FirstName,
                     MiddleName = x.User.MiddleName,
                     LastName = x.User.LastName,
-                    RequestId = x.RequestId.Value,
+                    RequestId = x.RequestId,
                     RequestCode = x.Request.RequestCode,
-                    BookId = x.BookId.Value,
+                    BookId = x.BookId,
                     BookCode = x.Book.BookCode,
                     BookName = x.Book.BookName,
                     ReceivedDate = x.ReceiveDate.Value,

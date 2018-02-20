@@ -1,4 +1,4 @@
-﻿using Library.Library.Books.Queries.GetBookBorrow;
+﻿using Library.Library.Book.Queries.GetBookBorrow;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

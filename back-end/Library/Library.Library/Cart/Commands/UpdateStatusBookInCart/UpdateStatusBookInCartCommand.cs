@@ -12,11 +12,11 @@ namespace Library.Library.Cart.Commands.UpdateStatusBookInCart
 {
     public class UpdateStatusBookInCartCommand : IUpdateStatusBookInCartCommand
     {
-        private readonly IRepository<BookCart> _bookCartRepository;
+        private readonly IRepository<BookCarts> _bookCartRepository;
         private readonly HttpContext _httpContext;
 
         public UpdateStatusBookInCartCommand(
-            IRepository<BookCart> bookCartRepository,
+            IRepository<BookCarts> bookCartRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _bookCartRepository = bookCartRepository;

@@ -9,9 +9,9 @@ namespace Library.Library.BookRequest.Queries.GetRequestInfoByCode
 {
     public class GetRequestInfoByCodeQuery : IGetRequestInfoByCodeQuery
     {
-        private readonly IRepository<UserBookRequest> _requestRepository;
+        private readonly IRepository<UserBookRequests> _requestRepository;
 
-        public GetRequestInfoByCodeQuery(IRepository<UserBookRequest> requestRepository)
+        public GetRequestInfoByCodeQuery(IRepository<UserBookRequests> requestRepository)
         {
             _requestRepository = requestRepository;
         }
@@ -31,7 +31,7 @@ namespace Library.Library.BookRequest.Queries.GetRequestInfoByCode
                     RequestId = x.Id,
                     RequestCode = x.RequestCode,
                     RequestDate = x.RequestDate,
-                    UserId = x.UserId.Value,
+                    UserId = x.UserId,
                     UserName = x.User.UserName,
                     FullName = x.User.LastName + " " + x.User.MiddleName + " " + x.User.FirstName
                 }).FirstOrDefaultAsync();

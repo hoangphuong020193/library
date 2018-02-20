@@ -16,19 +16,19 @@ namespace Library.Library.Cart.Commands.BorrowBook
 {
     public class BorrowBookCommand : IBorrowBookCommand
     {
-        private readonly IRepository<BookCart> _bookCartRepository;
-        private readonly IRepository<UserBook> _userBookRepository;
-        private readonly IRepository<Book> _bookRepository;
-        private readonly IRepository<UserBookRequest> _bookRequestRepository;
+        private readonly IRepository<BookCarts> _bookCartRepository;
+        private readonly IRepository<UserBooks> _userBookRepository;
+        private readonly IRepository<Books> _bookRepository;
+        private readonly IRepository<UserBookRequests> _bookRequestRepository;
         private readonly HttpContext _httpContext;
 
         private static Random random = new Random();
 
         public BorrowBookCommand(
-            IRepository<BookCart> bookCartRepository,
-            IRepository<UserBook> userBookRepository,
-            IRepository<Book> bookRepository,
-            IRepository<UserBookRequest> bookRequestRepository,
+            IRepository<BookCarts> bookCartRepository,
+            IRepository<UserBooks> userBookRepository,
+            IRepository<Books> bookRepository,
+            IRepository<UserBookRequests> bookRequestRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _bookCartRepository = bookCartRepository;
@@ -68,7 +68,7 @@ namespace Library.Library.Cart.Commands.BorrowBook
                 });
             }
 
-            var listEnity = listBookBorrow.Select(x => new UserBook
+            var listEnity = listBookBorrow.Select(x => new UserBooks
             {
                 UserId = userId,
                 BookId = x.Id,
@@ -76,11 +76,11 @@ namespace Library.Library.Cart.Commands.BorrowBook
                 DeadlineDate = DateTime.Now.Date.AddDays(x.MaximumDateBorrow)
             }).ToList();
 
-            UserBookRequest request = new UserBookRequest();
+            UserBookRequests request = new UserBookRequests();
             request.UserId = userId;
             request.RequestDate = DateTime.Now;
             request.RequestCode = GenerationCode();
-            request.UserBook = listEnity;
+            request.UserBooks = listEnity;
 
             if (await _bookRequestRepository.InsertAsync(request))
             {
