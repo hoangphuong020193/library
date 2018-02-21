@@ -7,6 +7,10 @@ import * as moment from 'moment';
 import { Format } from '../../../shareds/constant/format.constant';
 import { BookStatus } from '../../../shareds/enums/book-status.enum';
 import { UserBookRequest } from '../../../models/user-book-request.model';
+import { Library } from '../../../models/library.model';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store/reducers';
+import { DropDownData } from '../../common/dropdown/dropdown.component';
 
 @Component({
     selector: 'borrow-return-book',
@@ -14,15 +18,36 @@ import { UserBookRequest } from '../../../models/user-book-request.model';
 })
 export class BorrowReturnBookComponent implements OnInit {
     private listBooks: MyBook[] = [];
+    private listLibrary: DropDownData[] = [];
     private requestInfo: UserBookRequest = new UserBookRequest();
     private onlyRequest: boolean = false;
     private code: string = '';
     private BookStatus: any = BookStatus;
+    private selectedLibraryId: number = -3;
+    private loading: boolean = true;
 
     constructor(
-        private bookService: BookService) { }
+        private bookService: BookService,
+        private store: Store<fromRoot.State>) { }
 
-    public ngOnInit() { }
+    public ngOnInit() {
+        this.store.select(fromRoot.getLibrary).subscribe((res) => {
+            if (res.length > 0) {
+                res.forEach((x) => {
+                    if (x.enabled) {
+                        this.listLibrary.push(new DropDownData(x.id, x.name));
+                    }
+                });
+
+                if (this.listLibrary.length > 0) {
+                    this.listLibrary.unshift(new DropDownData(-3, 'Tất cả'));
+                }
+
+                this.loading = false;
+            }
+        });
+
+    }
 
     private onKeyPress(event: any): void {
         if (event.keyCode === KeyCode.Enter || event.keyChar === KeyCode.Enter) {
@@ -36,7 +61,7 @@ export class BorrowReturnBookComponent implements OnInit {
             return;
         }
         JQueryHelper.showLoading();
-        this.bookService.getListBookByCode(this.code).subscribe((res) => {
+        this.bookService.getListBookByCode(this.code, this.selectedLibraryId).subscribe((res) => {
             this.listBooks = res;
             if (res.length) {
                 const codeFirst: string = this.listBooks[0].requestCode;
@@ -112,5 +137,9 @@ export class BorrowReturnBookComponent implements OnInit {
                     // TODO
                 }
             });
+    }
+
+    private selectLibrary(data: DropDownData): void {
+        this.selectedLibraryId = data.key;
     }
 }

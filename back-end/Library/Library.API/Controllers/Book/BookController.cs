@@ -138,10 +138,10 @@ namespace Library.API.Controllers.Book
         }
 
         [HttpGet]
-        [Route("ReturnListBookByCode")]
-        public async Task<IActionResult> ReturnListBookByCodeAsync(string code)
+        [Route("ReturnListBookByCode/{libraryId:int=-3}")]
+        public async Task<IActionResult> ReturnListBookByCodeAsync(int libraryId, string code)
         {
-            var result = await _getListBookByRequestCodeQuery.ExecuteAsync(code);
+            var result = await _getListBookByRequestCodeQuery.ExecuteAsync(code, libraryId);
             return new ObjectResult(result);
         }
 

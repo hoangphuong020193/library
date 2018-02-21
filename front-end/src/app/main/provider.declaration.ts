@@ -29,6 +29,7 @@ import { PublisherService } from '../services/publisher.service';
 import { SupplierService } from '../services/supplier.service';
 import { UserService } from '../services/user.service';
 import { AdminService } from '../services/admin.service';
+import { LibraryService } from '../services/library.service';
 
 export const services: any = [
     AdminService,
@@ -43,6 +44,7 @@ export const services: any = [
     NotificationService,
     PublisherService,
     SupplierService,
+    LibraryService,
     {
         provide: ErrorHandler,
         useClass: SystemErrorHandler

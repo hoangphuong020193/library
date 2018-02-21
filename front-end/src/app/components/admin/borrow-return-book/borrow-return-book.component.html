@@ -1,9 +1,15 @@
-<section class="padding-15 color-background-white">
+<section class="padding-15 color-background-white" *ngIf="!loading">
   <div class="flex-middle">
-    <span class="padding-right-15">Mã mượn sách/ Mã bạn đọc</span>
-    <span id="search-request-code">
+    <span class="margin-right-15">Mã mượn sách/ Mã bạn đọc</span>
+    <span class="margin-right-15" id="search-request-code">
       <input type="text" id="search-code-box" (keypress)="onKeyPress($event)" placeholder="A1B2C">
       <i class="icon icon-search" (click)="searchCode()"></i>
+    </span>
+    <span class="margin-right-15">
+      Nơi nhận sách
+    </span>
+    <span>
+      <dropdown [listData]="listLibrary" [selectedItemId]="selectedLibraryId" (selectedItemEmit)="selectLibrary($event)"></dropdown>
     </span>
   </div>
   <div class="margin-top-20" *ngIf="listBooks.length > 0">
@@ -39,6 +45,7 @@
           <th *ngIf="!onlyRequest">Mã yêu cầu</th>
           <th>Mã sách</th>
           <th>Tên sách</th>
+          <th>Nơi nhận</th>
           <th>Tình trạng</th>
           <th>Hạn trả sách</th>
           <th>Ngày nhận sách</th>
@@ -51,6 +58,7 @@
           <td *ngIf="!onlyRequest" (click)="getRequestInfo(book.requestCode)" class="color-blue cursor-pointer">{{book.requestCode}}</td>
           <td>{{book.bookCode}}</td>
           <td>{{book.bookName}}</td>
+          <td>{{book.libraryName}}</td>
           <td>{{getStatus(book.status)}}</td>
           <td>{{parseDateToString(book.deadlineDate)}}</td>
           <td>{{parseDateToString(book.receiveDate)}}</td>

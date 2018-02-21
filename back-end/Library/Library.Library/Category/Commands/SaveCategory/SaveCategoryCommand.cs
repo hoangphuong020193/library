@@ -50,7 +50,7 @@ namespace Library.Library.Category.Commands.SaveCategory
                 }
                 else
                 {
-                    Data.Entities.Library.Categories entity = new Data.Entities.Library.Categories();
+                    Categories entity = new Categories();
                     entity.CategoryName = model.CategoryName;
                     entity.Type = model.Type;
 

@@ -12,5 +12,7 @@ namespace Library.Library.Book.ViewModels
         public DateTime? ReturnDate { get; set; }
         public DateTime DeadlineDate { get; set; }
         public int Status { get; set; }
+        public int LibraryId { get; set; }
+        public string LibraryName { get; set; }
     }
 }

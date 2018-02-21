@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit {
         this.listNotification = res.slice(0, 5);
       }
     });
-
   }
 
   private viewMenuLogin(): void {
@@ -93,7 +92,7 @@ export class HomeComponent implements OnInit {
     this.user = null;
     event.stopPropagation();
     this.toggleMenuLogin = false;
-    location.reload();
+    this.routerService.home();
   }
 
   private viewMenuNotify(): void {

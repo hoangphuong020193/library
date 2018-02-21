@@ -11,3 +11,5 @@ export * from './category-management/category-editor-popup/category-editor-popup
 export * from './report/report.component';
 export * from './report/user-debt-book/user-debt-book.component';
 export * from './report/top-book/top-book.component';
+export * from './library-management/library-management.component';
+export * from './library-management/library-editor-popup/library-editor-popup.component';

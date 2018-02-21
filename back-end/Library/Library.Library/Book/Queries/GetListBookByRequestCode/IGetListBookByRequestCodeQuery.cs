@@ -6,6 +6,6 @@ namespace Library.Library.Book.Queries.GetListBookByRequestCode
 {
     public interface IGetListBookByRequestCodeQuery
     {
-        Task<List<BookBorrowViewModel>> ExecuteAsync(string code);
+        Task<List<BookBorrowViewModel>> ExecuteAsync(string code, int libraryId = -3);
     }
 }

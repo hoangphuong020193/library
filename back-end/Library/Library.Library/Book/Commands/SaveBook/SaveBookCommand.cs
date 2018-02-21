@@ -28,7 +28,7 @@ namespace Library.Library.Book.Commands.SaveBook
             {
                 if (model.BookId == 0)
                 {
-                    Data.Entities.Library.Books entity = new Data.Entities.Library.Books();
+                    Books entity = new Books();
                     entity.Id = 0;
                     entity.CategoryId = model.CategoryId;
                     entity.BookCode = model.BookCode;
@@ -51,7 +51,7 @@ namespace Library.Library.Book.Commands.SaveBook
                 }
                 else
                 {
-                    Data.Entities.Library.Books entity = await _bookRepository.GetByIdAsync(model.BookId);
+                    Books entity = await _bookRepository.GetByIdAsync(model.BookId);
                     entity.CategoryId = model.CategoryId;
                     entity.BookCode = model.BookCode;
                     entity.BookName = model.BookName;

@@ -4,20 +4,20 @@ using System.Threading.Tasks;
 using HRM.CrossCutting.Command;
 using Library.Data.Entities.Library;
 using Library.Data.Services;
-using Library.Library.Publisher.ViewModels;
+using Library.Library.Library.ViewModels;
 
-namespace Library.Library.Publisher.Commands.SavePublisher
+namespace Library.Library.Library.Commands.SaveLibrary
 {
-    public class SavePublisherCommand : ISavePublisherCommand
+    public class SaveLibraryCommand : ISaveLibraryCommand
     {
-        private readonly IRepository<Publishers> _publisherRepository;
+        private readonly IRepository<Libraries> _libraryRepository;
 
-        public SavePublisherCommand(IRepository<Publishers> publisherRepository)
+        public SaveLibraryCommand(IRepository<Libraries> libraryRepository)
         {
-            _publisherRepository = publisherRepository;
+            _libraryRepository = libraryRepository;
         }
 
-        public async Task<CommandResult> ExecuteAsync(PublisherViewModel model)
+        public async Task<CommandResult> ExecuteAsync(LibraryViewModel model)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Library.Library.Publisher.Commands.SavePublisher
 
                 if (model.Id != 0)
                 {
-                    var publisher = await _publisherRepository.GetByIdAsync(model.Id);
+                    var publisher = await _libraryRepository.GetByIdAsync(model.Id);
                     if (publisher == null)
                     {
                         return CommandResult.Failed(new CommandResultError()
@@ -48,17 +48,17 @@ namespace Library.Library.Publisher.Commands.SavePublisher
                     publisher.Email = model.Email;
                     publisher.Enabled = model.Enabled;
 
-                    await _publisherRepository.UpdateAsync(publisher);
+                    await _libraryRepository.UpdateAsync(publisher);
                 }
                 else
                 {
-                    Publishers entity = new Publishers();
+                    Libraries entity = new Libraries();
                     entity.Name = model.Name;
                     entity.Address = model.Address;
                     entity.Phone = model.Phone;
                     entity.Email = model.Email;
 
-                    await _publisherRepository.InsertAsync(entity);
+                    await _libraryRepository.InsertAsync(entity);
                     model.Id = entity.Id;
                 }
 
@@ -74,7 +74,7 @@ namespace Library.Library.Publisher.Commands.SavePublisher
             }
         }
 
-        private bool ValidationData(PublisherViewModel model)
+        private bool ValidationData(LibraryViewModel model)
         {
             if (model == null || model.Name == null)
             {

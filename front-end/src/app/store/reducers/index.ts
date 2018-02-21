@@ -15,6 +15,7 @@ import * as fromNotification from './notification';
 import * as fromPublisher from './publisher';
 import * as fromSupplier from './supplier';
 import * as fromPermission from './permission';
+import * as fromLibrary from './library';
 
 export interface State {
   router: fromRouter.RouterReducerState;
@@ -25,6 +26,7 @@ export interface State {
   publisher: fromPublisher.State;
   supplier: fromSupplier.State;
   permission: fromPermission.State;
+  library: fromLibrary.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -36,6 +38,7 @@ export const reducers: ActionReducerMap<State> = {
   publisher: fromPublisher.reducer,
   supplier: fromSupplier.reducer,
   permission: fromPermission.reducer,
+  library: fromLibrary.reducer,
 };
 
 // STATES
@@ -47,6 +50,7 @@ export const getNotificationState = (state: State) => state.notification;
 export const getPublisherState = (state: State) => state.publisher;
 export const getSupplierState = (state: State) => state.supplier;
 export const getPermissionState = (state: State) => state.permission;
+export const getLibraryState = (state: State) => state.library;
 
 // ROUTE
 export const getRouter = createSelector(getRouterState, (state) => state);
@@ -77,3 +81,7 @@ export const getSupplier
 // SUPPLIER
 export const getPermission
   = createSelector(getPermissionState, fromPermission.getPermission);
+
+// LIBRARY
+export const getLibrary
+  = createSelector(getLibraryState, fromLibrary.getLibrary);

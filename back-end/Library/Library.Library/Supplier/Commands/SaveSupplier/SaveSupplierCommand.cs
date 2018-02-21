@@ -52,7 +52,7 @@ namespace Library.Library.Supplier.Commands.SaveSupplier
                 }
                 else
                 {
-                    Data.Entities.Library.Suppliers entity = new Data.Entities.Library.Suppliers();
+                    Suppliers entity = new Suppliers();
                     entity.Name = model.Name;
                     entity.Address = model.Address;
                     entity.Phone = model.Phone;

@@ -41,6 +41,8 @@ using Library.Library.UserAccount.Queries.GetUserInfoLogin;
 using Library.Library.User.Queries.GetUserNotification;
 using System;
 using System.Net.Http;
+using Library.Library.Library.Queries.GetListLibrary;
+using Library.Library.Library.Commands.SaveLibrary;
 
 namespace Library.ApiFramework.IoCRegistrar
 {
@@ -117,6 +119,10 @@ namespace Library.ApiFramework.IoCRegistrar
 
             // Admin
             registrator.Register<IGetListUserNotReturnBookQuery, GetListUserNotReturnBookQuery>(Reuse.InWebRequest);
+
+            // Library
+            registrator.Register<IGetListLibraryQuery, GetListLibraryQuery>(Reuse.InWebRequest);
+            registrator.Register<ISaveLibraryCommand, SaveLibraryCommand>(Reuse.InWebRequest);
         }
     }
 }

@@ -5,6 +5,7 @@
     <div [class.active]="selectedTab == categoryTab" (click)="selectTab(categoryTab)">Danh mục</div>
     <div [class.active]="selectedTab == publisherManagementTab" (click)="selectTab(publisherManagementTab)">Quản lý NPH</div>
     <div [class.active]="selectedTab == supplierManagementTab" (click)="selectTab(supplierManagementTab)">Quản lý NXB</div>
+    <div [class.active]="selectedTab == libraryManagementTab" (click)="selectTab(libraryManagementTab)">Quản lý cơ sở</div>
     <div [class.active]="selectedTab == reportTab" (click)="selectTab(reportTab)">Báo cáo/ Thống kê</div>
   </div>
 </section>
@@ -13,4 +14,5 @@
 <category-management *ngIf="selectedTab == categoryTab"></category-management>
 <publisher-management *ngIf="selectedTab == publisherManagementTab"></publisher-management>
 <supplier-management *ngIf="selectedTab == supplierManagementTab"></supplier-management>
+<library-management *ngIf="selectedTab == libraryManagementTab"></library-management>
 <report *ngIf="selectedTab == reportTab"></report>

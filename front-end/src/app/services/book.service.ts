@@ -58,40 +58,41 @@ export class BookService {
     public getTopBookInSection(sectionType: string): Observable<Book[]> {
         return this.http.get(this.apiURL + '/ReturnTopBookInSection/10?sectionType='
             + sectionType).pipe(
-            tap(
-                (res: any) => {
-                    return res as Book[];
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res as Book[];
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public bookView(view: string, page: number, pageSize: number = 30)
         : Observable<SearchBookResult> {
         return this.http.get(this.apiURL + '/BookView/'
             + page + '/' + pageSize + '?view=' + view).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
-    public getListBookByCode(code: string): Observable<MyBook[]> {
-        return this.http.get(this.apiURL + '/ReturnListBookByCode?code=' + code).pipe(
-            tap(
-                (res: any) => {
-                    return res as MyBook[];
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+    public getListBookByCode(code: string, libraryId: number): Observable<MyBook[]> {
+        return this.http.get(this.apiURL + '/ReturnListBookByCode/'
+            + libraryId + '?code=' + code).pipe(
+                tap(
+                    (res: any) => {
+                        return res as MyBook[];
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public getRequestInfo(code: string): Observable<UserBookRequest> {
@@ -111,14 +112,14 @@ export class BookService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.put(this.apiURL + '/TakenBook/',
             JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public returnBook(userId: number, bookCode: string, requestId: number): Observable<boolean> {
@@ -126,14 +127,14 @@ export class BookService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.put(this.apiURL + '/ReturnBook/',
             JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public cancelBook(userId: number, bookCode: string, requestId: number): Observable<boolean> {
@@ -141,28 +142,28 @@ export class BookService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.put(this.apiURL + '/CancelBook/',
             JSON.stringify({ userId, bookCode, requestId }), { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public getListBook(search: string, page: number, pageSize: number = 10)
         : Observable<PagedList<Book>> {
         return this.http.get(this.apiURL + '/ReturnListBook/'
             + page + '/' + pageSize + '?search=' + search).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public checkBookCodeExists(bookId: number, bookCode: string)
@@ -183,14 +184,14 @@ export class BookService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SaveBook/',
             book, { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 
     public saveImage(fileToUpload: any, bookId: number) {
@@ -206,13 +207,13 @@ export class BookService {
             + pageSize.toString() + '/'
             + startDate + '/'
             + endDate).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 }
