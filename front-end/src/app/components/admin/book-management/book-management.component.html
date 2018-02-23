@@ -18,6 +18,7 @@
           <th>Tác giả</th>
           <th>Danh mục</th>
           <th>Loại</th>
+          <th>Nơi lưu trữ</th>
           <th class="text-align-center">Tồn/ Số lượng (cuốn)</th>
           <th class="text-align-center">Ngày nhập</th>
         </tr>
@@ -30,6 +31,7 @@
           <td>{{book.author}}</td>
           <td>{{book.categoryName}}</td>
           <td>{{book.categoryType}}</td>
+          <td>{{book.libraryName}}</td>
           <td class="text-align-center">{{book.amountAvailable}}/ {{book.amount}}</td>
           <td class="text-align-center">{{parseDateToString(book.dateImport)}}</td>
         </tr>

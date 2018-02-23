@@ -25,7 +25,8 @@ dropdown-multi-select,
       color: $dropdown-text-color;
     }
     .selected-item-content {
-      max-width: calc(100% - 24px);
+      width: fit-content;
+      padding-right: 10px;
       overflow: hidden;
       .drop-down-item-name {
         float: left;

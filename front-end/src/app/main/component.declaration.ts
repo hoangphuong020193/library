@@ -50,11 +50,12 @@ export const Components: any = [
     fromAdmin.PublisherEditorPopupComponent,
     fromAdmin.CategoryManagementComponent,
     fromAdmin.CategoryEditorPopupComponent,
+    fromAdmin.LibraryManagementComponent,
+    fromAdmin.LibraryEditorPopupComponent,
     fromAdmin.ReportComponent,
     fromAdmin.UserDebtBookComponent,
     fromAdmin.TopBookComponent,
-    fromAdmin.LibraryManagementComponent,
-    fromAdmin.LibraryEditorPopupComponent,
+    fromAdmin.ReadStatisticsComponent,
 ];
 
 // Modal

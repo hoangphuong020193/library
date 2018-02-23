@@ -22,6 +22,7 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
     private categories: DropDownData[] = [];
     private publishers: DropDownData[] = [];
     private suppliers: DropDownData[] = [];
+    private libraries: DropDownData[] = [];
     private errorMessage: string = '';
 
     @ViewChild('fileInput') private fileInput;
@@ -81,6 +82,16 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
                 });
             }
         });
+        this.store.select(fromRoot.getLibrary).subscribe((res) => {
+            this.libraries = [];
+            if (res) {
+                res.forEach((x) => {
+                    if (x.enabled) {
+                        this.libraries.push(new DropDownData(x.id, x.name));
+                    }
+                });
+            }
+        })
 
         this.urlImg = Config.getBookImgApiUrl(this.book.bookCode);
     }
@@ -149,10 +160,16 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
             || this.book.bookCode === ''
             || this.book.categoryId === 0
             || this.book.supplierId === 0
-            || this.book.publisherId === 0) {
+            || this.book.publisherId === 0
+            || this.book.libraryId === 0
+            || !this.book.libraryId) {
             return false;
         }
 
         return true;
+    }
+
+    private selectLibrary(data: DropDownData): void {
+        this.book.libraryId = data.key;
     }
 }
