@@ -9,31 +9,39 @@
       <datetimepicker [setDate]="endDate" [minDate]="startDate" (selectedDateEmit)="selectEndDate($event)"></datetimepicker>
     </div>
     <div class="margin-right-15">
-      <label for="">Chi nhánh</label>
-      <dropdown></dropdown>
+      <label for="">Nhóm dữ liệu</label>
+      <dropdown [listData]="listGroupBy" [selectedItemId]="selectedGroupById" (selectedItemEmit)="selectGroupBy($event)"></dropdown>
     </div>
   </div>
   <table class="table table-striped margin-top-15">
     <thead>
       <tr>
         <th>STT</th>
-        <th>Mã sách</th>
-        <th>Tên sách</th>
+        <th *ngIf="selectedGroupById == GroupBy.Book">Mã sách</th>
+        <th *ngIf="selectedGroupById == GroupBy.Book">Tên sách</th>
+        <th *ngIf="selectedGroupById == GroupBy.Category">Danh mục</th>
+        <th *ngIf="selectedGroupById == GroupBy.User">Mã bạn đọc</th>
+        <th *ngIf="selectedGroupById == GroupBy.User">Họ tên bạn đọc</th>
+        <th *ngIf="selectedGroupById == GroupBy.Library">Chi nhánh</th>
         <th>Số lần mượn</th>
+        <th>Số lần trả</th>
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let book of listBooks?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listBooks?.totalCount}; let i = index">
-          <td>{{(pageCurrent * pageSize) + i +1 }}</td>
-          <td>{{book.bookCode}}</td>
-          <td>{{book.bookName}}</td>
-          <td>{{book.amount}}</td>
-        </tr> -->
+      <tr *ngFor="let item of listDatas?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listDatas?.totalCount}; let i = index">
+        <td>{{(pageCurrent * pageSize) + i +1 }}</td>
+        <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookCode}}</th>
+        <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookName}}</th>
+        <th *ngIf="selectedGroupById == GroupBy.Category">{{item.categoryName}}</th>
+        <th *ngIf="selectedGroupById == GroupBy.User">{{item.userName}}</th>
+        <th *ngIf="selectedGroupById == GroupBy.User">{{item.firstName + ' ' + item.middleName + ' ' + item.lastName}}</th>
+        <th *ngIf="selectedGroupById == GroupBy.Library">{{item.libraryName}}</th>
+      </tr>
     </tbody>
   </table>
-  <!-- <pagination [type]="'hàng'" [totalCount]="listBooks?.totalCount" [currentPageIndex]="pageCurrent" [itemsPerPage]="pageSize"
-      (onPageChangeEvent)="getTopBook($event, pageSize)" (onItemsPerPageChangeEvent)="getTopBook(1, $event)"></pagination>
-    <div *ngIf="listBooks?.totalCount === 0">
-      Không có dữ liệu
-    </div> -->
+  <pagination [type]="'hàng'" [totalCount]="listDatas?.totalCount" [currentPageIndex]="pageCurrent" [itemsPerPage]="pageSize"
+    (onPageChangeEvent)="getData($event, pageSize)" (onItemsPerPageChangeEvent)="getData(1, $event)"></pagination>
+  <div *ngIf="listDatas?.totalCount === 0">
+    Không có dữ liệu
+  </div>
 </section>

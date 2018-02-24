@@ -21,11 +21,11 @@ export class TopBookComponent implements OnInit {
     private pageSize: number = 10;
 
     public ngOnInit(): void {
-        JQueryHelper.showLoading();
         this.getTopBook(1);
     }
 
     private getTopBook(page: number, pageSize: number = this.pageSize): void {
+        JQueryHelper.showLoading();
         this.pageCurrent = page;
         this.pageSize = pageSize;
 

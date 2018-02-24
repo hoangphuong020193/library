@@ -6,7 +6,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../store/reducers';
 import { PagedList } from '../models/index';
-import { UserNotReturnBook } from '../models/admin.model';
+import { UserNotReturnBook, ReadStatistic } from '../models/admin.model';
 
 @Injectable()
 export class AdminService {
@@ -22,13 +22,31 @@ export class AdminService {
         return this.http.get(this.apiURL + '/ReturnListUserNotReturnBook/'
             + page + '/' + pageSize)
             .pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
+    }
+
+    public getListReadStatistic(
+        page: number, pageSize: number, startDate: string,
+        endDate: string, groupBy: number)
+        : Observable<PagedList<ReadStatistic>> {
+        return this.http.get(this.apiURL + '/ReturnListReadStatistic/'
+            + page + '/' + pageSize + '?startDate=' + startDate
+            + '&endDate=' + endDate + '&groupBy=' + groupBy)
+            .pipe(
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 }
