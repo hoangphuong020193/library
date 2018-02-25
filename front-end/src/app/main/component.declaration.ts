@@ -56,6 +56,7 @@ export const Components: any = [
     fromAdmin.UserDebtBookComponent,
     fromAdmin.TopBookComponent,
     fromAdmin.ReadStatisticsComponent,
+    fromAdmin.BorrowStatusComponent,
 ];
 
 // Modal

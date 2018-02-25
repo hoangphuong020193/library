@@ -26,3 +26,16 @@ export class ReadStatistic {
     public noOfBorrow: number;
     public noOfReturn: number;
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class BorrowStatus {
+    public userName: string;
+    public fullName: string;
+    public bookCode: string;
+    public bookName: string;
+    public status: number;
+    public libraryName: string;
+    public requestCode: string;
+    public receiveDate: Date;
+    public returnDate: Date;
+}

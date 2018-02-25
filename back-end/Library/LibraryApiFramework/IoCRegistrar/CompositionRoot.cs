@@ -44,6 +44,7 @@ using System.Net.Http;
 using Library.Library.Library.Queries.GetListLibrary;
 using Library.Library.Library.Commands.SaveLibrary;
 using Library.Library.Admin.Queries.GetReadStatistic;
+using Library.Library.Admin.Queries.GetBorrowStatus;
 
 namespace Library.ApiFramework.IoCRegistrar
 {
@@ -121,6 +122,7 @@ namespace Library.ApiFramework.IoCRegistrar
             // Admin
             registrator.Register<IGetListUserNotReturnBookQuery, GetListUserNotReturnBookQuery>(Reuse.InWebRequest);
             registrator.Register<IReadStatisticQuery, ReadStatisticQuery>(Reuse.InWebRequest);
+            registrator.Register<IGetBorrowStatusQuery, GetBorrowStatusQuery>(Reuse.InWebRequest);
 
             // Library
             registrator.Register<IGetListLibraryQuery, GetListLibraryQuery>(Reuse.InWebRequest);

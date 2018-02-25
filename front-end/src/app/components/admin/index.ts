@@ -14,3 +14,4 @@ export * from './report/report.component';
 export * from './report/user-debt-book/user-debt-book.component';
 export * from './report/top-book/top-book.component';
 export * from './report/read-statistics/read-statistics.component';
+export * from './report/borrow-status/borrow-status.component';
