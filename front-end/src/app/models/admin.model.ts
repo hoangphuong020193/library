@@ -39,3 +39,9 @@ export class BorrowStatus {
     public receiveDate: Date;
     public returnDate: Date;
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class CategoryReport {
+    public categoryName: string;
+    public noOfBook: number;
+}

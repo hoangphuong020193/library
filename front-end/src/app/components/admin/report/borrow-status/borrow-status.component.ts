@@ -3,7 +3,7 @@ import { Format } from './../../../../shareds/constant/format.constant';
 import { PagedList } from './../../../../models/paged-list.model';
 import { JQueryHelper } from './../../../../shareds/helpers/jquery.helper';
 import { DropDownData } from './../../../common/dropdown/dropdown.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../../../../services/admin.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../../store/reducers';
@@ -24,19 +24,18 @@ export class BorrowStatusComponent implements OnInit {
     private listLibraries: DropDownData[] = [];
     private listStatus: DropDownData[] = [];
 
-    private loading: boolean = true;
     private pageCurrent: number = 1;
     private pageSize: number = 10;
     private selectedLibraryId: number = -3;
     private selectedStatus: number = -3;
-    private searchString: string = '';
+
+    @ViewChild('searchInput') private searchInput: any;
 
     constructor(
         private store: Store<fromRoot.State>,
         private adminService: AdminService) { }
 
     public ngOnInit(): void {
-        this.loading = true;
         this.initData();
         this.getBorrowStatus(1);
     }
@@ -79,6 +78,8 @@ export class BorrowStatusComponent implements OnInit {
         this.pageCurrent = page;
         this.pageSize = pageSize;
 
+        const searchString: string = this.searchInput.nativeElement.value;
+
         this.adminService.getListBorrowStatus(
             this.pageCurrent,
             this.pageSize,
@@ -86,10 +87,9 @@ export class BorrowStatusComponent implements OnInit {
             this.endDate.format('DDMMYYYY'),
             this.selectedLibraryId,
             this.selectedStatus,
-            this.searchString).subscribe((res) => {
+            searchString).subscribe((res) => {
                 this.listDatas = res;
                 JQueryHelper.hideLoading();
-                this.loading = false;
             });
     }
 

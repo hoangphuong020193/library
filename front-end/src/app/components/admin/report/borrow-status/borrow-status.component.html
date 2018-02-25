@@ -1,9 +1,9 @@
-<section class="padding-15 color-background-white" *ngIf="!loading">
+<section class="padding-15 color-background-white">
   <div class="display-flex">
     <div class="padding-right-15">
       <label for="">Lọc kết quả</label>
       <div>
-        <input type="text" placeholder="Mã sách/ Tên sách..." (keypress)="onKeyPress($event)">
+        <input type="text" placeholder="Mã sách/ Tên sách..." (keypress)="onKeyPress($event)" #searchInput>
       </div>
     </div>
     <div class="margin-right-15">
@@ -39,7 +39,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of listDatas?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listDatas?.totalCount}; let i = index">
-        <td>{{(pageCurrent * pageSize) + i +1 }}</td>
+        <td>{{((pageCurrent - 1) * pageSize) + i + 1 }}</td>
         <td>{{item.bookCode}}</td>
         <td>{{item.bookName}}</td>
         <td>{{item.fullName + ' - ' + item.userName}}</td>

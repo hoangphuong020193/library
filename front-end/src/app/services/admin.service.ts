@@ -5,7 +5,7 @@ import { Config, PathController } from '../config';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../store/reducers';
-import { PagedList } from '../models/index';
+import { PagedList, CategoryReport } from '../models/index';
 import { UserNotReturnBook, ReadStatistic, BorrowStatus } from '../models/admin.model';
 
 @Injectable()
@@ -58,6 +58,22 @@ export class AdminService {
             + page + '/' + pageSize + '?startDate=' + startDate
             + '&endDate=' + endDate + '&libraryId=' + libraryId
             + '&status=' + status + '&searchString=' + searchString)
+            .pipe(
+                tap(
+                    (res: any) => {
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
+    }
+
+    public getCategoryReport(
+        page: number, pageSize: number, searchString: string)
+        : Observable<PagedList<CategoryReport>> {
+        return this.http.get(this.apiURL + '/ReturnCategoryReport/'
+            + page + '/' + pageSize + '?searchString=' + searchString)
             .pipe(
                 tap(
                     (res: any) => {

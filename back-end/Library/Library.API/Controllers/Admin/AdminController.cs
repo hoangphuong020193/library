@@ -1,4 +1,5 @@
 ﻿using Library.Library.Admin.Queries.GetBorrowStatus;
+using Library.Library.Admin.Queries.GetCategoryReport;
 using Library.Library.Admin.Queries.GetListUserNotReturnBook;
 using Library.Library.Admin.Queries.GetReadStatistic;
 using Microsoft.AspNetCore.Mvc;
@@ -12,15 +13,18 @@ namespace Library.API.Controllers.User
         private readonly IGetListUserNotReturnBookQuery _getListUserNotReturnBookQuery;
         private readonly IReadStatisticQuery _readStatisticQuery;
         private readonly IGetBorrowStatusQuery _getBorrowStatusQuery;
+        private readonly IGetCategoryReportQuery _getCategoryReportQuery;
 
         public AdminController(
             IGetListUserNotReturnBookQuery getListUserNotReturnBookQuery,
             IReadStatisticQuery readStatisticQuery,
-            IGetBorrowStatusQuery getBorrowStatusQuery)
+            IGetBorrowStatusQuery getBorrowStatusQuery,
+            IGetCategoryReportQuery getCategoryReportQuery)
         {
             _getListUserNotReturnBookQuery = getListUserNotReturnBookQuery;
             _readStatisticQuery = readStatisticQuery;
             _getBorrowStatusQuery = getBorrowStatusQuery;
+            _getCategoryReportQuery = getCategoryReportQuery;
         }
 
         [HttpGet]
@@ -44,6 +48,14 @@ namespace Library.API.Controllers.User
         public async Task<IActionResult> ReturnBorrowStatusAsync(int page, int pageSize, string startDate, string endDate, int libraryId, int status, string searchString)
         {
             var result = await _getBorrowStatusQuery.ExecuteAsync(page, pageSize, startDate, endDate, libraryId, status, searchString);
+            return new ObjectResult(result);
+        }
+
+        [HttpGet]
+        [Route("ReturnCategoryReport/{page:int=0}/{pageSize:int=0}")]
+        public async Task<IActionResult> ReturnCategoryReportAsync(int page, int pageSize, string searchString)
+        {
+            var result = await _getCategoryReportQuery.ExecuteAsync(page, pageSize, searchString);
             return new ObjectResult(result);
         }
     }

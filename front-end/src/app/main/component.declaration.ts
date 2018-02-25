@@ -57,6 +57,7 @@ export const Components: any = [
     fromAdmin.TopBookComponent,
     fromAdmin.ReadStatisticsComponent,
     fromAdmin.BorrowStatusComponent,
+    fromAdmin.CategoryReportComponent,
 ];
 
 // Modal

@@ -15,6 +15,7 @@ export class ReportComponent implements OnInit {
         this.listData.push(new DropDownData(ReportType.TopBook, 'Sách được mượn nhiều'));
         this.listData.push(new DropDownData(ReportType.ReadStatistics, 'Lượt mượn/ trả sách'));
         this.listData.push(new DropDownData(ReportType.BorrowStatus, 'Tình trạng mượn sách'));
+        this.listData.push(new DropDownData(ReportType.CategoryReport, 'Thống kê đầu sách'));
     }
 
     private selectType(type: DropDownData): void {
@@ -26,5 +27,6 @@ enum ReportType {
     DebtBook = 1,
     TopBook = 2,
     ReadStatistics = 3,
-    BorrowStatus = 4
+    BorrowStatus = 4,
+    CategoryReport = 5
 }

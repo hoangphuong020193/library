@@ -29,7 +29,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of listDatas?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listDatas?.totalCount}; let i = index">
-        <td>{{(pageCurrent * pageSize) + i +1 }}</td>
+        <td>{{((pageCurrent - 1) * pageSize) + i + 1 }}</td>
         <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookCode}}</th>
         <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookName}}</th>
         <th *ngIf="selectedGroupById == GroupBy.Category">{{item.categoryName}}</th>

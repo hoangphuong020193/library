@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let book of listBooks?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listBooks?.totalCount}; let i = index">
-        <td>{{(pageCurrent * pageSize) + i +1 }}</td>
+        <td>{{((pageCurrent - 1) * pageSize) + i + 1 }}</td>
         <td>{{book.bookCode}}</td>
         <td>{{book.bookName}}</td>
         <td>{{book.amount}}</td>
