@@ -39,7 +39,7 @@ namespace Library.Library.Book.Queries.SearchBook
 
             search = search.Trim().ToLowerInvariant();
 
-            var listBooks = from book in _bookRepository.TableNoTracking
+            var listBooks = from book in _bookRepository.TableNoTracking.Where(x => x.Enabled.Value)
                             join category in _categoryRepository.TableNoTracking on book.CategoryId equals category.Id
                             join publisher in _publisherRepository.TableNoTracking on book.PublisherId equals publisher.Id into publishers
                             from publisher in publishers.DefaultIfEmpty()

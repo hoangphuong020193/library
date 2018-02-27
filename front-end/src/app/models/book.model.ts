@@ -23,6 +23,7 @@ export class Book {
     public maximumDateBorrow: number;
     public favorite: boolean;
     public dateImport: Date;
+    public enabled: boolean;
 }
 
 // tslint:disable-next-line:max-classes-per-file

@@ -47,6 +47,7 @@ namespace Library.Library.Book.Commands.SaveBook
                     entity.Pages = model.Pages;
                     entity.MaximumDateBorrow = model.MaximumDateBorrow;
                     entity.LibraryId = model.LibraryId;
+                    entity.Enabled = model.Enabled;
 
                     await _bookRepository.InsertAsync(entity);
                 }
@@ -68,6 +69,7 @@ namespace Library.Library.Book.Commands.SaveBook
                     entity.Pages = model.Pages;
                     entity.MaximumDateBorrow = model.MaximumDateBorrow;
                     entity.LibraryId = model.LibraryId;
+                    entity.Enabled = model.Enabled;
 
                     await _bookRepository.UpdateAsync(entity);
                 }

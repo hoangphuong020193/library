@@ -70,7 +70,8 @@ namespace Library.Library.Book.Queries.GetBookDetail
                                    MaximumDateBorrow = book.MaximumDateBorrow,
                                    Favorite = false,
                                    LibraryId = book.LibraryId,
-                                   LibraryName = lib != null ? lib.Name : "Đang cập nhập"
+                                   LibraryName = lib != null ? lib.Name : "Đang cập nhập",
+                                   Enabled = book.Enabled.Value
 
                                }).FirstOrDefaultAsync();
             }
@@ -105,7 +106,8 @@ namespace Library.Library.Book.Queries.GetBookDetail
                                    MaximumDateBorrow = book.MaximumDateBorrow,
                                    Favorite = favorite != null,
                                    LibraryId = book.LibraryId,
-                                   LibraryName = lib != null ? lib.Name : "Đang cập nhập"
+                                   LibraryName = lib != null ? lib.Name : "Đang cập nhập",
+                                   Enabled = book.Enabled.Value
                                }).FirstOrDefaultAsync();
             }
 

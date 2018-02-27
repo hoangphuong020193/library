@@ -203,4 +203,8 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
     private selectLibrary(data: DropDownData): void {
         this.book.libraryId = data.key;
     }
+
+    private bookAvaiable(enabled: boolean): void {
+        this.book.enabled = enabled;
+    }
 }

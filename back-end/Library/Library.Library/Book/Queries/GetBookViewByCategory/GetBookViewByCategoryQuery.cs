@@ -31,7 +31,7 @@ namespace Library.Library.Book.Queries.GetBookViewByCategory
             IQueryable<BookViewModel> listBooks;
             if (view == "Sách mới")
             {
-                listBooks = from book in _bookRepository.TableNoTracking
+                listBooks = from book in _bookRepository.TableNoTracking.Where(x => x.Enabled.Value)
                             join cag in _categoryRepository.TableNoTracking on book.CategoryId equals cag.Id
                             orderby book.DateImport descending, book.PublicationDate descending
                             select new BookViewModel
@@ -43,7 +43,7 @@ namespace Library.Library.Book.Queries.GetBookViewByCategory
             }
             else
             {
-                listBooks = from book in _bookRepository.TableNoTracking
+                listBooks = from book in _bookRepository.TableNoTracking.Where(x => x.Enabled.Value)
                             join cag in _categoryRepository.TableNoTracking on book.CategoryId equals cag.Id
                             where cag.CategoryName == view
                             orderby book.DateImport descending, book.PublicationDate descending

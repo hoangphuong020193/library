@@ -94,6 +94,11 @@
             <quill-editor [(ngModel)]="book.description" [modules]="options" [placeholder]="' '"></quill-editor>
           </div>
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="padding-15">
+            <checkbox [checked]="!book.enabled" [text]="'Sách không còn khả dụng'" (checkedCallback)="bookAvaiable($event)"></checkbox>
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
