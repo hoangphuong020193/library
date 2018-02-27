@@ -14,6 +14,14 @@ export function reducer(state: State = initialState, action: publisherAction.Act
     switch (action.type) {
         case publisherAction.ActionTypes.FETCH_PUBLISHER:
             return Object.assign({}, state, { publishers: action.payload });
+        case publisherAction.ActionTypes.SAVE_PUBLISHER:
+            const index: number = state.publishers.findIndex((x) => x.id === action.payload.id);
+            if (index > -1) {
+                state.publishers[index] = action.payload;
+            } else {
+                state.publishers.push(action.payload);
+            }
+            return state;
         default:
             return state;
     }

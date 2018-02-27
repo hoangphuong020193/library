@@ -35,13 +35,15 @@ export class SupplierService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SaveSupplier/',
             supplier, { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        supplier.id = res;
+                        this.store.dispatch(new supplierAction.SaveSupplier(supplier));
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 }

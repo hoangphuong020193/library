@@ -14,6 +14,14 @@ export function reducer(state: State = initialState, action: categoryAction.Acti
     switch (action.type) {
         case categoryAction.ActionTypes.FETCH_CATEGORY:
             return Object.assign({}, state, { categories: action.payload });
+        case categoryAction.ActionTypes.SAVE_CATEGORY:
+            const index: number = state.categories.findIndex((x) => x.id === action.payload.id);
+            if (index > -1) {
+                state.categories[index] = action.payload;
+            } else {
+                state.categories.push(action.payload);
+            }
+            return state;
         default:
             return state;
     }

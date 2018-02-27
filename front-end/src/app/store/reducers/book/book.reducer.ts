@@ -28,7 +28,7 @@ export function reducer(state: State = initialState, action: bookAction.Actions)
             });
         case bookAction.ActionTypes.DELETE_BOOK_IN_CART:
             return Object.assign({}, state, {
-                bookInCart: state.bookInCart.filter((x) => x !== action.payload)
+                bookInCart: state.bookInCart.filter((x) => x.bookId !== action.payload)
             });
         case bookAction.ActionTypes.CLEAR_BOOK_IN_CART:
             return Object.assign({}, state, {

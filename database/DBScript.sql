@@ -106,7 +106,7 @@ CREATE TABLE Books(
 	BookCode nvarchar(15) not null unique,
 	BookName nvarchar(250),
 	Tag nvarchar(250),
-	Description nvarchar(1000),
+	Description nvarchar(4000),
 	BookImage varbinary(max),
 	DateImport DateTime,
 	Amount INT DEFAULT 0,

@@ -41,17 +41,17 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
             <label for="publisher">
-              <span>Công ty phát hành</span>
-              <span class="color-red">*</span>
-            </label>
-            <dropdown [listData]="suppliers" [selectedItemId]="book.supplierId" (selectedItemEmit)="selectSupplier($event)"></dropdown>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
-            <label for="supplier">
               <span>Nhà xuất bản</span>
               <span class="color-red">*</span>
             </label>
             <dropdown [listData]="publishers" [selectedItemId]="book.publisherId" (selectedItemEmit)="selectPublisher($event)"></dropdown>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
+            <label for="supplier">
+              <span>Công ty phát hành</span>
+              <span class="color-red">*</span>
+            </label>
+            <dropdown [listData]="suppliers" [selectedItemId]="book.supplierId" (selectedItemEmit)="selectSupplier($event)"></dropdown>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 flex-column margin-bottom-5">
             <label for="publicationDate">Ngày phát hành</label>

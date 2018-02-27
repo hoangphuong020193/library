@@ -44,11 +44,7 @@ export class CategoryManagementComponent implements OnInit {
             category: JsHelper.cloneObject(category)
         }).subscribe((res) => {
             if (res) {
-                if (index === -1) {
-                    this.listCategories.push(res);
-                } else {
-                    this.listCategories[index] = res;
-                }
+                // TODO
             }
         });
     }

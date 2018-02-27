@@ -35,13 +35,15 @@ export class CategoryService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SaveCategory/',
             category, { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        category.id = res;
+                        this.store.dispatch(new categoryAction.SaveCategory(category));
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 }

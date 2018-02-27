@@ -37,6 +37,8 @@ export class LibraryService {
             library, { headers }).pipe(
                 tap(
                     (res: any) => {
+                        library.id = res;
+                        this.store.dispatch(new libraryAction.SaveLibrary(library));
                         return res;
                     }
                 ),

@@ -88,7 +88,7 @@ namespace Library.Data.Services
 
                 entity.Property(e => e.DateImport).HasColumnType("datetime");
 
-                entity.Property(e => e.Description).HasMaxLength(1000);
+                entity.Property(e => e.Description).HasMaxLength(4000);
 
                 entity.Property(e => e.Enabled).HasDefaultValueSql("((1))");
 

@@ -56,11 +56,7 @@ export class LibraryManagementComponent implements OnInit {
             library: JsHelper.cloneObject(library)
         }).subscribe((res) => {
             if (res) {
-                if (index === -1) {
-                    this.listLibraries.push(res);
-                } else {
-                    this.listLibraries[index] = res;
-                }
+                // TODO
             }
         });
     }

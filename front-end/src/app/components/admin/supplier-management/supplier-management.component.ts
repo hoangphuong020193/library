@@ -58,11 +58,7 @@ export class SupplierManagementComponent implements OnInit {
             supplier: JsHelper.cloneObject(supplier)
         }).subscribe((res) => {
             if (res) {
-                if (index === -1) {
-                    this.listSuppliers.push(res);
-                } else {
-                    this.listSuppliers[index] = res;
-                }
+                // TODO
             }
         });
     }

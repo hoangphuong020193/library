@@ -58,11 +58,7 @@ export class PublisherManagementComponent implements OnInit {
             publisher: JsHelper.cloneObject(publisher)
         }).subscribe((res) => {
             if (res) {
-                if (index === -1) {
-                    this.listPublishers.push(res);
-                } else {
-                    this.listPublishers[index] = res;
-                }
+                // TODO
             }
         });
     }

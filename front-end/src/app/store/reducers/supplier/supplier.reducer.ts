@@ -14,6 +14,13 @@ export function reducer(state: State = initialState, action: supplierAction.Acti
     switch (action.type) {
         case supplierAction.ActionTypes.FETCH_SUPPLIER:
             return Object.assign({}, state, { suppliers: action.payload });
+        case supplierAction.ActionTypes.SAVE_SUPPLIER:
+            const index: number = state.suppliers.findIndex((x) => x.id === action.payload.id);
+            if (index > -1) {
+                state.suppliers[index] = action.payload;
+            } else {
+                state.suppliers.push(action.payload);
+            }
         default:
             return state;
     }

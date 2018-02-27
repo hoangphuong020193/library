@@ -65,6 +65,16 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
         this.store.select(fromRoot.getPublisher).subscribe((res) => {
             this.publishers = [];
             if (res) {
+                res.sort((a, b) => {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 res.forEach((x) => {
                     if (x.enabled) {
                         this.publishers.push(new DropDownData(x.id, x.name));
@@ -75,6 +85,17 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
         this.store.select(fromRoot.getSupplier).subscribe((res) => {
             this.suppliers = [];
             if (res) {
+                res.sort((a, b) => {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
                 res.forEach((x) => {
                     if (x.enabled) {
                         this.suppliers.push(new DropDownData(x.id, x.name));
@@ -85,13 +106,23 @@ export class BookEditorPopupComponent extends DialogComponent<any, any> implemen
         this.store.select(fromRoot.getLibrary).subscribe((res) => {
             this.libraries = [];
             if (res) {
+                res.sort((a, b) => {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 res.forEach((x) => {
                     if (x.enabled) {
                         this.libraries.push(new DropDownData(x.id, x.name));
                     }
                 });
             }
-        })
+        });
 
         this.urlImg = Config.getBookImgApiUrl(this.book.bookCode);
     }

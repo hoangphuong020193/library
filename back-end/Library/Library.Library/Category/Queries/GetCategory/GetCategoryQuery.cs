@@ -26,7 +26,7 @@ namespace Library.Library.Category.Queries.GetCategory
                     CategoryName = x.CategoryName,
                     Type = x.Type,
                     Enabled = x.Enabled.Value
-                }).ToListAsync();
+                }).OrderBy(x => x.Type).ToListAsync();
 
             return result;
         }

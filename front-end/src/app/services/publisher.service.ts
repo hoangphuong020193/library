@@ -35,13 +35,15 @@ export class PublisherService {
         headers = headers.append('Content-Type', 'application/json; charset=utf-8');
         return this.http.post(this.apiURL + '/SavePublisher/',
             publisher, { headers }).pipe(
-            tap(
-                (res: any) => {
-                    return res;
-                }
-            ),
-            catchError((err) => {
-                return Observable.of(null);
-            }));
+                tap(
+                    (res: any) => {
+                        publisher.id = res;
+                        this.store.dispatch(new publisherAction.SavePublisher(publisher));
+                        return res;
+                    }
+                ),
+                catchError((err) => {
+                    return Observable.of(null);
+                }));
     }
 }
