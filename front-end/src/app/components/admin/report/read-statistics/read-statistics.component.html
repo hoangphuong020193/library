@@ -30,12 +30,14 @@
     <tbody>
       <tr *ngFor="let item of listDatas?.items | paginate : { itemsPerPage: pageSize, currentPage: pageCurrent, totalItems: listDatas?.totalCount}; let i = index">
         <td>{{((pageCurrent - 1) * pageSize) + i + 1 }}</td>
-        <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookCode}}</th>
-        <th *ngIf="selectedGroupById == GroupBy.Book">{{item.bookName}}</th>
-        <th *ngIf="selectedGroupById == GroupBy.Category">{{item.categoryName}}</th>
-        <th *ngIf="selectedGroupById == GroupBy.User">{{item.userName}}</th>
-        <th *ngIf="selectedGroupById == GroupBy.User">{{item.firstName + ' ' + item.middleName + ' ' + item.lastName}}</th>
-        <th *ngIf="selectedGroupById == GroupBy.Library">{{item.libraryName}}</th>
+        <td *ngIf="selectedGroupById == GroupBy.Book">{{item.bookCode}}</td>
+        <td *ngIf="selectedGroupById == GroupBy.Book">{{item.bookName}}</td>
+        <td *ngIf="selectedGroupById == GroupBy.Category">{{item.categoryName}}</td>
+        <td *ngIf="selectedGroupById == GroupBy.User">{{item.userName}}</td>
+        <td *ngIf="selectedGroupById == GroupBy.User">{{item.firstName + ' ' + item.middleName + ' ' + item.lastName}}</td>
+        <td *ngIf="selectedGroupById == GroupBy.Library">{{item.libraryName}}</td>
+        <td>{{item.noOfBorrow}}</td>
+        <td>{{item.noOfReturn}}</td>
       </tr>
     </tbody>
   </table>

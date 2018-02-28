@@ -47,7 +47,7 @@ export class BookInCartComponent implements OnInit {
                 book = this.bookWaiting.find((x) => x.bookId === bookId);
                 book.status = status;
                 this.bookAvailable.push(book);
-                this.bookWaiting = this.bookAvailable.filter((x) => x.bookId !== bookId);
+                this.bookWaiting = this.bookWaiting.filter((x) => x.bookId !== bookId);
             } else {
                 book.status = status;
                 this.bookWaiting.push(book);
