@@ -1,20 +1,21 @@
 # library
 
-Assignment at OU
+1/ Author: 
+- Nguyễn Hoàng Phương - 16H1010012
+- Trần Diệu Quang - 16H1010013
 
-Technology:
+2/ Technology:
 - Back-end: NET CORE 2.0
-- Font-end: Angular v5+ with webpack 3
+- Font-end: Angular v5+ with WebPack 3
 
-Resouce:
-NetCore 2.0: https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.4-windows-x64-installer
-Nodejs: https://nodejs.org/dist/v8.9.4/node-v8.9.4-x86.msi
+3/ Resources:
+- NetCore 2.0: https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.4-windows-x64-installer
+- NodeJs: https://nodejs.org/dist/v8.9.4/node-v8.9.4-x86.msi
 
-Software:
+4/ Software:
 Visual Code, SQL server 2017, Visual studio 2017
 
-How to run?
-
+5/ How to run?
 Step 1: 
 Run script DBScript.sql for create DB.
 

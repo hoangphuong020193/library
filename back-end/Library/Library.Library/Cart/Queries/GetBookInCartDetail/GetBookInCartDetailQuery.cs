@@ -34,6 +34,7 @@ namespace Library.Library.Cart.Queries.GetBookInCartDetail
         public async Task<List<BookInCartDetailViewModel>> ExecuteAsync()
         {
             var userId = int.Parse(_httpContext?.User?.UserId());
+
             var result = await (from cart in _bookCartRepository.TableNoTracking.Where(x => x.UserId == userId && (x.Status == (int)BookStatus.InOrder || x.Status == (int)BookStatus.Waiting))
                                 join book in _bookRepository.TableNoTracking on cart.BookId equals book.Id
                                 join lib in _libraryRepository.TableNoTracking on book.LibraryId equals lib.Id
@@ -53,11 +54,6 @@ namespace Library.Library.Cart.Queries.GetBookInCartDetail
                                 }).ToListAsync();
 
             return result;
-        }
-
-        private object await(string v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

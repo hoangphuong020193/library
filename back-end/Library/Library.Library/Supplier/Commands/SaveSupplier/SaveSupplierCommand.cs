@@ -57,6 +57,7 @@ namespace Library.Library.Supplier.Commands.SaveSupplier
                     entity.Address = model.Address;
                     entity.Phone = model.Phone;
                     entity.Email = model.Email;
+                    entity.Enabled = model.Enabled;
 
                     await _supplierRepository.InsertAsync(entity);
                     model.Id = entity.Id;
@@ -76,7 +77,7 @@ namespace Library.Library.Supplier.Commands.SaveSupplier
 
         private bool ValidationData(SupplierViewModel model)
         {
-            if (model == null || model.Name == null)
+            if (model == null || string.IsNullOrEmpty(model.Name))
             {
                 return false;
             }

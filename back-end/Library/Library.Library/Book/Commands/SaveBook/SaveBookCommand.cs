@@ -82,7 +82,7 @@ namespace Library.Library.Book.Commands.SaveBook
                 return CommandResult.Failed(new CommandResultError()
                 {
                     Code = (int)HttpStatusCode.InternalServerError,
-                    Description = ex.Message
+                    Description = ex.Message + (ex.InnerException != null ? "/r/rInner: " + ex.InnerException.Message : "")
                 });
             }
         }

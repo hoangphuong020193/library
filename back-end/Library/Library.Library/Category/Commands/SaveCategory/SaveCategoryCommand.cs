@@ -53,6 +53,7 @@ namespace Library.Library.Category.Commands.SaveCategory
                     Categories entity = new Categories();
                     entity.CategoryName = model.CategoryName;
                     entity.Type = model.Type;
+                    entity.Enabled = model.Enabled;
 
                     await _categoryRepository.InsertAsync(entity);
                     model.Id = entity.Id;
@@ -72,7 +73,7 @@ namespace Library.Library.Category.Commands.SaveCategory
 
         private bool ValidationData(CategoryViewModel model)
         {
-            if (model == null || model.CategoryName == null)
+            if (model == null || string.IsNullOrEmpty(model.CategoryName))
             {
                 return false;
             }

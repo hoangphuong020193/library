@@ -57,6 +57,7 @@ namespace Library.Library.Publisher.Commands.SavePublisher
                     entity.Address = model.Address;
                     entity.Phone = model.Phone;
                     entity.Email = model.Email;
+                    entity.Enabled = model.Enabled;
 
                     await _publisherRepository.InsertAsync(entity);
                     model.Id = entity.Id;
@@ -76,7 +77,7 @@ namespace Library.Library.Publisher.Commands.SavePublisher
 
         private bool ValidationData(PublisherViewModel model)
         {
-            if (model == null || model.Name == null)
+            if (model == null || string.IsNullOrEmpty(model.Name))
             {
                 return false;
             }

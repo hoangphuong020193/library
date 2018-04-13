@@ -55,13 +55,16 @@ namespace Library.Library.Book.Queries.GetBookDetail
                                    BookId = book.Id,
                                    BookCode = book.BookCode,
                                    BookName = book.BookName,
+                                   CategoryId = book.CategoryId,
                                    Tag = book.Tag,
                                    Description = book.Description,
                                    DateImport = book.DateImport.Value,
                                    Amount = book.Amount.Value,
                                    AmountAvailable = book.AmountAvailable.Value,
                                    Author = book.Author,
+                                   PublisherId = book.PublisherId,
                                    Publisher = publisher != null ? publisher.Name : "Đang cập nhập",
+                                   SupplierId = book.SupplierId,
                                    Supplier = supplier != null ? supplier.Name : "Đang cập nhập",
                                    Size = book.Size,
                                    Format = book.Format,
@@ -97,7 +100,9 @@ namespace Library.Library.Book.Queries.GetBookDetail
                                    Amount = book.Amount.Value,
                                    AmountAvailable = book.AmountAvailable.Value,
                                    Author = book.Author,
+                                   PublisherId = book.PublisherId,
                                    Publisher = publisher != null ? publisher.Name : "Đang cập nhập",
+                                   SupplierId = book.SupplierId,
                                    Supplier = supplier != null ? supplier.Name : "Đang cập nhập",
                                    Size = book.Size,
                                    Format = book.Format,
@@ -107,7 +112,8 @@ namespace Library.Library.Book.Queries.GetBookDetail
                                    Favorite = favorite != null,
                                    LibraryId = book.LibraryId,
                                    LibraryName = lib != null ? lib.Name : "Đang cập nhập",
-                                   Enabled = book.Enabled.Value
+                                   Enabled = book.Enabled.Value,
+                                   CategoryId = book.CategoryId
                                }).FirstOrDefaultAsync();
             }
 
